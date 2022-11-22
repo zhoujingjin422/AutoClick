@@ -1,16 +1,19 @@
 package com.best.now.autoclick.view
 
+import android.accessibilityservice.GestureDescription
 import android.content.Context
+import android.graphics.Path
 import android.graphics.PixelFormat
 import android.os.Build
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import com.best.now.autoclick.ext.dp
 import kotlin.math.abs
 
-class SlideView(context: Context, private val  windowManager: WindowManager, num:Int)/*:LineView(context,lineWith)*/:BaseAutoClick {
+class SlideView(context: Context, private val  windowManager: WindowManager, num:Int)/*:LineView(context,lineWith)*/:BaseAutoClick() {
     private val bigPointView = PointView(context, bigWith = 60.dp.toInt(), smallWith = 14.dp.toInt(), withText = true, num = num)
     private val smallPointView = PointView(context, bigWith = 60.dp.toInt() * 3 / 4, smallWith = 0, withText = false)
     private val line = LineView(context, 60.dp.toInt() * 3 / 5)
@@ -134,6 +137,14 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
         windowManager.removeView(bigPointView)
         windowManager.removeView(smallPointView)
         windowManager.removeView(line)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun getGestureDescription(): GestureDescription {
+        val path = Path()
+        path.moveTo(smallPointView.pointX, smallPointView.pointY)
+        path.lineTo(bigPointView.pointX, bigPointView.pointY)
+       return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, 500)).build()
     }
 }
 class MyTouchListener(private val arr:IntArray,private val view:PointView,private val params : WindowManager.LayoutParams,private val slideView: SlideView) : View.OnTouchListener{

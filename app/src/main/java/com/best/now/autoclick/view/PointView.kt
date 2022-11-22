@@ -10,6 +10,8 @@ import java.util.jar.Attributes
 
 class PointView@JvmOverloads constructor(context: Context, attributes: AttributeSet? = null, defStyleAttr:Int = 0, var bigWith:Int, private val smallWith:Int, private val withText:Boolean, private val num:Int = 0): View(context,attributes,defStyleAttr) {
 
+     var pointX = 0f
+     var pointY = 0f
 //    private var RADIUS = 42
     private val paint = Paint().apply {
         style = Paint.Style.FILL
@@ -33,12 +35,12 @@ class PointView@JvmOverloads constructor(context: Context, attributes: Attribute
         setLocation()
     }
 
-    private fun setLocation() {
+     fun setLocation() {
         val arr = IntArray(2)
         getLocationOnScreen(arr)
         val locationX = arr[0]
-        val x = locationX+ bigWith/2
-        val y = arr[1]+ bigWith/2
+        pointX = (locationX+ bigWith/2).toFloat()
+        pointY = (arr[1]+ bigWith/2).toFloat()
     }
     public fun changeSize(size:Int){
         bigWith = size

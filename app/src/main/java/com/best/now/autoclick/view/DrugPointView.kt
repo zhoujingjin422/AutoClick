@@ -1,15 +1,18 @@
 package com.best.now.autoclick.view
 
+import android.accessibilityservice.GestureDescription
 import android.content.Context
+import android.graphics.Path
 import android.graphics.PixelFormat
 import android.os.Build
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import kotlin.math.abs
 
-class DrugPointView(context: Context, private val windowManager: WindowManager, bigWith:Int, smallWith:Int, num:Int) : View.OnTouchListener,BaseAutoClick {
+class DrugPointView(context: Context, private val windowManager: WindowManager, bigWith:Int, smallWith:Int, num:Int) : View.OnTouchListener,BaseAutoClick() {
     private val pointView = PointView(context,bigWith = bigWith,smallWith = smallWith,withText = true,num = num)
     private var params:WindowManager.LayoutParams?=null
     private val arr = IntArray(2)
@@ -52,6 +55,7 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
                 if (absX>15f||absY>15f){
                     params?.x = arr[0]+ (xNow-rawX).toInt()
                     params?.y = arr[1]+ (yNow-rawY).toInt()
+                    pointView.setLocation()
                     windowManager.updateViewLayout(pointView,params)
                 }
             }
@@ -83,5 +87,12 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
 
     override fun removeActionView() {
         windowManager.removeView(pointView)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun getGestureDescription(): GestureDescription {
+        val path = Path()
+        path.moveTo(pointView.pointX, pointView.pointY)
+        return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, 5)).build()
     }
 }
