@@ -1,7 +1,10 @@
 package com.best.now.autoclick.utils
+
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.ACTIVITY_SERVICE
 import android.content.Intent
 import android.text.TextUtils
 import android.view.Gravity
@@ -29,6 +32,7 @@ class PublicHelper {
         }
     }
 }
+
 /**
  * 判断是否购买，
  * context不为null时，未购买跳转到订阅页
@@ -37,8 +41,8 @@ fun isPurchased(context: AppCompatActivity? = null): Boolean {
     // 通过MainActivity中的purchased值来判断是否购买了
     val purchased = MainActivity.purchased
     if (!purchased) {
-            context?.startActivityForResult(Intent(context, SubscribeActivity::class.java), 100)
-        }
+        context?.startActivityForResult(Intent(context, SubscribeActivity::class.java), 100)
+    }
     return purchased
 }
 
@@ -47,21 +51,20 @@ val adParentList = arrayListOf<LinearLayout>()
 /*** 为控件加载广告 */
 fun loadAd(linearLayout: LinearLayout) {
 
-    // TODO: 广告一直显示
-        if (linearLayout.childCount == 0) {
-            var adView = AdView(linearLayout.context)
-            adView.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-                linearLayout.context,
-                linearLayout.context.dp2px(linearLayout.context.resources.displayMetrics.widthPixels)
-            )
-            adView.adUnitId = Constans.AD_BANNER_ID
-            linearLayout.addView(adView)
-        }
+    if (linearLayout.childCount == 0) {
+        var adView = AdView(linearLayout.context)
+        adView.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            linearLayout.context,
+            linearLayout.context.dp2px(linearLayout.context.resources.displayMetrics.widthPixels)
+        )
+        adView.adUnitId = Constant.AD_BANNER_ID
+        linearLayout.addView(adView)
+    }
 
-        var adView = linearLayout.getChildAt(0) as AdView
+    var adView = linearLayout.getChildAt(0) as AdView
 
-        linearLayout.visibility = View.VISIBLE
-        adView.loadAd(AdRequest.Builder().build())
+    linearLayout.visibility = View.VISIBLE
+    adView.loadAd(AdRequest.Builder().build())
 
     if (!adParentList.contains(linearLayout)) {
         adParentList.add(linearLayout)
@@ -94,7 +97,7 @@ var mInterstitialAd: InterstitialAd? = null
 fun loadInterstitialAd(context: Context) {
     InterstitialAd.load(
         context,
-        Constans.AD_INTERSTITIAL_ID,
+        Constant.AD_INTERSTITIAL_ID,
         AdRequest.Builder().build(),
         object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -109,8 +112,8 @@ fun loadInterstitialAd(context: Context) {
 }
 
 /*** 显示插屏广告 */
-fun showInterstitialAd(activity: Activity, callback: (() -> Unit)?=null) {
-   if (mInterstitialAd != null) {
+fun showInterstitialAd(activity: Activity, callback: (() -> Unit)? = null) {
+    if (mInterstitialAd != null) {
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 mInterstitialAd = null
@@ -134,6 +137,7 @@ fun showInterstitialAd(activity: Activity, callback: (() -> Unit)?=null) {
     }
 
 }
+
 fun getLoadingDialog(
     context: Context,
     toastStr: String?,
@@ -166,9 +170,11 @@ fun getLoadingDialog(
     )
     return dialog
 }
+
 fun getLoadingDialog(context: Context, toastStr: String?): Dialog {
     return getLoadingDialog(context, toastStr, false, true, -1f)
 }
+
 fun setCustomerDialogAttributes(
     dlg: Dialog,
     contentView: View?, gravity: Int, canceledOnTouchOutside: Boolean,
@@ -187,6 +193,7 @@ fun setCustomerDialogAttributes(
     //		dlg.onWindowAttributesChanged(params);
     return null
 }
+
 /*** 指定位置到顶部 */
 fun RecyclerView.positionToTop(position: Int, offset: Int? = 0) {
     //滑动滚动-会触发滚动事件
@@ -200,5 +207,19 @@ fun RecyclerView.positionToTop(position: Int, offset: Int? = 0) {
 //当有足够的项目填充屏幕时，它可以正常工作，但如果RecyclerView中只有少数项目，它会将它们向下推，并在屏幕顶​​部留下空白区域
 //                    layoutManager.stackFromEnd = true//当item不满一屏时，从底部填充视图，顶部会空白
 
+}
+
+fun isServiceON(context: Context,className:String):Boolean{
+    val manager:ActivityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
+   val list = manager.getRunningServices(100)
+    if (list.isNullOrEmpty())
+        return false
+    else{
+        list.forEach {
+            if (it.service.className==className)
+                return true
+        }
+        return false
+    }
 }
 

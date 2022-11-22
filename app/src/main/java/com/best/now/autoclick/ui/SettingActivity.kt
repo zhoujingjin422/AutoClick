@@ -5,7 +5,7 @@ import android.view.View
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivitySettingBinding
-import com.best.now.autoclick.utils.Constans
+import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
 import com.blankj.utilcode.util.BusUtils
@@ -24,14 +24,14 @@ class SettingActivity:BaseVMActivity() {
                 WebActivity.startActivity(
                     this@SettingActivity,
                     "Privacy Policy",
-                    Constans.URL_PRIVACY_POLICY
+                    Constant.URL_PRIVACY_POLICY
                 )
             }
             flService.setOnClickListener {
                 WebActivity.startActivity(
                     this@SettingActivity,
                     "Terms of Service",
-                    Constans.URL_TERMS_OF_USE
+                    Constant.URL_TERMS_OF_USE
                 )
             }
             setSupportActionBar(toolBar)
@@ -54,11 +54,11 @@ class SettingActivity:BaseVMActivity() {
             binding.ivVipCenter.visibility = View.GONE
             binding.btnGetVip.visibility = View.GONE
             var time = 0L
-            if (MainActivity.productId.contains(Constans.VIP_MONTH)) {
+            if (MainActivity.productId.contains(Constant.VIP_MONTH)) {
                 time = 30 * 24 * 3600 * 1000L
-            } else if (MainActivity.productId.contains(Constans.VIP_HALF_YEAR)) {
+            } else if (MainActivity.productId.contains(Constant.VIP_HALF_YEAR)) {
                 time = 6*30 * 24 * 3600 * 1000L
-            } else if (MainActivity.productId.contains(Constans.VIP_YEAR)) {
+            } else if (MainActivity.productId.contains(Constant.VIP_YEAR)) {
                 time = 365 * 24 * 3600 * 1000L
             }
             binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(

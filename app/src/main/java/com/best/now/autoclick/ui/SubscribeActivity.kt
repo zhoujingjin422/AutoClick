@@ -9,7 +9,7 @@ import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivitySubscribeBinding
 import com.best.now.autoclick.ui.MainActivity.Companion.BUS_TAG_BUY_STATE_PURCHASED
-import com.best.now.autoclick.utils.Constans
+import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.showInterstitialAd
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
@@ -285,9 +285,9 @@ class SubscribeActivity:BaseVMActivity() {
 
             var vipID =
                 when (type) {
-                    0 -> Constans.VIP_MONTH
-                    1 -> Constans.VIP_HALF_YEAR
-                    2 -> Constans.VIP_YEAR
+                    0 -> Constant.VIP_MONTH
+                    1 -> Constant.VIP_HALF_YEAR
+                    2 -> Constant.VIP_YEAR
 
                     else -> ""
                 }
@@ -319,9 +319,9 @@ class SubscribeActivity:BaseVMActivity() {
         //查询可供购买的商品
         //通过调用querySkuDetailsAsync（）检索“skuDetails”的值。
         val skuList: MutableList<String> = ArrayList()
-        skuList.add(Constans.VIP_MONTH)
-        skuList.add(Constans.VIP_HALF_YEAR)
-        skuList.add(Constans.VIP_YEAR)
+        skuList.add(Constant.VIP_MONTH)
+        skuList.add(Constant.VIP_HALF_YEAR)
+        skuList.add(Constant.VIP_YEAR)
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
         billingClient.querySkuDetailsAsync(params.build(),

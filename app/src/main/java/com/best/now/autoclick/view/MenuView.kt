@@ -1,5 +1,6 @@
 package com.best.now.autoclick.view
 
+import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
@@ -15,7 +16,7 @@ import kotlin.math.abs
 author:zhoujingjin
 date:2022/11/21
  */
-class MenuView(context:Context,private val windowManager: WindowManager,singleMode:Boolean = true):View.OnTouchListener {
+class MenuView(context:Context,accessibilityService: AccessibilityService,private val windowManager: WindowManager,singleMode:Boolean = true):View.OnTouchListener {
     private  var binding: LayoutDrugViewBinding? = null
     private var params:WindowManager.LayoutParams
     private val arr = IntArray(2)
@@ -120,4 +121,10 @@ class MenuView(context:Context,private val windowManager: WindowManager,singleMo
         return true
     }
 
+    fun clearView(){
+        windowManager.removeView(viewLayout)
+        actionList.forEach {
+            it.removeActionView()
+        }
+    }
 }

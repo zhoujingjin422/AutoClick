@@ -7,22 +7,23 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
+import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.WorkService
 import com.best.now.autoclick.databinding.ActivityMainBinding
+import com.best.now.autoclick.databinding.LayoutAccessBinding
 import com.best.now.autoclick.utils.adParentList
-import com.best.now.autoclick.utils.isPurchased
-import com.best.now.autoclick.view.MenuView
+import com.best.now.autoclick.utils.isServiceON
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 
 class MainActivity : BaseVMActivity() {
     companion object {
@@ -31,6 +32,9 @@ class MainActivity : BaseVMActivity() {
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
+        val SINGLEMODEL = "signle"
+        val MULTIMODEL = "multi"
+        val DISABLEMODEL = "disable"
     }
     lateinit var billingClient: BillingClient
     lateinit var purchasesUpdatedListener: PurchasesUpdatedListener
@@ -54,36 +58,25 @@ class MainActivity : BaseVMActivity() {
             }
         }
     }
+
     override fun initView() {
         binding.apply {
             btnSingleEnable.setOnClickListener {
-                /*if (isPurchased(this@MainActivity)){
-                    //判断有没有权限
-                }*/
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(Settings.canDrawOverlays(this@MainActivity)){
-                        startService(Intent(this@MainActivity,WorkService::class.java).apply {
-                            action = "single"
-                        })
-                    }else{
-                        try {
-                            startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 2001)
-                        } catch (e: Exception) {
-                            startActivity(Intent(Settings.ACTION_SETTINGS))
-                            e.printStackTrace()
-                        }
-                    }
-                }else{
-                    startService(Intent(this@MainActivity,WorkService::class.java).apply {
-                        action = "single"
-                    })
+                if (modelNow!= SINGLEMODEL){
+                    startWorkService(SINGLEMODEL,btnSingleEnable)
+                    btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
+                    btnMulEnable.setTextColor(resources.getColor(R.color.white))
                 }
+                else startWorkService(DISABLEMODEL,btnSingleEnable)
 
             }
             btnMulEnable.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    //判断有没有权限
+                if (modelNow!= MULTIMODEL){
+                    startWorkService(MULTIMODEL,btnMulEnable)
+                    btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
+                    btnSingleEnable.setTextColor(resources.getColor(R.color.white))
                 }
+                else startWorkService(DISABLEMODEL,btnMulEnable)
             }
             llSingleInstruction.setOnClickListener {
                 startActivity(Intent(this@MainActivity,SingleInstructionActivity::class.java))
@@ -95,6 +88,67 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity,SettingActivity::class.java))
             }
         }
+    }
+
+    private var modelNow :String = ""
+    private fun startWorkService(mode: String, btn: Button){
+        /*  if (isPurchased(this@MainActivity)){
+                    //判断有没有权限
+                }*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(Settings.canDrawOverlays(this@MainActivity)){
+                if (isServiceON(this@MainActivity,"com.best.now.autoclick.WorkService")){
+                    modelNow = mode
+                    startService(Intent(this@MainActivity,WorkService::class.java).apply {
+                        action = mode
+                    })
+                    if (modelNow== DISABLEMODEL){
+                        btn.setBackgroundResource(R.drawable.shape_button_click)
+                        btn.setTextColor(resources.getColor(R.color.white))
+                    }
+                    else {
+                        btn.setBackgroundResource(R.drawable.shape_button_disable)
+                        btn.setTextColor(resources.getColor(R.color.c_eff2fe))
+                    }
+                }else{
+                    showAccessDialog()
+                }
+            }else{
+                try {
+                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 2001)
+                } catch (e: Exception) {
+                    startActivity(Intent(Settings.ACTION_SETTINGS))
+                    e.printStackTrace()
+                }
+            }
+        }else{
+            startService(Intent(this@MainActivity,WorkService::class.java).apply {
+                action = mode
+            })
+        }
+    }
+    private var dialog:AlertDialog?= null
+    /**
+     * 弹框提示开启服务
+     */
+    private fun showAccessDialog() {
+        if (dialog==null){
+            dialog = AlertDialog.Builder(this).apply {
+                val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_access,null)
+                setView(view)
+                val bind = DataBindingUtil.bind<LayoutAccessBinding>(view)
+                bind?.tvWatch?.setOnClickListener {
+                    startActivity(Intent(this@MainActivity,TutorialActivity::class.java))
+                }
+                bind?.btnOk?.setOnClickListener {
+                    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
+                    dialog?.dismiss()
+                }
+            }.create()
+        }
+        dialog?.show()
     }
 
     override fun initData() {
