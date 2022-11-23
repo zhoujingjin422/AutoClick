@@ -12,9 +12,9 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import kotlin.math.abs
 
-class DrugPointView(context: Context, private val windowManager: WindowManager, bigWith:Int, smallWith:Int, num:Int) : View.OnTouchListener,BaseAutoClick() {
-    private val pointView = PointView(context,bigWith = bigWith,smallWith = smallWith,withText = true,num = num)
-    private var params:WindowManager.LayoutParams?=null
+class DrugPointView(context: Context, private val windowManager: WindowManager, private val bigWith:Int, smallWith:Int, num:Int) : View.OnTouchListener,BaseAutoClick() {
+     val pointView = PointView(context,bigWith = bigWith,smallWith = smallWith,withText = true,num = num)
+    private lateinit var params:WindowManager.LayoutParams
     private val arr = IntArray(2)
     private var rawX = 0f
     private var rawY = 0f
@@ -24,10 +24,11 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
         params = setParams(bigWith)
         val withScreen = context.resources.displayMetrics.widthPixels
         val heightScreen = context.resources.displayMetrics.heightPixels
-        params?.x = (withScreen / 2 )- pointView.bigWith / 2
-        params?.y = (heightScreen / 3) - pointView.bigWith / 2
+        params.x = (withScreen / 2 )- pointView.bigWith / 2
+        params.y = (heightScreen / 3) - pointView.bigWith / 2
         windowManager.addView(pointView, params)
     }
+
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         when(event?.action){
             MotionEvent.ACTION_DOWN->{
@@ -45,6 +46,7 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
                     isSliding  = true
                 }else{
                     //点击
+                    pointView.performClick()
                 }
             }
             MotionEvent.ACTION_MOVE->{
@@ -81,7 +83,7 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
         windowLayoutParams.format = PixelFormat.TRANSPARENT
         windowLayoutParams.width =with
         windowLayoutParams.height = with
-        windowLayoutParams.gravity = Gravity.TOP or Gravity.START
+        windowLayoutParams.gravity = Gravity.TOP or Gravity.LEFT
         return windowLayoutParams
     }
 
@@ -94,5 +96,18 @@ class DrugPointView(context: Context, private val windowManager: WindowManager, 
         val path = Path()
         path.moveTo(pointView.pointX, pointView.pointY)
         return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, 5)).build()
+    }
+
+    override
+    fun updateView(canMove: Boolean) {
+        if (!canMove)
+        params.flags = params.flags or (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        else {
+            val newParams = setParams(bigWith)
+            newParams.x = params.x
+            newParams.y = params.y
+            params = newParams
+        }
+        windowManager.updateViewLayout(pointView,params)
     }
 }

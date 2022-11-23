@@ -1,15 +1,22 @@
 package com.best.now.autoclick.view
 
 import android.accessibilityservice.AccessibilityService
+import android.accessibilityservice.AccessibilityService.GestureResultCallback
+import android.accessibilityservice.GestureDescription
 import android.content.Context
+import android.graphics.Path
 import android.graphics.PixelFormat
 import android.os.Build
+import android.os.Handler
+import android.os.Message
 import android.view.*
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.LayoutDrugViewBinding
 import com.best.now.autoclick.ext.dp
+import com.blankj.utilcode.util.LogUtils
 import kotlin.math.abs
 
 /**
@@ -24,7 +31,44 @@ class MenuView(context:Context,accessibilityService: AccessibilityService,privat
     private var rawY = 0f
     private var isSliding = false
     private var actionList = mutableListOf<BaseAutoClick>()
+    private val MESSAGE_WHAT_STOP = 1
+    private val MESSAGE_WHAT_RUN = 2
+    private var taskPositionNow = 0
+    private var isRunningTak = false
     private val viewLayout =  LayoutInflater.from(context).inflate(R.layout.layout_drug_view,null)
+    private val handler: Handler = object : Handler() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                MESSAGE_WHAT_STOP -> {
+                    binding?.ivPlay?.setImageResource(R.mipmap.icon_play)
+                }
+                MESSAGE_WHAT_RUN -> {
+                    binding?.ivPlay?.setImageResource(R.mipmap.icon_close)
+                    if (taskPositionNow<=actionList.size-1){
+                        val gestureDescription = actionList[taskPositionNow].getGestureDescription()
+                         accessibilityService.dispatchGesture(gestureDescription,object : GestureResultCallback() {
+                            override fun onCompleted(gestureDescription: GestureDescription?) {
+                                super.onCompleted(gestureDescription)
+                                LogUtils.e("onCompleted")
+                            }
+
+                            override fun onCancelled(gestureDescription: GestureDescription?) {
+                                super.onCancelled(gestureDescription)
+                                LogUtils.e("onCancelled")
+                            }
+                        },null)
+                        taskPositionNow++
+                        if (taskPositionNow>actionList.size-1){
+                            stopTask()
+                        }else
+                        startTask(1000)
+//                        else stopTask()
+                    }
+                }
+            }
+        }
+    }
     init {
         binding =  DataBindingUtil.bind(viewLayout)
         binding?.apply {
@@ -36,6 +80,14 @@ class MenuView(context:Context,accessibilityService: AccessibilityService,privat
             ivDrug.setOnTouchListener(this@MenuView)
             ivPlay.setOnClickListener {
                 //执行任务
+                if (!isRunningTak){
+                    actionList.forEach {
+                        it.updateView(false)
+                    }
+                    startTask(100)
+                }else{
+                    stopTask()
+                }
             }
             ivAdd.setOnClickListener {
                 //添加点击的view
@@ -64,6 +116,24 @@ class MenuView(context:Context,accessibilityService: AccessibilityService,privat
         params.y = 100
         windowManager.addView(viewLayout,params)
     }
+
+    private fun startTask(delay:Long = 0) {
+        isRunningTak = true
+        val obtain = Message.obtain()
+        obtain.what = MESSAGE_WHAT_RUN
+        handler.sendMessageDelayed(obtain,delay)
+    }
+    private fun stopTask() {
+        actionList.forEach {
+            it.updateView(true)
+        }
+        isRunningTak = false
+        taskPositionNow = 0
+        val obtain = Message.obtain()
+        obtain.what = MESSAGE_WHAT_STOP
+        handler.sendMessage(obtain)
+    }
+
     private fun setParams(): WindowManager.LayoutParams {
         val   windowLayoutParams =  WindowManager.LayoutParams()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

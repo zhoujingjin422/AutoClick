@@ -17,9 +17,9 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
     private val bigPointView = PointView(context, bigWith = 60.dp.toInt(), smallWith = 14.dp.toInt(), withText = true, num = num)
     private val smallPointView = PointView(context, bigWith = 60.dp.toInt() * 3 / 4, smallWith = 0, withText = false)
     private val line = LineView(context, 60.dp.toInt() * 3 / 5)
-    var bigParams: WindowManager.LayoutParams? = null
-    var smallParams: WindowManager.LayoutParams? = null
-    var lineParams: WindowManager.LayoutParams? = null
+    lateinit var bigParams: WindowManager.LayoutParams
+    lateinit var smallParams: WindowManager.LayoutParams
+    lateinit var lineParams: WindowManager.LayoutParams
 
     init {
         bigParams = setParams(bigPointView.bigWith)
@@ -28,10 +28,10 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
 //        if (i3==-1){
         val withScreen = context.resources.displayMetrics.widthPixels
         val heightScreen = context.resources.displayMetrics.heightPixels
-        bigParams?.x = (withScreen / 2 )- bigPointView.bigWith / 2
-        bigParams?.y = (heightScreen / 3) - bigPointView.bigWith / 2
-        smallParams?.x = (withScreen / 2 )- smallPointView.bigWith / 2
-        smallParams?.y = (heightScreen * 2 / 3) - smallPointView.bigWith / 2
+        bigParams.x = (withScreen / 2 )- bigPointView.bigWith / 2
+        bigParams.y = (heightScreen / 3) - bigPointView.bigWith / 2
+        smallParams.x = (withScreen / 2 )- smallPointView.bigWith / 2
+        smallParams.y = (heightScreen * 2 / 3) - smallPointView.bigWith / 2
         bigPointView.setOnTouchListener(MyTouchListener(arr = IntArray(2),view = bigPointView,params = bigParams!!,slideView = this))
         smallPointView.setOnTouchListener(MyTouchListener(arr = IntArray(2),view = smallPointView,params = smallParams!!,slideView = this))
 //        }else{
@@ -145,6 +145,24 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
         path.moveTo(smallPointView.pointX, smallPointView.pointY)
         path.lineTo(bigPointView.pointX, bigPointView.pointY)
        return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, 500)).build()
+    }
+
+    override fun updateView(canMove: Boolean) {
+        if (canMove){
+            val newBigParams = setParams(bigPointView.bigWith)
+            newBigParams.x = bigParams.x
+            newBigParams.y = bigParams.y
+            bigParams =  newBigParams
+            val newSmallParams = setParams(smallPointView.bigWith)
+            newSmallParams.x = smallParams.x
+            newSmallParams.y = smallParams.y
+            bigParams =  newSmallParams
+        }else{
+            bigParams.flags = bigParams.flags or (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            smallParams.flags = smallParams.flags or (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+        windowManager.updateViewLayout(bigPointView,bigParams)
+        windowManager.updateViewLayout(smallPointView,smallParams)
     }
 }
 class MyTouchListener(private val arr:IntArray,private val view:PointView,private val params : WindowManager.LayoutParams,private val slideView: SlideView) : View.OnTouchListener{

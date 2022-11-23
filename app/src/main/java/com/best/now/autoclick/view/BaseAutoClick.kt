@@ -10,4 +10,5 @@ abstract class BaseAutoClick {
     var description:GestureDescription? = null
     abstract fun removeActionView()
     abstract fun getGestureDescription(): GestureDescription
+    abstract fun updateView(canMove:Boolean)
 }
