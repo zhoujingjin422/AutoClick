@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.provider.Settings
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -140,6 +141,12 @@ class MainActivity : BaseVMActivity() {
                 val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_access,null)
                 setView(view)
                 val bind = DataBindingUtil.bind<LayoutAccessBinding>(view)
+                val text = "<font color='#38000000'>Please tap on </font>" +
+                        "<font color='#FF0000' size='45px'>OK</font>" +
+                        "<font color='#38000000'>, then choose </font>" +
+                        "<font color='#FF0000' size='45px'>Auto Clicker </font>" +
+                        "<font color='#38000000'>in the list and active the service.</font>"
+                bind?.tvChangeColor?.text = Html.fromHtml(text)
                 bind?.tvWatch?.setOnClickListener {
                     startActivity(Intent(this@MainActivity,TutorialActivity::class.java))
                 }

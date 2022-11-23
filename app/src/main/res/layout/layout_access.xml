@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/white"
-        app:contentPaddingLeft="16dp"
-        app:contentPaddingRight="16dp"
-        app:contentPaddingTop="25dp"
-        app:contentPaddingBottom="25dp"
+        app:contentPaddingLeft="22dp"
+        app:contentPaddingRight="22dp"
+        app:contentPaddingTop="20dp"
+        app:contentPaddingBottom="20dp"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -26,22 +26,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Accessibility service" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:layout_marginTop="12dp"
+                android:textColor="#38000000"
                 android:text="This app needs the activation of anAccessibility service to can work" />
 
             <TextView
+                android:id="@+id/tv_change_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginTop="12dp"
+                android:textSize="15sp"
+                android:layout_marginTop="9dp"
+                android:textColor="#4D000000"
                 android:text="Please tap on OK, then choose Auto Clicker in the list and active the service." />
 
             <TextView
@@ -50,20 +53,22 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/icon_q"
                 android:text="Watch tutorial"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:textSize="15sp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:textColor="@color/c_4565F2" />
 
             <Button
                 android:id="@+id/btn_ok"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="99dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="19dp"
                 android:text="ok"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/shape_button_click"
+                android:layout_marginBottom="9dp"
                 android:layout_gravity="end|bottom" />
         </LinearLayout>
 
