@@ -23,6 +23,7 @@ import com.best.now.autoclick.R
 import com.best.now.autoclick.WorkService
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.databinding.LayoutAccessBinding
+import com.best.now.autoclick.databinding.LayoutModelSingleBinding
 import com.best.now.autoclick.utils.adParentList
 import com.best.now.autoclick.utils.isServiceON
 import com.blankj.utilcode.util.BusUtils
@@ -91,7 +92,46 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity,SettingActivity::class.java))
             }
+            ivSettingSingle.setOnClickListener {
+                //弹出单模式下的弹框进行设置
+                showSettingSingleDialog()
+            }
+            ivSettingMulti.setOnClickListener {
+                //弹出多模式下的弹框进行设置
+                showSettingMultiDialog()
+            }
         }
+    }
+
+    var dialogSingle:AlertDialog? = null
+    private fun showSettingMultiDialog() {
+        if (dialogSingle==null){
+            dialogSingle = AlertDialog.Builder(this).apply {
+                val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_model_single,null)
+                setView(view)
+                val binding = DataBindingUtil.bind<LayoutModelSingleBinding>(view)
+                binding?.btnCancel?.setOnClickListener {
+                    dialogSingle?.dismiss()
+                }
+                binding?.btnSave?.setOnClickListener {
+                    dialogSingle?.dismiss()
+                }
+            }.create()
+        }
+
+        dialogSingle?.show()
+    }
+
+    private var singleDialog:AlertDialog? = null
+    private fun showSettingSingleDialog() {
+        if (singleDialog!=null){
+            AlertDialog.Builder(this).apply {
+                val view = LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_model_single,null)
+                setView(view)
+                val binding = DataBindingUtil.bind<LayoutModelSingleBinding>(view)
+            }.create()
+        }
+        singleDialog?.show()
     }
 
     private var modelNow :String = ""
