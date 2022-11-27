@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginTop="12dp"
-                android:textColor="#38000000"
+                android:textColor="#616780"
                 android:text="This app needs the activation of anAccessibility service to can work" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginTop="9dp"
-                android:textColor="#4D000000"
+                android:textColor="#616780"
                 android:text="Please tap on OK, then choose Auto Clicker in the list and active the service." />
 
             <TextView

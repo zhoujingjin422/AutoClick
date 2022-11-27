@@ -141,11 +141,11 @@ class MainActivity : BaseVMActivity() {
                 val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_access,null)
                 setView(view)
                 val bind = DataBindingUtil.bind<LayoutAccessBinding>(view)
-                val text = "<font color='#38000000'>Please tap on </font>" +
-                        "<font color='#FF0000' size='45px'>OK</font>" +
-                        "<font color='#38000000'>, then choose </font>" +
-                        "<font color='#FF0000' size='45px'>Auto Clicker </font>" +
-                        "<font color='#38000000'>in the list and active the service.</font>"
+                val text = "<font color='#616780' opacity:0.5>Please tap on </font>" +
+                        "<font color='#616780' size='45px' opacity:0.7>OK</font>" +
+                        "<font color='#616780' opacity:0.5>, then choose </font>" +
+                        "<font color='#616780' size='45px' opacity:0.7>Auto Clicker </font>" +
+                        "<font color='#616780' opacity:0.5>in the list and active the service.</font>"
                 bind?.tvChangeColor?.text = Html.fromHtml(text)
                 bind?.tvWatch?.setOnClickListener {
                     startActivity(Intent(this@MainActivity,TutorialActivity::class.java))
