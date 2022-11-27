@@ -13,7 +13,8 @@ import androidx.annotation.RequiresApi
 import com.best.now.autoclick.ext.dp
 import kotlin.math.abs
 
-class SlideView(context: Context, private val  windowManager: WindowManager, num:Int)/*:LineView(context,lineWith)*/:BaseAutoClick() {
+class SlideView(context: Context, private val windowManager: WindowManager, num: Int,
+                private val swipeDuration: Long)/*:LineView(context,lineWith)*/:BaseAutoClick() {
     private val bigPointView = PointView(context, bigWith = 60.dp.toInt(), smallWith = 14.dp.toInt(), withText = true, num = num)
     private val smallPointView = PointView(context, bigWith = 60.dp.toInt() * 3 / 4, smallWith = 0, withText = false)
     private val line = LineView(context, 60.dp.toInt() * 3 / 5)
@@ -40,8 +41,8 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
 //            params2?.x = i5- n.bigWith/2
 //            params2?.y = i6- n.bigWith/2
 //        }
-        updateView(bigPointView, bigParams!!.x, bigParams!!.y)
-        updateView(smallPointView, smallParams!!.x, smallParams!!.y)
+        updateView(bigPointView, bigParams.x, bigParams.y)
+        updateView(smallPointView, smallParams.x, smallParams.y)
         windowManager.addView(line, lineParams)
         windowManager.addView(bigPointView, bigParams)
         windowManager.addView(smallPointView, smallParams)
@@ -144,7 +145,7 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
         val path = Path()
         path.moveTo(smallPointView.pointX, smallPointView.pointY)
         path.lineTo(bigPointView.pointX, bigPointView.pointY)
-       return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, 500)).build()
+       return GestureDescription.Builder().addStroke(GestureDescription.StrokeDescription(path, 0, swipeDuration)).build()
     }
 
     override fun updateView(canMove: Boolean) {
@@ -156,7 +157,7 @@ class SlideView(context: Context, private val  windowManager: WindowManager, num
             val newSmallParams = setParams(smallPointView.bigWith)
             newSmallParams.x = smallParams.x
             newSmallParams.y = smallParams.y
-            bigParams =  newSmallParams
+            smallParams =  newSmallParams
         }else{
             bigParams.flags = bigParams.flags or (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             smallParams.flags = smallParams.flags or (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

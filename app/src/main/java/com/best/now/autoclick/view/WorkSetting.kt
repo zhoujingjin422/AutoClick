@@ -21,14 +21,14 @@ date:2022/11/24
     /**
      * 点击间隔单位，1是毫秒 1000毫秒  60000毫秒
      */
-    var uint_swipe_duration = 1
+    var uint_swipe_interval = 1
     /**
      * 点击间隔单位，1是毫秒 1000毫秒  60000毫秒
      */
     var uint_click_interval = 1
 
     /**
-     * 停止的模式 0是一直循环 1是几分钟后停止 3是循环几次停止
+     * 停止的模式 0是一直循环 1是几分钟后停止 2是循环几次停止
      */
     var stop_model = 0
 

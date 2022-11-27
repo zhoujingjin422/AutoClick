@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="8dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="0dp">
 <LinearLayout
@@ -49,6 +49,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="28dp"
                 android:text="200"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:gravity="center"
@@ -61,11 +62,12 @@
                 android:background="@drawable/shape_model_edit">
                 <Spinner
                     android:id="@+id/list_type"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="20dp"
                     android:dropDownVerticalOffset="30dp"
-                    android:background="null"
+                    android:background="@color/white"
                     android:entries="@array/unit"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,7 +101,6 @@
         android:layout_height="wrap_content"
         android:text="Run indefinitely"
         android:textSize="16sp"
-        android:checked="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/black"/>
@@ -117,6 +118,7 @@
             android:layout_marginStart="24dp"
             android:textColor="@color/black"/>
         <TextView
+            android:id="@+id/tv_time_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:08:00"
@@ -140,10 +142,12 @@
             android:layout_marginStart="24dp"
             android:textColor="@color/black"/>
         <EditText
+            android:id="@+id/et_count_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="93dp"
             android:text="1"
+            android:inputType="number"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -157,7 +161,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="17dp"
-        android:layout_marginBottom="23dp">
+        android:paddingBottom="23dp">
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"

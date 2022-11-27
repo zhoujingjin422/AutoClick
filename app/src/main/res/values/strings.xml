@@ -3,7 +3,7 @@
     <string name="accessibility_service_description">This app needs the following permissions:  Observe your actions: This is a requirement for all Accessibility services. Perform gestures: To perform automated click gestures. Please be assured that Auto Clicker will not collect any personal information. </string>
     <string-array name="unit">
         <item>Millisecond(s)</item>
-        <item>Minute(m)</item>
-        <item>Hour(H)</item>
+        <item>Second(s)</item>
+        <item>Minute(s)</item>
     </string-array>
 </resources>

@@ -8,10 +8,15 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.provider.Settings
+import android.text.Editable
 import android.text.Html
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -20,12 +25,18 @@ import androidx.databinding.DataBindingUtil
 import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
+import com.best.now.autoclick.TimePicker
 import com.best.now.autoclick.WorkService
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.databinding.LayoutAccessBinding
+import com.best.now.autoclick.databinding.LayoutModelMultiBinding
 import com.best.now.autoclick.databinding.LayoutModelSingleBinding
+import com.best.now.autoclick.ext.getSpValue
+import com.best.now.autoclick.ext.getTimeFormat
+import com.best.now.autoclick.ext.putSpValue
 import com.best.now.autoclick.utils.adParentList
 import com.best.now.autoclick.utils.isServiceON
+import com.best.now.autoclick.view.WorkSetting
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
@@ -37,9 +48,9 @@ class MainActivity : BaseVMActivity() {
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
-        val SINGLEMODEL = "signle"
-        val MULTIMODEL = "multi"
-        val DISABLEMODEL = "disable"
+        const val SINGLEMODEL = "signle"
+        const val MULTIMODEL = "multi"
+        const val DISABLEMODEL = "disable"
     }
     lateinit var billingClient: BillingClient
     lateinit var purchasesUpdatedListener: PurchasesUpdatedListener
@@ -103,32 +114,217 @@ class MainActivity : BaseVMActivity() {
         }
     }
 
-    var dialogSingle:AlertDialog? = null
+    private var dialogMulti:AlertDialog? = null
     private fun showSettingMultiDialog() {
-        if (dialogSingle==null){
-            dialogSingle = AlertDialog.Builder(this).apply {
-                val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_model_single,null)
+        if (dialogMulti==null){
+            dialogMulti = AlertDialog.Builder(this).apply {
+                val view =  LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_model_multi,null)
                 setView(view)
-                val binding = DataBindingUtil.bind<LayoutModelSingleBinding>(view)
-                binding?.btnCancel?.setOnClickListener {
-                    dialogSingle?.dismiss()
-                }
-                binding?.btnSave?.setOnClickListener {
-                    dialogSingle?.dismiss()
+                val binding = DataBindingUtil.bind<LayoutModelMultiBinding>(view)
+                var setting = getSpValue("multi",WorkSetting())
+                binding?.apply {
+//                    etInput.setText(setting.click_interval.toString())
+                    etInputDelay.setText(setting.click_interval.toString())
+                    etInputSwipe.setText(setting.swipe_duration.toString())
+//                    etInput.setText(setting.click_interval.toString())
+                    listTypeDelay.onItemSelectedListener = object : OnItemSelectedListener{
+                        override fun onItemSelected(
+                            p0: AdapterView<*>?,
+                            p1: View?,
+                            p2: Int,
+                            p3: Long
+                        ) {
+                            setting.uint_click_interval = when(p2){
+                                0->1
+                                1->1000
+                                else->60*1000
+                            }
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                    listTypeSwipe.onItemSelectedListener = object : OnItemSelectedListener{
+                        override fun onItemSelected(
+                            p0: AdapterView<*>?,
+                            p1: View?,
+                            p2: Int,
+                            p3: Long
+                        ) {
+                            setting.uint_swipe_interval = when(p2){
+                                0->1
+                                1->1000
+                                else->60*1000
+                            }
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                        }
+                    }
+                    when (setting.uint_click_interval) {
+                        1 -> listTypeDelay.setSelection(0)
+                        1000 -> listTypeDelay.setSelection(1)
+                        else -> listTypeDelay.setSelection(2)
+                    }
+                    when (setting.uint_swipe_interval) {
+                        1 -> listTypeSwipe.setSelection(0)
+                        1000 -> listTypeSwipe.setSelection(1)
+                        else -> listTypeSwipe.setSelection(2)
+                    }
+                    when (setting.stop_model){
+                        0->rbOne.isChecked  =true
+                        1->rbSecond.isChecked  =true
+                        2->rbThird.isChecked  =true
+                    }
+                    tvTimeAll.text = setting.count_down.getTimeFormat()
+                    tvTimeAll.tag = setting.count_down
+                    etCountNum.setText(setting.circle_count.toString())
+                    rbOne.setOnClickListener {
+                        rbOne.isChecked = true
+                        rbSecond.isChecked = false
+                        rbThird.isChecked = false
+                    }
+                    rbSecond.setOnClickListener {
+                        rbOne.isChecked = false
+                        rbSecond.isChecked = true
+                        rbThird.isChecked = false
+                    }
+                    rbThird.setOnClickListener {
+                        rbOne.isChecked = false
+                        rbSecond.isChecked = false
+                        rbThird.isChecked = true
+                    }
+                    btnCancel.setOnClickListener {
+                        dialogMulti?.dismiss()
+                    }
+                    btnSave.setOnClickListener {
+                        if (rbOne.isChecked)
+                            setting.stop_model = 0
+                        if (rbSecond.isChecked)
+                            setting.stop_model = 1
+                        if (rbThird.isChecked)
+                            setting.stop_model = 2
+                        setting.circle_count = etCountNum.text.toString().toInt()
+                        setting.click_interval = etInputDelay.text.toString().toLong()
+                        setting.swipe_duration = etInputSwipe.text.toString().toLong()
+                        setting.count_down = tvTimeAll.tag as Int
+                        putSpValue("multi",setting)
+                        dialogMulti?.dismiss()
+                    }
+                    tvTimeAll.setOnClickListener {
+                        TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
+                            override fun onSaveTime(time: Int) {
+                                tvTimeAll.text = time.getTimeFormat()
+                                tvTimeAll.tag = time
+                            }
+                        })
+                    }
+
                 }
             }.create()
         }
-
-        dialogSingle?.show()
+        dialogMulti?.show()
     }
 
     private var singleDialog:AlertDialog? = null
     private fun showSettingSingleDialog() {
-        if (singleDialog!=null){
-            AlertDialog.Builder(this).apply {
+        if (singleDialog==null){
+            singleDialog = AlertDialog.Builder(this).apply {
                 val view = LayoutInflater.from(this@MainActivity).inflate(R.layout.layout_model_single,null)
                 setView(view)
                 val binding = DataBindingUtil.bind<LayoutModelSingleBinding>(view)
+                var setting = getSpValue("single",WorkSetting())
+                binding?.apply {
+                    etInput.setText(setting.click_interval.toString())
+                    when (setting.uint_click_interval) {
+                        1 -> listType.setSelection(0)
+                        1000 -> listType.setSelection(1)
+                        else -> listType.setSelection(2)
+                    }
+                    when (setting.stop_model){
+                        0->rbOne.isChecked  =true
+                        1->rbSecond.isChecked  =true
+                        2->rbThird.isChecked  =true
+                    }
+                    listType.onItemSelectedListener = object : OnItemSelectedListener{
+                        override fun onItemSelected(
+                            p0: AdapterView<*>?,
+                            p1: View?,
+                            p2: Int,
+                            p3: Long
+                        ) {
+                            setting.uint_click_interval = when(p2){
+                                0->1
+                                1->1000
+                                else->60*1000
+                            }
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            TODO("Not yet implemented")
+                        }
+                    }
+                    tvTimeAll.text = setting.count_down.getTimeFormat()
+                    tvTimeAll.tag = setting.count_down
+                    etCountNum.setText(setting.circle_count.toString())
+                    rbOne.setOnClickListener {
+                        rbOne.isChecked = true
+                        rbSecond.isChecked = false
+                        rbThird.isChecked = false
+                    }
+                    rbSecond.setOnClickListener {
+                        rbOne.isChecked = false
+                        rbSecond.isChecked = true
+                        rbThird.isChecked = false
+                    }
+                    rbThird.setOnClickListener {
+                        rbOne.isChecked = false
+                        rbSecond.isChecked = false
+                        rbThird.isChecked = true
+                    }
+                    btnCancel.setOnClickListener {
+                        singleDialog?.dismiss()
+                    }
+                    etCountNum.addTextChangedListener(object :TextWatcher{
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        }
+
+                        override fun afterTextChanged(p0: Editable?) {
+                            p0?.toString()
+                        }
+                    })
+                    btnSave.setOnClickListener {
+                        if (rbOne.isChecked)
+                            setting.stop_model = 0
+                        if (rbSecond.isChecked)
+                            setting.stop_model = 1
+                        if (rbThird.isChecked)
+                            setting.stop_model = 2
+                        setting.circle_count = etCountNum.text.toString().toInt()
+                        setting.click_interval = etInput.text.toString().toLong()
+                        setting.count_down = tvTimeAll.tag as Int
+                        putSpValue("single",setting)
+                        singleDialog?.dismiss()
+                    }
+                    tvTimeAll.setOnClickListener {
+                        TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
+                            override fun onSaveTime(time: Int) {
+                                tvTimeAll.text = time.getTimeFormat()
+                                tvTimeAll.tag = time
+                            }
+                        })
+                    }
+                }
             }.create()
         }
         singleDialog?.show()

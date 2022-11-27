@@ -98,5 +98,16 @@ fun Context.checkAccessibilityServiceEnabled(serviceName: String): Boolean {
         }
         result
     }, { false })
+
 }
+fun Int.getTimeFormat():String{
+    val hour = this/(60*60)
+    val minute = (this-hour*60*60)/60
+    val second = this-hour*60*60-minute*60
+    val hourStr = if (hour<10) "0$hour" else hour.toString()
+    val minuteStr = if (minute<10) "0$minute" else minute.toString()
+    val secondStr = if (second<10) "0$second" else second.toString()
+    return "$hourStr:$minuteStr:$secondStr"
+}
+
 

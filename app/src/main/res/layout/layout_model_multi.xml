@@ -56,6 +56,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="28dp"
                 android:text="200"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:gravity="center"
@@ -68,11 +69,13 @@
                 android:background="@drawable/shape_model_edit">
                 <Spinner
                     android:id="@+id/list_type_delay"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="20dp"
+                    android:layout_height="match_parent"
                     android:dropDownVerticalOffset="30dp"
-                    android:background="null"
+                    android:background="@color/white"
                     android:entries="@array/unit"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -103,13 +106,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp">
             <EditText
                 android:id="@+id/et_input_swipe"
                 android:layout_width="110dp"
                 android:layout_height="34dp"
                 android:layout_marginStart="28dp"
                 android:text="200"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:gravity="center"
@@ -122,11 +127,13 @@
                 android:background="@drawable/shape_model_edit">
                 <Spinner
                     android:id="@+id/list_type_swipe"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:dropDownVerticalOffset="30dp"
-                    android:background="null"
+                    android:paddingStart="20dp"
+                    android:background="@color/white"
+                    android:clickable="false"
                     android:entries="@array/unit"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -137,7 +144,7 @@
             </FrameLayout>
         </LinearLayout>
 
-        <TextView
+      <!--  <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Click interval"
@@ -161,45 +168,45 @@
             android:textColor="#B3EB5600"
             android:layout_marginTop="4dp"
             android:text="The time below 40 milliseconds can freeze your device"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="12dp">
-            <EditText
-                android:id="@+id/et_input"
-                android:layout_width="110dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="28dp"
-                android:text="200"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:background="@drawable/shape_model_edit"/>
-            <FrameLayout
-                android:layout_width="179dp"
-                android:layout_gravity="center"
-                android:layout_height="34dp"
-                android:layout_marginStart="14dp"
-                android:background="@drawable/shape_model_edit">
-                <Spinner
-                    android:id="@+id/list_type"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:dropDownVerticalOffset="30dp"
-                    android:background="null"
-                    android:entries="@array/unit"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_down"
-                    android:layout_marginEnd="24dp"
-                    android:layout_gravity="center_vertical|end"/>
-            </FrameLayout>
-        </LinearLayout>
+-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:layout_marginTop="12dp">-->
+<!--            <EditText-->
+<!--                android:id="@+id/et_input"-->
+<!--                android:layout_width="110dp"-->
+<!--                android:layout_height="34dp"-->
+<!--                android:layout_marginStart="28dp"-->
+<!--                android:text="200"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="15sp"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@drawable/shape_model_edit"/>-->
+<!--            <FrameLayout-->
+<!--                android:layout_width="179dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="34dp"-->
+<!--                android:layout_marginStart="14dp"-->
+<!--                android:background="@drawable/shape_model_edit">-->
+<!--                <Spinner-->
+<!--                    android:id="@+id/list_type"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:dropDownVerticalOffset="30dp"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:entries="@array/unit"/>-->
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@mipmap/icon_down"-->
+<!--                    android:layout_marginEnd="24dp"-->
+<!--                    android:layout_gravity="center_vertical|end"/>-->
+<!--            </FrameLayout>-->
+<!--        </LinearLayout>-->
 
     </LinearLayout>
     <TextView
@@ -224,7 +231,6 @@
         android:layout_height="wrap_content"
         android:text="Run indefinitely"
         android:textSize="16sp"
-        android:checked="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/black"/>
@@ -242,6 +248,7 @@
             android:layout_marginStart="24dp"
             android:textColor="@color/black"/>
         <TextView
+            android:id="@+id/tv_time_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:08:00"
@@ -265,10 +272,12 @@
             android:layout_marginStart="24dp"
             android:textColor="@color/black"/>
         <EditText
+            android:id="@+id/et_count_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="93dp"
             android:text="1"
+            android:inputType="number"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -282,7 +291,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="17dp"
-        android:layout_marginBottom="23dp">
+        android:paddingBottom="23dp">
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
