@@ -9,6 +9,7 @@ import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivitySubscribeBinding
 import com.best.now.autoclick.ui.MainActivity.Companion.BUS_TAG_BUY_STATE_PURCHASED
+import com.best.now.autoclick.utils.ActionHelper
 import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.showInterstitialAd
 import com.blankj.utilcode.util.BusUtils
@@ -131,6 +132,7 @@ class SubscribeActivity:BaseVMActivity() {
     }
 
     override fun initData() {
+        ActionHelper.doAction("sellpage")
         setListener()
         init()
     }
@@ -225,7 +227,7 @@ class SubscribeActivity:BaseVMActivity() {
         acknowledgePurchaseResponseListener = AcknowledgePurchaseResponseListener {
             loadingDialog.dismiss()
             if (it.responseCode == BillingClient.BillingResponseCode.OK) {
-//                ActionHelper.doAction("buy_success")
+                ActionHelper.doAction("buy_success")
                 LogUtils.i("buy_success")
 
                 //处理消费操作的成功。

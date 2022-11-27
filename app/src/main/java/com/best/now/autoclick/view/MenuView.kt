@@ -59,7 +59,7 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
                 MESSAGE_WHAT_RUN -> {
                     if (!isRunningTak)
                         return
-                    binding?.ivPlay?.setImageResource(R.mipmap.icon_close)
+                    binding?.ivPlay?.setImageResource(R.mipmap.icon_pause)
                     if (taskPositionNow<=actionList.size-1){
                         val gestureDescription = actionList[taskPositionNow].getGestureDescription()
                          accessibilityService.dispatchGesture(gestureDescription,object : GestureResultCallback() {
