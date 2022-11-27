@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:colorControlNormal">#D8D8D8</item>
+        <item name="android:colorControlActivated">#E9642A</item>
     </style>
 </resources>

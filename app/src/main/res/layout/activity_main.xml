@@ -70,6 +70,7 @@
                         android:src="@mipmap/icon_settings" />
 
                     <TextView
+                        android:id="@+id/iv_setting_single"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Settings"
@@ -153,6 +154,7 @@
                         android:src="@mipmap/icon_settings" />
 
                     <TextView
+                        android:id="@+id/iv_setting_multi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Settings"
