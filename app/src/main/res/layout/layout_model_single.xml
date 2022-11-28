@@ -45,7 +45,8 @@
             android:layout_marginTop="12dp">
             <EditText
                 android:id="@+id/et_input"
-                android:layout_width="110dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="34dp"
                 android:layout_marginStart="28dp"
                 android:text="200"
@@ -55,9 +56,11 @@
                 android:gravity="center"
                 android:background="@drawable/shape_model_edit"/>
             <FrameLayout
-                android:layout_width="179dp"
+                android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_height="34dp"
+                android:layout_weight="3"
+                android:layout_marginEnd="30dp"
                 android:layout_marginStart="14dp"
                 android:background="@drawable/shape_model_edit">
                 <Spinner

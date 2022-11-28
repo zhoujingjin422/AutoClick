@@ -35,6 +35,7 @@ import com.best.now.autoclick.ext.getSpValue
 import com.best.now.autoclick.ext.getTimeFormat
 import com.best.now.autoclick.ext.putSpValue
 import com.best.now.autoclick.utils.adParentList
+import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.isServiceON
 import com.best.now.autoclick.view.WorkSetting
 import com.blankj.utilcode.util.BusUtils
@@ -113,10 +114,12 @@ class MainActivity : BaseVMActivity() {
             }
             ivSettingSingle.setOnClickListener {
                 //弹出单模式下的弹框进行设置
+                if (isPurchased(this@MainActivity))
                 showSettingSingleDialog()
             }
             ivSettingMulti.setOnClickListener {
                 //弹出多模式下的弹框进行设置
+                if (isPurchased(this@MainActivity))
                 showSettingMultiDialog()
             }
         }
@@ -343,40 +346,41 @@ class MainActivity : BaseVMActivity() {
 
     private var modelNow :String = ""
     private fun startWorkService(mode: String, btn: Button){
-        /*  if (isPurchased(this@MainActivity)){
+          if (isPurchased(this@MainActivity)){
                     //判断有没有权限
-                }*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(Settings.canDrawOverlays(this@MainActivity)){
-                if (isServiceON(this@MainActivity,"com.best.now.autoclick.WorkService")){
-                    modelNow = mode
-                    startService(Intent(this@MainActivity,WorkService::class.java).apply {
-                        action = mode
-                    })
-                    if (modelNow== DISABLEMODEL){
-                        btn.setBackgroundResource(R.drawable.shape_button_click)
-                        btn.setTextColor(resources.getColor(R.color.white))
-                    }
-                    else {
-                        btn.setBackgroundResource(R.drawable.shape_button_disable)
-                        btn.setTextColor(resources.getColor(R.color.c_eff2fe))
-                    }
-                }else{
-                    showAccessDialog()
-                }
-            }else{
-                try {
-                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 2001)
-                } catch (e: Exception) {
-                    startActivity(Intent(Settings.ACTION_SETTINGS))
-                    e.printStackTrace()
-                }
-            }
-        }else{
-            startService(Intent(this@MainActivity,WorkService::class.java).apply {
-                action = mode
-            })
-        }
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                  if(Settings.canDrawOverlays(this@MainActivity)){
+                      if (isServiceON(this@MainActivity,"com.best.now.autoclick.WorkService")){
+                          modelNow = mode
+                          startService(Intent(this@MainActivity,WorkService::class.java).apply {
+                              action = mode
+                          })
+                          if (modelNow== DISABLEMODEL){
+                              btn.setBackgroundResource(R.drawable.shape_button_click)
+                              btn.setTextColor(resources.getColor(R.color.white))
+                          }
+                          else {
+                              btn.setBackgroundResource(R.drawable.shape_button_disable)
+                              btn.setTextColor(resources.getColor(R.color.c_eff2fe))
+                          }
+                      }else{
+                          showAccessDialog()
+                      }
+                  }else{
+                      try {
+                          startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 2001)
+                      } catch (e: Exception) {
+                          startActivity(Intent(Settings.ACTION_SETTINGS))
+                          e.printStackTrace()
+                      }
+                  }
+              }else{
+                  startService(Intent(this@MainActivity,WorkService::class.java).apply {
+                      action = mode
+                  })
+              }
+          }
+
     }
     private var dialog:AlertDialog?= null
     /**

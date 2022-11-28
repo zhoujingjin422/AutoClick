@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_step1"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:layout_marginStart="9dp"
             android:layout_marginEnd="9dp"
             android:layout_marginTop="11dp"/>
@@ -58,7 +58,7 @@
             android:layout_marginTop="11dp"
             android:layout_marginStart="9dp"
             android:layout_marginEnd="9dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="fitXY"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/adv_banner"
