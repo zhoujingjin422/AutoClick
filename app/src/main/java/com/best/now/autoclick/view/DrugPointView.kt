@@ -116,4 +116,8 @@ class DrugPointView(
         }
         windowManager.updateViewLayout(pointView,params)
     }
+
+    override fun setViewVisibility(visible: Int) {
+        pointView.visibility = visible
+    }
 }

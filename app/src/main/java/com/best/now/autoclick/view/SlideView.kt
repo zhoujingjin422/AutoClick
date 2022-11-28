@@ -165,6 +165,12 @@ class SlideView(context: Context, private val windowManager: WindowManager, num:
         windowManager.updateViewLayout(bigPointView,bigParams)
         windowManager.updateViewLayout(smallPointView,smallParams)
     }
+
+    override fun setViewVisibility(visible: Int) {
+        bigPointView.visibility = visible
+        smallPointView.visibility = visible
+        line.visibility = visible
+    }
 }
 class MyTouchListener(private val arr:IntArray,private val view:PointView,private val params : WindowManager.LayoutParams,private val slideView: SlideView) : View.OnTouchListener{
     private var rawX = 0f

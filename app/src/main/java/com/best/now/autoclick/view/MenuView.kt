@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityService.GestureResultCallback
 import android.accessibilityservice.GestureDescription
 import android.content.Context
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.R
 import com.best.now.autoclick.TimePicker
+import com.best.now.autoclick.WorkService
 import com.best.now.autoclick.databinding.LayoutDrugViewBinding
 import com.best.now.autoclick.databinding.LayoutModelMultiBinding
 import com.best.now.autoclick.databinding.LayoutModelSingleBinding
@@ -24,6 +26,8 @@ import com.best.now.autoclick.ext.dp
 import com.best.now.autoclick.ext.getSpValue
 import com.best.now.autoclick.ext.getTimeFormat
 import com.best.now.autoclick.ext.putSpValue
+import com.best.now.autoclick.ui.MainActivity
+import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import java.util.*
@@ -33,7 +37,7 @@ import kotlin.math.abs
 author:zhoujingjin
 date:2022/11/21
  */
-class MenuView(private val context:Context,accessibilityService: AccessibilityService,private val windowManager: WindowManager,singleMode:Boolean = true):View.OnTouchListener {
+class MenuView(private val context:Context,accessibilityService: AccessibilityService,private val windowManager: WindowManager,private val singleMode:Boolean = true):View.OnTouchListener {
     private  var binding: LayoutDrugViewBinding? = null
     private var params:WindowManager.LayoutParams
     private val arr = IntArray(2)
@@ -49,6 +53,7 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
     private var setting = context.getSpValue(if(singleMode) "single" else "multi",WorkSetting())
     private var circleCount= -1
     private var circleCountNow= 0
+    private var isShow = true
     private val handler: Handler = object : Handler() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun handleMessage(msg: Message) {
@@ -65,38 +70,15 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
                          accessibilityService.dispatchGesture(gestureDescription,object : GestureResultCallback() {
                             override fun onCompleted(gestureDescription: GestureDescription?) {
                                 super.onCompleted(gestureDescription)
+                                LogUtils.e("onCompleted")
                                 taskPositionNow++
-                                if (taskPositionNow>actionList.size-1){
-                                    when (setting.stop_model){
-                                        0->{
-                                            taskPositionNow = 0
-                                            startTask(setting.click_interval*setting.uint_click_interval)
-                                        }
-                                        1->{
-                                            if (stop){
-                                                stopTask()
-                                            }else{
-                                                taskPositionNow = 0
-                                                startTask(setting.click_interval*setting.uint_click_interval)
-                                            }
-                                        }
-                                        2->{
-                                            circleCountNow++
-                                            if (circleCountNow>=circleCount){
-                                                stopTask()
-                                            }else{
-                                                taskPositionNow = 0
-                                                startTask(setting.click_interval*setting.uint_click_interval)
-                                            }
-                                        }
-                                    }
-                                }else
-                                    startTask(setting.click_interval*setting.uint_click_interval)
+                                nextAction()
                             }
 
                             override fun onCancelled(gestureDescription: GestureDescription?) {
                                 super.onCancelled(gestureDescription)
                                 LogUtils.e("onCancelled")
+                                nextAction()
                             }
                         },null)
                     }
@@ -104,6 +86,36 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
             }
         }
     }
+
+    private fun nextAction() {
+        if (taskPositionNow > actionList.size - 1) {
+            when (setting.stop_model) {
+                0 -> {
+                    taskPositionNow = 0
+                    startTask(setting.click_interval * setting.uint_click_interval)
+                }
+                1 -> {
+                    if (stop) {
+                        stopTask()
+                    } else {
+                        taskPositionNow = 0
+                        startTask(setting.click_interval * setting.uint_click_interval)
+                    }
+                }
+                2 -> {
+                    circleCountNow++
+                    if (circleCountNow >= circleCount) {
+                        stopTask()
+                    } else {
+                        taskPositionNow = 0
+                        startTask(setting.click_interval * setting.uint_click_interval)
+                    }
+                }
+            }
+        } else
+            startTask(setting.click_interval * setting.uint_click_interval)
+    }
+
     init {
         binding =  DataBindingUtil.bind(viewLayout)
         binding?.apply {
@@ -114,30 +126,38 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
             }
             ivDrug.setOnTouchListener(this@MenuView)
             ivPlay.setOnClickListener {
-                //执行任务
-                if (!isRunningTak){
-                    if (actionList.isNullOrEmpty()){
-                        ToastUtils.showShort("You need add at least one TARGET to can run.")
-                        return@setOnClickListener
-                    }
-                    actionList.forEach {
-                        it.updateView(false)
-                    }
-                    when (setting.stop_model){
-                        //停止的类型
-                        1-> startTimeCount()
-                        2-> {
-                            circleCountNow = -1
-                            circleCount = setting.circle_count
+                if (isShow){
+                    //执行任务
+                    if (!isRunningTak){
+                        if (actionList.isNullOrEmpty()){
+                            ToastUtils.showShort("You need add at least one TARGET to can run.")
+                            return@setOnClickListener
                         }
+                        actionList.forEach {
+                            it.updateView(false)
+                        }
+                        when (setting.stop_model){
+                            //停止的类型
+                            1-> startTimeCount()
+                            2-> {
+                                circleCountNow = -1
+                                circleCount = setting.circle_count
+                            }
+                        }
+                        binding?.ivAdd?.isEnabled = false
+                        binding?.ivMinus?.isEnabled = false
+                        binding?.ivSwipe?.isEnabled = false
+                        binding?.ivSetting?.isEnabled = false
+                        startTask(100)
+                    }else{
+                        stopTask()
                     }
-                    binding?.ivAdd?.isEnabled = false
-                    binding?.ivMinus?.isEnabled = false
-                    binding?.ivSwipe?.isEnabled = false
-                    binding?.ivSetting?.isEnabled = false
-                    startTask(100)
                 }else{
-                    stopTask()
+                    //关闭所有页面上的view
+                    context.startService(Intent(context, WorkService::class.java).apply {
+                        action = MainActivity.DISABLEMODEL
+                    })
+                    BusUtils.post(MainActivity.STOP_WORK)
                 }
             }
             ivSetting.setOnClickListener {
@@ -189,8 +209,10 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
         timer?.schedule(object : TimerTask() {
             override fun run() {
                 stop = true
+                timer?.cancel()
+                timer = null
             }
-        },0,setting.count_down*1000L)
+        },setting.count_down*1000L,setting.count_down*1000L)
     }
 
     private fun startTask(delay:Long = 0) {
@@ -204,9 +226,11 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
             it.updateView(true)
         }
         isRunningTak = false
+        stop = false
         taskPositionNow = 0
         circleCountNow = -1
         timer?.cancel()
+        timer = null
         val obtain = Message.obtain()
         obtain.what = MESSAGE_WHAT_STOP
         handler.sendMessage(obtain)
@@ -266,7 +290,35 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
                     //滑动
                     isSliding  = true
                 }else{
-                    //点击
+                    //点击，将图片收起，
+                    if (isShow){
+                        isShow = false
+                        binding?.ivPlay?.setImageResource(R.mipmap.icon_close_menu)
+                        binding?.ivAdd?.visibility = View.GONE
+                        binding?.ivMinus?.visibility = View.GONE
+                        binding?.ivSetting?.visibility = View.GONE
+                        binding?.ivSwipe?.visibility = View.GONE
+                        //页面上的圆圈要隐藏掉
+                        actionList.forEach{
+                            it.setViewVisibility(View.INVISIBLE)
+                        }
+                    }else{
+                        isShow = true
+                        if (isRunningTak){
+                            binding?.ivPlay?.setImageResource(R.mipmap.icon_pause)
+                        }else{
+                            binding?.ivPlay?.setImageResource(R.mipmap.icon_play)
+                        }
+                        binding?.ivAdd?.visibility = View.VISIBLE
+                        binding?.ivSetting?.visibility = View.VISIBLE
+                        if (!singleMode){
+                            binding?.ivMinus?.visibility = View.VISIBLE
+                            binding?.ivSwipe?.visibility = View.VISIBLE
+                        }
+                        actionList.forEach{
+                            it.setViewVisibility(View.VISIBLE)
+                        }
+                    }
                 }
             }
         }
@@ -374,16 +426,19 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
                         setting.click_interval = etInputDelay.text.toString().toLong()
                         setting.swipe_duration = etInputSwipe.text.toString().toLong()
                         setting.count_down = tvTimeAll.tag as Int
+                        this@MenuView.setting = setting
                         context.putSpValue("multi",setting)
                         dialogMulti?.dismiss()
                     }
                     tvTimeAll.setOnClickListener {
-                        TimePicker(context,setting.count_down,object :TimePicker.TimeSetListener{
+                        if (timePicker==null)
+                            timePicker = TimePicker(context,setting.count_down,object :TimePicker.TimeSetListener{
                             override fun onSaveTime(time: Int) {
                                 tvTimeAll.text = time.getTimeFormat()
                                 tvTimeAll.tag = time
                             }
                         },true)
+                        else timePicker?.show()
                     }
                 }
             }.create()
@@ -393,6 +448,7 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
     }
 
     private var singleDialog: AlertDialog? = null
+    private var timePicker: TimePicker? = null
     private fun showSettingSingleDialog() {
         if (singleDialog==null){
             singleDialog = AlertDialog.Builder(context,R.style.alertDialogStyle).apply {
@@ -461,16 +517,19 @@ class MenuView(private val context:Context,accessibilityService: AccessibilitySe
                         setting.circle_count = etCountNum.text.toString().toInt()
                         setting.click_interval = etInput.text.toString().toLong()
                         setting.count_down = tvTimeAll.tag as Int
+                        this@MenuView.setting = setting
                         context.putSpValue("single",setting)
                         singleDialog?.dismiss()
                     }
                     tvTimeAll.setOnClickListener {
-                        TimePicker(context,setting.count_down,object :TimePicker.TimeSetListener{
+                        if (timePicker==null)
+                         timePicker = TimePicker(context,setting.count_down,object :TimePicker.TimeSetListener{
                             override fun onSaveTime(time: Int) {
                                 tvTimeAll.text = time.getTimeFormat()
                                 tvTimeAll.tag = time
                             }
                         },true)
+                        else timePicker?.show()
                     }
                 }
             }.create()

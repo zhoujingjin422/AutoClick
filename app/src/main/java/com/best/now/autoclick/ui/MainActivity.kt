@@ -48,6 +48,7 @@ class MainActivity : BaseVMActivity() {
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
+        const val STOP_WORK = "stop_work"
         const val SINGLEMODEL = "signle"
         const val MULTIMODEL = "multi"
         const val DISABLEMODEL = "disable"
@@ -70,6 +71,13 @@ class MainActivity : BaseVMActivity() {
                 2 -> {
                     BusUtils.post(BUS_TAG_UPDATE_PURCHASE_STATE)
                     updateAdView()
+                }
+                3 -> {
+                    binding.btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
+                    binding.btnMulEnable.setTextColor(resources.getColor(R.color.white))
+                    binding.btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
+                    binding.btnSingleEnable.setTextColor(resources.getColor(R.color.white))
+                    modelNow = DISABLEMODEL
                 }
             }
         }
@@ -213,12 +221,13 @@ class MainActivity : BaseVMActivity() {
                         dialogMulti?.dismiss()
                     }
                     tvTimeAll.setOnClickListener {
-                        TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
+                        if (timePicker==null)
+                            timePicker = TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
                             override fun onSaveTime(time: Int) {
                                 tvTimeAll.text = time.getTimeFormat()
                                 tvTimeAll.tag = time
                             }
-                        })
+                        })else timePicker?.show()
                     }
 
                 }
@@ -228,6 +237,7 @@ class MainActivity : BaseVMActivity() {
     }
 
     private var singleDialog:AlertDialog? = null
+    private var timePicker: TimePicker? = null
     private fun showSettingSingleDialog() {
         if (singleDialog==null){
             singleDialog = AlertDialog.Builder(this).apply {
@@ -317,12 +327,13 @@ class MainActivity : BaseVMActivity() {
                         singleDialog?.dismiss()
                     }
                     tvTimeAll.setOnClickListener {
-                        TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
+                        if (timePicker==null)
+                            timePicker =  TimePicker(context,setting.count_down,object : TimePicker.TimeSetListener{
                             override fun onSaveTime(time: Int) {
                                 tvTimeAll.text = time.getTimeFormat()
                                 tvTimeAll.tag = time
                             }
-                        })
+                        })else timePicker?.show()
                     }
                 }
             }.create()
@@ -565,7 +576,10 @@ class MainActivity : BaseVMActivity() {
         productId = GsonUtils.toJson(purchase.skus)
         handler.sendEmptyMessage(2)
     }
-
+    @BusUtils.Bus(tag = STOP_WORK)
+    fun purchase() {
+        handler.sendEmptyMessage(3)
+    }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -583,5 +597,15 @@ class MainActivity : BaseVMActivity() {
 //                }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        BusUtils.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        BusUtils.unregister(this)
     }
 }
