@@ -22,7 +22,6 @@ public class ActionHelper {
      */
     public static void doAction(String key) {
         OkGo.<String>post(Constant.EVENTDOMAIN+"save.php?"+Constant.MIX_PARAMETER)     // 请求方式和请求url
-//                .params("sub_type", "Bibleapk-"+ Locale.getDefault().getCountry()) TODO 是否添加国家标识？
                 .params("sub_type", Constant.APP_PARAMETER)
                 .params("key", key)
                 .params("event_time", TimeUtils.getNowString())
