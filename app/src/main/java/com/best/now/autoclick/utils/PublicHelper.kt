@@ -20,6 +20,9 @@ import com.best.now.autoclick.R
 import com.best.now.autoclick.ext.dp2px
 import com.best.now.autoclick.ui.MainActivity
 import com.best.now.autoclick.ui.SubscribeActivity
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -52,12 +55,24 @@ val adParentList = arrayListOf<LinearLayout>()
 fun loadAd(linearLayout: LinearLayout) {
 
     if (linearLayout.childCount == 0) {
-        var adView = AdView(linearLayout.context)
+        var adView = AdView(linearLayout.context.applicationContext)
         adView.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
             linearLayout.context,
-            linearLayout.context.dp2px(linearLayout.context.resources.displayMetrics.widthPixels)
+            SizeUtils.px2dp(ScreenUtils.getScreenWidth().toFloat())
         )
-        adView.adUnitId = Constant.AD_BANNER_ID
+//        adView.adSize = AdSize.BANNER
+            adView.adUnitId = Constant.AD_BANNER_ID
+        adView.adListener = object :AdListener(){
+            override fun onAdFailedToLoad(p0: LoadAdError) {
+                super.onAdFailedToLoad(p0)
+                LogUtils.e("adView:"+p0.message)
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                LogUtils.e("adView:onAdLoaded")
+            }
+        }
         linearLayout.addView(adView)
     }
 

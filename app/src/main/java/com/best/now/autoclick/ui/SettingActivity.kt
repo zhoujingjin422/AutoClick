@@ -79,4 +79,14 @@ class SettingActivity:BaseVMActivity() {
         isPurchased(this)
         setUiState()
     }
+
+    override fun onStart() {
+        super.onStart()
+        BusUtils.register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        BusUtils.unregister(this)
+    }
 }

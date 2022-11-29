@@ -4,6 +4,7 @@ import android.app.Application
 import com.best.now.autoclick.utils.AppOpenManager
 import com.best.now.autoclick.utils.loadInterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
@@ -12,6 +13,7 @@ import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.HttpParams
 import okhttp3.OkHttpClient
+import java.util.*
 
 /**
 author:zhoujingjin

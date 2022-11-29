@@ -17,7 +17,7 @@ class Constant {
         const val VIP_HALF_YEAR = "autoclicker_halfyear"
         const val VIP_YEAR = "autoclicker_year"
 
-        // TODO: 2022/11/18  测试id
+        //测试id
         const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"
         const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
         const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
