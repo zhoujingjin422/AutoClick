@@ -127,7 +127,9 @@ class SubscribeActivity:BaseVMActivity() {
                     tv12MonthPrice499.isSelected = true
                 }
             }
-
+            tvSubTitle.setOnClickListener {
+                buy()
+            }
         }
     }
 
