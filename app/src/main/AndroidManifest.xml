@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.best.now.autoclick">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -53,13 +54,14 @@
         <service
             android:name=".WorkService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:isAccessibilityTool = "true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility" />
+                android:resource="@xml/accessibility"/>
         </service>
     </application>
     <!--适配华为（huawei）刘海屏-->
