@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:name=".AutoClickApplication"
+        android:isAccessibilityTool = "true"
         android:theme="@style/Theme.AutoClick">
 <!--        测试-->
         <meta-data
