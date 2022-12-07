@@ -86,6 +86,7 @@ class MainActivity : BaseVMActivity() {
                     binding.btnMulEnable.text = "ENABLE"
                     binding.ivSettingMulti.isEnabled = true
                     binding.ivSettingMulti.isEnabled = true
+                    binding.ivCommonSetting.isEnabled = true
                     binding.btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     binding.btnSingleEnable.setTextColor(resources.getColor(R.color.white))
                     binding.btnSingleEnable.text = "ENABLE"
@@ -104,6 +105,7 @@ class MainActivity : BaseVMActivity() {
                     btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnMulEnable.setTextColor(resources.getColor(R.color.white))
                     ivSettingSingle.isEnabled = false
+                    ivCommonSetting.isEnabled = false
                     btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnSingleEnable)
 
@@ -117,6 +119,7 @@ class MainActivity : BaseVMActivity() {
                     btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnSingleEnable.setTextColor(resources.getColor(R.color.white))
                     ivSettingMulti.isEnabled = false
+                    ivCommonSetting.isEnabled = false
                     btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnMulEnable)
             }
@@ -316,7 +319,6 @@ class MainActivity : BaseVMActivity() {
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
                     }
                 }
                 tvTimeAll.text = setting.count_down.getTimeFormat()
@@ -403,10 +405,12 @@ class MainActivity : BaseVMActivity() {
                             btn.setTextColor(resources.getColor(R.color.white))
                             binding.ivSettingMulti.isEnabled = true
                             binding.ivSettingMulti.isEnabled = true
+                            binding.ivCommonSetting.isEnabled = true
                             btn.text = "ENABLE"
                         } else {
                             btn.setBackgroundResource(R.drawable.shape_button_disable)
                             btn.setTextColor(resources.getColor(R.color.c_eff2fe))
+                            binding.ivCommonSetting.isEnabled = false
                             if (mode== MULTIMODEL)
                             binding.ivSettingMulti.isEnabled = false
                             else

@@ -3,6 +3,8 @@ package com.best.now.autoclick.view
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityService.GestureResultCallback
 import android.accessibilityservice.GestureDescription
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -13,6 +15,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -43,7 +46,6 @@ class MenuView(
     private val windowManager: WindowManager,
     private val singleMode: Boolean = true
 ) : View.OnTouchListener {
-    private var binding: LayoutDrugViewBinding? = null
     private var params: WindowManager.LayoutParams
     private val arr = IntArray(2)
     private var rawX = 0f
@@ -54,22 +56,28 @@ class MenuView(
     private val MESSAGE_WHAT_RUN = 2
     private var taskPositionNow = 0
     private var isRunningTak = false
-    private val viewLayout = LayoutInflater.from(context).inflate(R.layout.layout_drug_view, null)
+    private var viewLayout :View
     private var setting = context.getSpValue(if (singleMode) "single" else "multi", WorkSetting())
     private var circleCount = -1
     private var circleCountNow = 0
     private var isShow = true
-    private val handler: Handler = object : Handler() {
+    private var ivAdd :ImageView
+    private var ivMinus :ImageView
+    private var ivSwipe :ImageView
+    private var ivDrug :ImageView
+    private lateinit var ivPlay :ImageView
+    private var ivSetting :ImageView
+    private  val handler: Handler = object : Handler() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 MESSAGE_WHAT_STOP -> {
-                    binding?.ivPlay?.setImageResource(R.mipmap.icon_play)
+                    ivPlay?.setImageResource(R.mipmap.icon_play)
                 }
                 MESSAGE_WHAT_RUN -> {
                     if (!isRunningTak)
                         return
-                    binding?.ivPlay?.setImageResource(R.mipmap.icon_pause)
+                    ivPlay?.setImageResource(R.mipmap.icon_pause)
                     if (taskPositionNow <= actionList.size - 1) {
                         val gestureDescription = actionList[taskPositionNow].getGestureDescription()
                         accessibilityService.dispatchGesture(
@@ -130,10 +138,35 @@ class MenuView(
         } else
             startTask(setting.click_interval * setting.uint_click_interval)
     }
-
+    private fun setViewScale(view: View,start:Float,end:Float){
+        val scaleX = ObjectAnimator.ofFloat(view,"scaleX",start,end)
+        val scaleY = ObjectAnimator.ofFloat(view,"scaleY",start,end)
+        val set = AnimatorSet()
+        set.play(scaleX).with(scaleY)
+        set.duration = 100
+        set.start()
+    }
     init {
-        binding = DataBindingUtil.bind(viewLayout)
-        binding?.apply {
+        val end = context.getSpValue("controllerSize",1f)
+        viewLayout = when(context.getSpValue("controllerSize",1f)){
+            1f-> LayoutInflater.from(context).inflate(R.layout.layout_drug_view, null)
+            0.75f-> LayoutInflater.from(context).inflate(R.layout.layout_drug_view_medium, null)
+            else-> LayoutInflater.from(context).inflate(R.layout.layout_drug_view_small, null)
+        }
+         ivAdd =  viewLayout.findViewById<ImageView>(R.id.iv_add)
+         ivMinus =  viewLayout.findViewById<ImageView>(R.id.iv_minus)
+         ivSwipe =  viewLayout.findViewById<ImageView>(R.id.iv_swipe)
+         ivDrug =  viewLayout.findViewById<ImageView>(R.id.iv_drug)
+         ivPlay =  viewLayout.findViewById<ImageView>(R.id.iv_play)
+         ivSetting =  viewLayout.findViewById<ImageView>(R.id.iv_setting)
+        if (end!=1f){
+            setViewScale(ivAdd,1f,end)
+            setViewScale(ivMinus,1f,end)
+            setViewScale(ivSwipe,1f,end)
+            setViewScale(ivDrug,1f,end)
+            setViewScale(ivPlay,1f,end)
+            setViewScale(ivSetting,1f,end)
+        }
             if (singleMode) {
                 ivAdd.visibility = View.GONE
                 ivMinus.visibility = View.GONE
@@ -159,10 +192,10 @@ class MenuView(
                                 circleCount = setting.circle_count
                             }
                         }
-                        binding?.ivAdd?.isEnabled = false
-                        binding?.ivMinus?.isEnabled = false
-                        binding?.ivSwipe?.isEnabled = false
-                        binding?.ivSetting?.isEnabled = false
+                        ivAdd.isEnabled = false
+                        ivMinus.isEnabled = false
+                        ivSwipe.isEnabled = false
+                        ivSetting.isEnabled = false
                         isRunningTak = true
                         startTask(100)
                     } else {
@@ -210,7 +243,6 @@ class MenuView(
                 )
                 actionList.add(slideView)
             }
-        }
         if (singleMode) {
             val clickView = DrugPointView(
                 context,
@@ -225,7 +257,6 @@ class MenuView(
         params.y = 100
         windowManager.addView(viewLayout, params)
     }
-
     //开启计时器
     private var stop = false
     private var timer: Timer? = null
@@ -259,10 +290,10 @@ class MenuView(
         val obtain = Message.obtain()
         obtain.what = MESSAGE_WHAT_STOP
         handler.sendMessage(obtain)
-        binding?.ivAdd?.isEnabled = true
-        binding?.ivMinus?.isEnabled = true
-        binding?.ivSwipe?.isEnabled = true
-        binding?.ivSetting?.isEnabled = true
+        ivAdd.isEnabled = true
+        ivMinus.isEnabled = true
+        ivSwipe.isEnabled = true
+        ivSetting.isEnabled = true
     }
 
     private fun setParams(): WindowManager.LayoutParams {
@@ -322,11 +353,11 @@ class MenuView(
                     //点击，将图片收起，
                     if (isShow) {
                         isShow = false
-                        binding?.ivPlay?.setImageResource(R.mipmap.icon_close_menu)
-                        binding?.ivAdd?.visibility = View.GONE
-                        binding?.ivMinus?.visibility = View.GONE
-                        binding?.ivSetting?.visibility = View.GONE
-                        binding?.ivSwipe?.visibility = View.GONE
+                        ivPlay.setImageResource(R.mipmap.icon_close_menu)
+                        ivAdd.visibility = View.GONE
+                        ivMinus.visibility = View.GONE
+                        ivSetting.visibility = View.GONE
+                        ivSwipe.visibility = View.GONE
                         //页面上的圆圈要隐藏掉
                         actionList.forEach {
                             it.setViewVisibility(View.INVISIBLE)
@@ -334,15 +365,15 @@ class MenuView(
                     } else {
                         isShow = true
                         if (isRunningTak) {
-                            binding?.ivPlay?.setImageResource(R.mipmap.icon_pause)
+                            ivPlay.setImageResource(R.mipmap.icon_pause)
                         } else {
-                            binding?.ivPlay?.setImageResource(R.mipmap.icon_play)
+                            ivPlay.setImageResource(R.mipmap.icon_play)
                         }
-                        binding?.ivSetting?.visibility = View.VISIBLE
+                        ivSetting.visibility = View.VISIBLE
                         if (!singleMode) {
-                            binding?.ivMinus?.visibility = View.VISIBLE
-                            binding?.ivSwipe?.visibility = View.VISIBLE
-                            binding?.ivAdd?.visibility = View.VISIBLE
+                            ivMinus.visibility = View.VISIBLE
+                            ivSwipe.visibility = View.VISIBLE
+                            ivAdd.visibility = View.VISIBLE
                         }
                         actionList.forEach {
                             it.setViewVisibility(View.VISIBLE)
