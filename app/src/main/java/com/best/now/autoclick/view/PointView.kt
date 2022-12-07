@@ -18,7 +18,7 @@ class PointView@JvmOverloads constructor(context: Context, attributes: Attribute
     }
     private val paint2 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = (bigWith/15f).dp
+        strokeWidth = bigWith/15f
         color = Color.parseColor("#D84827")
     }
     private val paint3 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -45,7 +45,7 @@ class PointView@JvmOverloads constructor(context: Context, attributes: Attribute
         bigWith = size
         layoutParams.width = size
         layoutParams.height = size
-        paint2.strokeWidth = (bigWith/15f).dp
+        paint2.strokeWidth = bigWith/15f
         textPaint.textSize = bigWith*2/3f
         invalidate()
     }
