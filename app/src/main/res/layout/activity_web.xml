@@ -24,7 +24,7 @@
             android:background="@mipmap/toolbar_back"
             app:title=""
             app:titleTextColor="@color/white" />
-        <com.tencent.smtt.sdk.WebView
+        <WebView
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

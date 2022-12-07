@@ -76,7 +76,7 @@ class SettingActivity:BaseVMActivity() {
 
     @BusUtils.Bus(tag = MainActivity.BUS_TAG_UPDATE_PURCHASE_STATE)
     fun updateState() {
-        isPurchased(this)
+//        isPurchased(this)
         setUiState()
     }
 

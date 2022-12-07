@@ -2,10 +2,10 @@ package com.best.now.autoclick.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.webkit.WebViewClient
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebBinding
-import com.tencent.smtt.sdk.WebViewClient
 
 
 /*** 选择服务界面 */
