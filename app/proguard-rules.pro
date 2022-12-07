@@ -214,3 +214,14 @@
 -optimizationpasses 5
 # 指定不去忽略非公共的库的类的成员
 -dontskipnonpubliclibraryclassmembers
+
+-dontwarn dalvik.**
+-dontwarn com.tencent.smtt.**
+
+-keep class com.tencent.smtt.** {
+    *;
+}
+
+-keep class com.tencent.tbs.** {
+    *;
+}

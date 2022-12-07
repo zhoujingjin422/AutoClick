@@ -12,6 +12,7 @@ import com.lzy.okgo.cookie.CookieJarImpl
 import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.HttpParams
+import com.tencent.smtt.sdk.QbSdk
 import okhttp3.OkHttpClient
 import java.util.*
 
@@ -32,6 +33,15 @@ class AutoClickApplication:Application() {
         }
 
         appOpenManager = AppOpenManager(this)
+        QbSdk.initX5Environment(this, object :QbSdk.PreInitCallback {
+
+
+            override fun onCoreInitFinished() {
+            }
+
+            override fun onViewInitFinished(p0: Boolean) {
+            }
+        });
     }
     /*** 初始化OkGo */
     fun initOkGo() {

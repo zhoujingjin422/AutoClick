@@ -2,11 +2,10 @@ package com.best.now.autoclick.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.webkit.WebChromeClient
-import android.webkit.WebViewClient
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebBinding
+import com.tencent.smtt.sdk.WebViewClient
 
 
 /*** 选择服务界面 */
@@ -26,12 +25,12 @@ class WebActivity : BaseVMActivity() {
             toolBar.title = intent.getStringExtra("Title")
             setSupportActionBar(toolBar)
             toolBar.setNavigationOnClickListener { finish() }
-            webView.settings.apply {
-                javaScriptEnabled = true
-                useWideViewPort = true
-                loadWithOverviewMode = true
-                userAgentString = "User-Agent:Android"
-            }
+//            webView.settings.apply {
+//                javaScriptEnabled = true
+//                useWideViewPort = true
+//                loadWithOverviewMode = true
+//                userAgentString = "User-Agent:Android"
+//            }
             webView.webViewClient = WebViewClient()
         }
     }
