@@ -55,7 +55,7 @@
                 android:textSize="15sp"
                 android:gravity="center"
                 android:background="@drawable/shape_model_edit"/>
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_height="34dp"
@@ -63,22 +63,25 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="14dp"
                 android:background="@drawable/shape_model_edit">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_down"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="24dp"/>
                 <Spinner
                     android:id="@+id/list_type"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"
-                    android:paddingStart="20dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="35dp"
                     android:dropDownVerticalOffset="30dp"
-                    android:background="@color/white"
+                    android:background="#00000000"
                     android:entries="@array/unit"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_down"
-                    android:layout_marginEnd="24dp"
-                    android:layout_gravity="center_vertical|end"/>
-            </FrameLayout>
+            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>

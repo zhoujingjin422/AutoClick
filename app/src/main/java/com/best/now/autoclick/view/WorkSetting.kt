@@ -9,6 +9,7 @@ date:2022/11/24
      * 点击间隔
      */
     var click_interval = 200L
+    var action_delay = 200L
 
     /**
      * 滑动时间
@@ -26,6 +27,10 @@ date:2022/11/24
      * 点击间隔单位，1是毫秒 1000毫秒  60000毫秒
      */
     var uint_click_interval = 1
+/**
+     * 点击间隔单位，1是毫秒 1000毫秒  60000毫秒
+     */
+    var uint_action_delay = 1
 
     /**
      * 停止的模式 0是一直循环 1是几分钟后停止 2是循环几次停止

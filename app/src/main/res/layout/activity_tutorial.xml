@@ -8,58 +8,63 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/c_eff2fe">
-        <View
+        android:layout_above="@id/adv_banner">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@mipmap/toolbar_back"
-            android:layout_height="@dimen/status_bar_height"/>
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@mipmap/icon_back"
-            android:background="@mipmap/toolbar_back"
-            app:title="Tutorial"
-            app:titleTextColor="@color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="step 1"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_step1"
-            android:scaleType="fitXY"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginTop="11dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="step 2"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_step2"
-            android:layout_marginTop="11dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="9dp"
-            android:scaleType="fitXY"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/c_eff2fe">
+            <View
+                android:layout_width="match_parent"
+                android:background="@mipmap/toolbar_back"
+                android:layout_height="@dimen/status_bar_height"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@mipmap/icon_back"
+                android:background="@mipmap/toolbar_back"
+                app:title="Tutorial"
+                app:titleTextColor="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="step 1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_step1"
+                android:scaleType="fitXY"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginTop="11dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="step 2"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_step2"
+                android:layout_marginTop="11dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:scaleType="fitXY"/>
+        </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:id="@+id/adv_banner"
         android:layout_width="match_parent"

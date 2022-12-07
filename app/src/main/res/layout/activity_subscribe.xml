@@ -245,7 +245,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="15dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/icon_offer"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -262,8 +262,9 @@
                         android:layout_marginTop="10dp">
                         <RelativeLayout
                             android:id="@+id/rl_1_month"
-                            android:layout_width="98dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:background="@drawable/shape_selector"
                             android:checked="true"
                             android:layout_marginStart="23dp">
@@ -352,8 +353,9 @@
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_6_month"
-                            android:layout_width="98dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:background="@drawable/shape_selector"
                             android:checked="true"
                             android:layout_marginStart="23dp">
@@ -441,10 +443,12 @@
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_12_month"
-                            android:layout_width="98dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:background="@drawable/shape_selector"
                             android:checked="true"
+                            android:layout_marginEnd="8dp"
                             android:layout_marginStart="23dp">
                             <TextView
                                 android:layout_width="wrap_content"

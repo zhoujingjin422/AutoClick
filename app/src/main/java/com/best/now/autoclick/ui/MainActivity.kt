@@ -83,8 +83,12 @@ class MainActivity : BaseVMActivity() {
                 3 -> {
                     binding.btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
                     binding.btnMulEnable.setTextColor(resources.getColor(R.color.white))
+                    binding.btnMulEnable.text = "ENABLE"
+                    binding.ivSettingMulti.isEnabled = true
+                    binding.ivSettingMulti.isEnabled = true
                     binding.btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     binding.btnSingleEnable.setTextColor(resources.getColor(R.color.white))
+                    binding.btnSingleEnable.text = "ENABLE"
                     modelNow = DISABLEMODEL
                 }
             }
@@ -99,6 +103,9 @@ class MainActivity : BaseVMActivity() {
                     startWorkService(SINGLEMODEL, btnSingleEnable)
                     btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnMulEnable.setTextColor(resources.getColor(R.color.white))
+                    ivSettingMulti.isEnabled = true
+                    ivSettingSingle.isEnabled = true
+                    btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnSingleEnable)
 
             }
@@ -107,6 +114,9 @@ class MainActivity : BaseVMActivity() {
                     startWorkService(MULTIMODEL, btnMulEnable)
                     btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnSingleEnable.setTextColor(resources.getColor(R.color.white))
+                    ivSettingMulti.isEnabled = true
+                    ivSettingSingle.isEnabled = true
+                    btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnMulEnable)
             }
             llSingleInstruction.setOnClickListener {
@@ -120,12 +130,12 @@ class MainActivity : BaseVMActivity() {
             }
             ivSettingSingle.setOnClickListener {
                 //弹出单模式下的弹框进行设置
-                if (isPurchased(this@MainActivity))
+//                if (isPurchased(this@MainActivity))
                     showSettingSingleDialog()
             }
             ivSettingMulti.setOnClickListener {
                 //弹出多模式下的弹框进行设置
-                if (isPurchased(this@MainActivity))
+//                if (isPurchased(this@MainActivity))
                     showSettingMultiDialog()
             }
         }
@@ -140,10 +150,9 @@ class MainActivity : BaseVMActivity() {
             val binding = DataBindingUtil.bind<LayoutModelMultiBinding>(view)
             var setting = getSpValue("multi", WorkSetting())
             binding?.apply {
-//                    etInput.setText(setting.click_interval.toString())
-                etInputDelay.setText(setting.click_interval.toString())
+                    etInput.setText(setting.click_interval.toString())
+                etInputDelay.setText(setting.action_delay.toString())
                 etInputSwipe.setText(setting.swipe_duration.toString())
-//                    etInput.setText(setting.click_interval.toString())
                 listTypeDelay.onItemSelectedListener = object : OnItemSelectedListener {
                     override fun onItemSelected(
                         p0: AdapterView<*>?,
@@ -151,7 +160,7 @@ class MainActivity : BaseVMActivity() {
                         p2: Int,
                         p3: Long
                     ) {
-                        setting.uint_click_interval = when (p2) {
+                        setting.uint_action_delay = when (p2) {
                             0 -> 1
                             1 -> 1000
                             else -> 60 * 1000
@@ -179,7 +188,25 @@ class MainActivity : BaseVMActivity() {
 
                     }
                 }
-                when (setting.uint_click_interval) {
+                listType.onItemSelectedListener = object : OnItemSelectedListener {
+                    override fun onItemSelected(
+                        p0: AdapterView<*>?,
+                        p1: View?,
+                        p2: Int,
+                        p3: Long
+                    ) {
+                        setting.uint_click_interval = when (p2) {
+                            0 -> 1
+                            1 -> 1000
+                            else -> 60 * 1000
+                        }
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                    }
+                }
+                when (setting.uint_action_delay) {
                     1 -> listTypeDelay.setSelection(0)
                     1000 -> listTypeDelay.setSelection(1)
                     else -> listTypeDelay.setSelection(2)
@@ -188,6 +215,11 @@ class MainActivity : BaseVMActivity() {
                     1 -> listTypeSwipe.setSelection(0)
                     1000 -> listTypeSwipe.setSelection(1)
                     else -> listTypeSwipe.setSelection(2)
+                }
+                when (setting.uint_click_interval) {
+                    1 -> listType.setSelection(0)
+                    1000 -> listType.setSelection(1)
+                    else -> listType.setSelection(2)
                 }
                 when (setting.stop_model) {
                     0 -> rbOne.isChecked = true
@@ -223,15 +255,15 @@ class MainActivity : BaseVMActivity() {
                     if (rbThird.isChecked)
                         setting.stop_model = 2
                     setting.circle_count = etCountNum.text.toString().toInt()
-                    setting.click_interval = etInputDelay.text.toString().toLong()
+                    setting.click_interval = etInput.text.toString().toLong()
                     setting.swipe_duration = etInputSwipe.text.toString().toLong()
+                    setting.action_delay = etInputDelay.text.toString().toLong()
                     setting.count_down = tvTimeAll.tag as Int
                     putSpValue("multi", setting)
                     dialogMulti?.dismiss()
                 }
                 tvTimeAll.setOnClickListener {
-                    if (timePicker == null)
-                        timePicker = TimePicker(
+                        val timePicker = TimePicker(
                             context,
                             setting.count_down,
                             object : TimePicker.TimeSetListener {
@@ -239,7 +271,8 @@ class MainActivity : BaseVMActivity() {
                                     tvTimeAll.text = time.getTimeFormat()
                                     tvTimeAll.tag = time
                                 }
-                            }) else timePicker?.show()
+                            })
+                    timePicker.show()
                 }
 
             }
@@ -248,7 +281,6 @@ class MainActivity : BaseVMActivity() {
     }
 
     private var singleDialog: AlertDialog? = null
-    private var timePicker: TimePicker? = null
     private fun showSettingSingleDialog() {
         singleDialog = AlertDialog.Builder(this).apply {
             val view =
@@ -338,8 +370,7 @@ class MainActivity : BaseVMActivity() {
                     singleDialog?.dismiss()
                 }
                 tvTimeAll.setOnClickListener {
-                    if (timePicker == null)
-                        timePicker = TimePicker(
+                       val timePicker = TimePicker(
                             context,
                             setting.count_down,
                             object : TimePicker.TimeSetListener {
@@ -347,7 +378,8 @@ class MainActivity : BaseVMActivity() {
                                     tvTimeAll.text = time.getTimeFormat()
                                     tvTimeAll.tag = time
                                 }
-                            }) else timePicker?.show()
+                            })
+                    timePicker?.show()
                 }
             }
         }.create()
@@ -356,7 +388,7 @@ class MainActivity : BaseVMActivity() {
 
     private var modelNow: String = ""
     private fun startWorkService(mode: String, btn: Button) {
-        if (isPurchased(this@MainActivity)) {
+        if (/*isPurchased(this@MainActivity)*/true) {
             //判断有没有权限
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (Settings.canDrawOverlays(this@MainActivity)) {
@@ -368,9 +400,15 @@ class MainActivity : BaseVMActivity() {
                         if (modelNow == DISABLEMODEL) {
                             btn.setBackgroundResource(R.drawable.shape_button_click)
                             btn.setTextColor(resources.getColor(R.color.white))
+                            binding.ivSettingMulti.isEnabled = true
+                            binding.ivSettingMulti.isEnabled = true
+                            btn.text = "ENABLE"
                         } else {
                             btn.setBackgroundResource(R.drawable.shape_button_disable)
                             btn.setTextColor(resources.getColor(R.color.c_eff2fe))
+                            binding.ivSettingMulti.isEnabled = false
+                            binding.ivSettingMulti.isEnabled = false
+                            btn.text = "DISABLE"
                         }
                     } else {
                         showAccessDialog()

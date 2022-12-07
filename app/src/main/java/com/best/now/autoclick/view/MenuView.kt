@@ -101,14 +101,18 @@ class MenuView(
             when (setting.stop_model) {
                 0 -> {
                     taskPositionNow = 0
+                    if (singleMode)
                     startTask(setting.click_interval * setting.uint_click_interval)
+                    else startTask(setting.action_delay * setting.uint_action_delay)
                 }
                 1 -> {
                     if (stop) {
                         stopTask()
                     } else {
                         taskPositionNow = 0
-                        startTask(setting.click_interval * setting.uint_click_interval)
+                        if (singleMode)
+                            startTask(setting.click_interval * setting.uint_click_interval)
+                        else startTask(setting.action_delay * setting.uint_action_delay)
                     }
                 }
                 2 -> {
@@ -117,7 +121,9 @@ class MenuView(
                         stopTask()
                     } else {
                         taskPositionNow = 0
-                        startTask(setting.click_interval * setting.uint_click_interval)
+                        if (singleMode)
+                            startTask(setting.click_interval * setting.uint_click_interval)
+                        else startTask(setting.action_delay * setting.uint_action_delay)
                     }
                 }
             }
@@ -366,17 +372,17 @@ class MenuView(
             val binding = DataBindingUtil.bind<LayoutModelMultiBinding>(view)
             var setting = context.getSpValue("multi", WorkSetting())
             binding?.apply {
-                etInputDelay.setText(setting.click_interval.toString())
+                etInput.setText(setting.click_interval.toString())
+                etInputDelay.setText(setting.action_delay.toString())
                 etInputSwipe.setText(setting.swipe_duration.toString())
-                listTypeDelay.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
+                listTypeDelay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         p0: AdapterView<*>?,
                         p1: View?,
                         p2: Int,
                         p3: Long
                     ) {
-                        setting.uint_click_interval = when (p2) {
+                        setting.uint_action_delay = when (p2) {
                             0 -> 1
                             1 -> 1000
                             else -> 60 * 1000
@@ -386,8 +392,7 @@ class MenuView(
                     override fun onNothingSelected(p0: AdapterView<*>?) {
                     }
                 }
-                listTypeSwipe.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
+                listTypeSwipe.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         p0: AdapterView<*>?,
                         p1: View?,
@@ -405,7 +410,25 @@ class MenuView(
 
                     }
                 }
-                when (setting.uint_click_interval) {
+                listType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        p0: AdapterView<*>?,
+                        p1: View?,
+                        p2: Int,
+                        p3: Long
+                    ) {
+                        setting.uint_click_interval = when (p2) {
+                            0 -> 1
+                            1 -> 1000
+                            else -> 60 * 1000
+                        }
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                    }
+                }
+                when (setting.uint_action_delay) {
                     1 -> listTypeDelay.setSelection(0)
                     1000 -> listTypeDelay.setSelection(1)
                     else -> listTypeDelay.setSelection(2)
@@ -414,6 +437,11 @@ class MenuView(
                     1 -> listTypeSwipe.setSelection(0)
                     1000 -> listTypeSwipe.setSelection(1)
                     else -> listTypeSwipe.setSelection(2)
+                }
+                when (setting.uint_click_interval) {
+                    1 -> listType.setSelection(0)
+                    1000 -> listType.setSelection(1)
+                    else -> listType.setSelection(2)
                 }
                 when (setting.stop_model) {
                     0 -> rbOne.isChecked = true
@@ -449,10 +477,10 @@ class MenuView(
                     if (rbThird.isChecked)
                         setting.stop_model = 2
                     setting.circle_count = etCountNum.text.toString().toInt()
-                    setting.click_interval = etInputDelay.text.toString().toLong()
+                    setting.click_interval = etInput.text.toString().toLong()
                     setting.swipe_duration = etInputSwipe.text.toString().toLong()
+                    setting.action_delay = etInputDelay.text.toString().toLong()
                     setting.count_down = tvTimeAll.tag as Int
-                    this@MenuView.setting = setting
                     context.putSpValue("multi", setting)
                     dialogMulti?.dismiss()
                 }
@@ -466,11 +494,9 @@ class MenuView(
                                     tvTimeAll.text = time.getTimeFormat()
                                     tvTimeAll.tag = time
                                 }
-                            },
-                            true
-                        )
-                    else timePicker?.show()
+                            }) else timePicker?.show()
                 }
+
             }
         }.create()
         dialogMulti?.window?.setType(2032)

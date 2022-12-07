@@ -245,7 +245,7 @@ class SubscribeActivity:BaseVMActivity() {
         binding.btnGet.setOnClickListener {
             buy()
         }
-        binding.ivClose.setOnClickListener { finish() }
+        binding.ivClose.setOnClickListener { onBackPressed() }
     }
     /*** 购买 */
     private fun buy() {
