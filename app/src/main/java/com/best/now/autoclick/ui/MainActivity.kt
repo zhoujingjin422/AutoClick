@@ -103,19 +103,20 @@ class MainActivity : BaseVMActivity() {
                     startWorkService(SINGLEMODEL, btnSingleEnable)
                     btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnMulEnable.setTextColor(resources.getColor(R.color.white))
-                    ivSettingMulti.isEnabled = true
-                    ivSettingSingle.isEnabled = true
+                    ivSettingSingle.isEnabled = false
                     btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnSingleEnable)
 
+            }
+            ivCommonSetting.setOnClickListener {
+                startActivity(Intent(this@MainActivity,CommonSettingActivity::class.java))
             }
             btnMulEnable.setOnClickListener {
                 if (modelNow != MULTIMODEL) {
                     startWorkService(MULTIMODEL, btnMulEnable)
                     btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     btnSingleEnable.setTextColor(resources.getColor(R.color.white))
-                    ivSettingMulti.isEnabled = true
-                    ivSettingSingle.isEnabled = true
+                    ivSettingMulti.isEnabled = false
                     btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnMulEnable)
             }
@@ -406,7 +407,9 @@ class MainActivity : BaseVMActivity() {
                         } else {
                             btn.setBackgroundResource(R.drawable.shape_button_disable)
                             btn.setTextColor(resources.getColor(R.color.c_eff2fe))
+                            if (mode== MULTIMODEL)
                             binding.ivSettingMulti.isEnabled = false
+                            else
                             binding.ivSettingMulti.isEnabled = false
                             btn.text = "DISABLE"
                         }

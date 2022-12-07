@@ -8,8 +8,7 @@ import android.view.View
 import com.best.now.autoclick.ext.dp
 import java.util.jar.Attributes
 
-class PointView@JvmOverloads constructor(context: Context, attributes: AttributeSet? = null, defStyleAttr:Int = 0, var bigWith:Int, private val smallWith:Int, private val withText:Boolean, private val num:Int = 0): View(context,attributes,defStyleAttr) {
-
+class PointView@JvmOverloads constructor(context: Context, attributes: AttributeSet? = null, defStyleAttr:Int = 0, var bigWith:Int = 60.dp.toInt(), private val withText:Boolean, private val num:Int = 0): View(context,attributes,defStyleAttr) {
      var pointX = 0f
      var pointY = 0f
 //    private var RADIUS = 42
@@ -19,7 +18,7 @@ class PointView@JvmOverloads constructor(context: Context, attributes: Attribute
     }
     private val paint2 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = 4.dp
+        strokeWidth = (bigWith/15f).dp
         color = Color.parseColor("#D84827")
     }
     private val paint3 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -42,10 +41,12 @@ class PointView@JvmOverloads constructor(context: Context, attributes: Attribute
         pointX = (locationX+ bigWith/2).toFloat()
         pointY = (arr[1]+ bigWith/2).toFloat()
     }
-    public fun changeSize(size:Int){
+     fun changeSize(size:Int){
         bigWith = size
         layoutParams.width = size
         layoutParams.height = size
+        paint2.strokeWidth = (bigWith/15f).dp
+        textPaint.textSize = bigWith*2/3f
         invalidate()
     }
 

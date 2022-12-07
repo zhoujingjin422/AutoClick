@@ -30,6 +30,16 @@
             android:paddingEnd="17dp"
             android:paddingStart="17dp"
             android:src="@mipmap/icon_my_setting" />
+        <ImageView
+            android:id="@+id/iv_common_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/iv_setting"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="65dp"
+            android:paddingEnd="17dp"
+            android:paddingStart="17dp"
+            android:src="@mipmap/icon_settings" />
 
         <ScrollView
             android:layout_width="match_parent"

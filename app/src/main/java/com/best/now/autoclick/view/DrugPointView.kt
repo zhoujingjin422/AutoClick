@@ -16,10 +16,9 @@ class DrugPointView(
     context: Context,
     private val windowManager: WindowManager,
     private val bigWith: Int,
-    smallWith: Int,
     num: Int
 ) : View.OnTouchListener,BaseAutoClick() {
-     val pointView = PointView(context,bigWith = bigWith,smallWith = smallWith,withText = true,num = num)
+     val pointView = PointView(context,bigWith = bigWith,withText = true,num = num)
     private lateinit var params:WindowManager.LayoutParams
     private val arr = IntArray(2)
     private var rawX = 0f

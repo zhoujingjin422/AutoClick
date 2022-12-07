@@ -188,8 +188,7 @@ class MenuView(
                 val clickView = DrugPointView(
                     context,
                     windowManager,
-                    60.dp.toInt(),
-                    14.dp.toInt(),
+                    context.getSpValue("viewSize",60).dp.toInt(),
                     actionList.size + 1
                 )
                 actionList.add(clickView)
@@ -216,8 +215,7 @@ class MenuView(
             val clickView = DrugPointView(
                 context,
                 windowManager,
-                60.dp.toInt(),
-                14.dp.toInt(),
+                context.getSpValue("viewSize",60).dp.toInt(),
                 0
             )
             actionList.add(clickView)

@@ -52,6 +52,7 @@
         <activity android:name=".ui.TutorialActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.CommonSettingActivity" android:screenOrientation="portrait"/>
         <service
             android:name=".WorkService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"

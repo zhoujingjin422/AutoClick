@@ -11,13 +11,14 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import com.best.now.autoclick.ext.dp
+import com.best.now.autoclick.ext.getSpValue
 import kotlin.math.abs
 
 class SlideView(context: Context, private val windowManager: WindowManager, num: Int,
                 private val swipeDuration: Long)/*:LineView(context,lineWith)*/:BaseAutoClick() {
-    private val bigPointView = PointView(context, bigWith = 60.dp.toInt(), smallWith = 14.dp.toInt(), withText = true, num = num)
-    private val smallPointView = PointView(context, bigWith = 60.dp.toInt() * 3 / 4, smallWith = 0, withText = false)
-    private val line = LineView(context, 60.dp.toInt() * 3 / 5)
+    private val bigPointView = PointView(context, bigWith = context.getSpValue("viewSize",60).dp.toInt(), withText = true, num = num)
+    private val smallPointView = PointView(context, bigWith =  context.getSpValue("viewSize",60).dp.toInt() * 3 / 4, withText = false)
+    private val line = LineView(context, context.getSpValue("viewSize",60).dp.toInt() * 3 / 5)
     lateinit var bigParams: WindowManager.LayoutParams
     lateinit var smallParams: WindowManager.LayoutParams
     lateinit var lineParams: WindowManager.LayoutParams

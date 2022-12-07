@@ -64,6 +64,8 @@ fun View.dp2px(dp: Int): Int {
 
 val Int.dp
     get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics)
+val Float.dp
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
 
 fun View.px2dp(px: Int): Int {
     val scale = resources.displayMetrics.density
