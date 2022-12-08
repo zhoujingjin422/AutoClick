@@ -269,7 +269,7 @@ class MainActivity : BaseVMActivity() {
                 tvTimeAll.setOnClickListener {
                         val timePicker = TimePicker(
                             context,
-                            setting.count_down,
+                            tvTimeAll.tag as Int,
                             object : TimePicker.TimeSetListener {
                                 override fun onSaveTime(time: Int) {
                                     tvTimeAll.text = time.getTimeFormat()
@@ -375,14 +375,14 @@ class MainActivity : BaseVMActivity() {
                 tvTimeAll.setOnClickListener {
                        val timePicker = TimePicker(
                             context,
-                            setting.count_down,
+                           tvTimeAll.tag as Int,
                             object : TimePicker.TimeSetListener {
                                 override fun onSaveTime(time: Int) {
                                     tvTimeAll.text = time.getTimeFormat()
                                     tvTimeAll.tag = time
                                 }
                             })
-                    timePicker?.show()
+                    timePicker.show()
                 }
             }
         }.create()

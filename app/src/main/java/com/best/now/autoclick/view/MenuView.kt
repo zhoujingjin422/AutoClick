@@ -514,16 +514,16 @@ class MenuView(
                     dialogMulti?.dismiss()
                 }
                 tvTimeAll.setOnClickListener {
-                    if (timePicker == null)
-                        timePicker = TimePicker(
+                        val timePicker = TimePicker(
                             context,
-                            setting.count_down,
+                            tvTimeAll.tag as Int,
                             object : TimePicker.TimeSetListener {
                                 override fun onSaveTime(time: Int) {
                                     tvTimeAll.text = time.getTimeFormat()
                                     tvTimeAll.tag = time
                                 }
-                            }) else timePicker?.show()
+                            },true)
+                    timePicker.show()
                 }
 
             }
@@ -533,7 +533,6 @@ class MenuView(
     }
 
     private var singleDialog: AlertDialog? = null
-    private var timePicker: TimePicker? = null
     private fun showSettingSingleDialog() {
         singleDialog = AlertDialog.Builder(context, R.style.alertDialogStyle).apply {
             val view = LayoutInflater.from(context).inflate(R.layout.layout_model_single, null)
@@ -606,10 +605,9 @@ class MenuView(
                     singleDialog?.dismiss()
                 }
                 tvTimeAll.setOnClickListener {
-                    if (timePicker == null)
-                        timePicker = TimePicker(
+                       val timePicker = TimePicker(
                             context,
-                            setting.count_down,
+                           tvTimeAll.tag as Int,
                             object : TimePicker.TimeSetListener {
                                 override fun onSaveTime(time: Int) {
                                     tvTimeAll.text = time.getTimeFormat()
@@ -618,7 +616,7 @@ class MenuView(
                             },
                             true
                         )
-                    else timePicker?.show()
+                     timePicker.show()
                 }
             }
         }.create()

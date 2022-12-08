@@ -13,10 +13,11 @@ class TimePicker(context: Context,time:Int,onClickListener: TimeSetListener,with
     private var hour = 0
     private var minute = 0
     private var second = 0
+   private var bind:LayoutTimePickerBinding? = null
     init {
        val view =  LayoutInflater.from(context).inflate(R.layout.layout_time_picker,null)
         setView(view)
-        val bind = DataBindingUtil.bind<LayoutTimePickerBinding>(view)
+         bind = DataBindingUtil.bind<LayoutTimePickerBinding>(view)
         bind?.apply {
             btnCancel.setOnClickListener { dismiss() }
             btnSave.setOnClickListener{
@@ -68,5 +69,4 @@ class TimePicker(context: Context,time:Int,onClickListener: TimeSetListener,with
     interface TimeSetListener{
         fun onSaveTime(time: Int)
     }
-
 }
