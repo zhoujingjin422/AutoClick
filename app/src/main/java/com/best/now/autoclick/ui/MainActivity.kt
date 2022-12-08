@@ -134,12 +134,12 @@ class MainActivity : BaseVMActivity() {
             }
             ivSettingSingle.setOnClickListener {
                 //弹出单模式下的弹框进行设置
-//                if (isPurchased(this@MainActivity))
+                if (isPurchased(this@MainActivity))
                     showSettingSingleDialog()
             }
             ivSettingMulti.setOnClickListener {
                 //弹出多模式下的弹框进行设置
-//                if (isPurchased(this@MainActivity))
+                if (isPurchased(this@MainActivity))
                     showSettingMultiDialog()
             }
         }
@@ -391,7 +391,7 @@ class MainActivity : BaseVMActivity() {
 
     private var modelNow: String = ""
     private fun startWorkService(mode: String, btn: Button) {
-        if (/*isPurchased(this@MainActivity)*/true) {
+        if (isPurchased(this@MainActivity)) {
             //判断有没有权限
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (Settings.canDrawOverlays(this@MainActivity)) {
