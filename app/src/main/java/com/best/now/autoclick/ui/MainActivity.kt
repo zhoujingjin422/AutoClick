@@ -411,7 +411,7 @@ class MainActivity : BaseVMActivity() {
                             btn.setBackgroundResource(R.drawable.shape_button_disable)
                             btn.setTextColor(resources.getColor(R.color.c_eff2fe))
                             binding.ivCommonSetting.isEnabled = false
-                            if (mode== MULTIMODEL)
+                            if (MULTIMODEL == mode)
                             binding.ivSettingMulti.isEnabled = false
                             else
                             binding.ivSettingMulti.isEnabled = false
