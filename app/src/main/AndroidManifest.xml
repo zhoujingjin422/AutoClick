@@ -39,6 +39,8 @@
         <activity android:name=".ui.SubscribeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.WebPlayActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.WebPlayPianoActivity" android:screenOrientation="portrait"/>
     </application>
     <!--适配华为（huawei）刘海屏-->
     <meta-data

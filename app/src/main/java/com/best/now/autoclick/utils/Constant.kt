@@ -11,10 +11,11 @@ class Constant {
         const val MIX_PARAMETER = "msjd5=wwes6&qxfgj2=mhsk3&uisod0=mxqcu0"
         const val URL_PRIVACY_POLICY = "https://h73vhyaffj.feishu.cn/docx/WOBMdxa4noiH1Jx6LHdcoZhmnFc"
         const val URL_TERMS_OF_USE = "https://h73vhyaffj.feishu.cn/docx/YDz6dOsNKoXNLcx0m1CcFYdRnqg"
+        const val URL_TRADITIONAL = "http://metro.huknwcd.cn/jiepai/Metronome-a/metronome.html"
+        const val URL_DIGITAL = "http://metro.huknwcd.cn/jiepai/Metronome-a/pacer.html"
+        const val URL_PIANO = "http://metro.huknwcd.cn/jiepai/Metronome-a/piano.html"
         const val BUGLY_APP_ID = "8dd66077c2"
-        const val VIP_MONTH = "autoclicker_month"
-        const val VIP_HALF_YEAR = "autoclicker_halfyear"
-        const val VIP_YEAR = "autoclicker_year"
+        const val VIP_MONTH = "metronome_month"
 
         //测试id
         const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"

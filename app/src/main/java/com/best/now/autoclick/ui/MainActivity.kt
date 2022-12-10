@@ -12,6 +12,7 @@ import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityMainBinding
+import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.adParentList
 import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
@@ -60,18 +61,30 @@ class MainActivity : BaseVMActivity() {
             }
             flDigital.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
-
+                    WebPlayActivity.startActivity(
+                        this@MainActivity,
+                        "",
+                        Constant.URL_DIGITAL
+                    )
                 }
 
             }
             flTraditional.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
-
+                    WebPlayActivity.startActivity(
+                        this@MainActivity,
+                        "",
+                        Constant.URL_TRADITIONAL
+                    )
                 }
             }
             cdPiano.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
-
+                    WebPlayPianoActivity.startActivity(
+                        this@MainActivity,
+                        "",
+                        Constant.URL_PIANO
+                    )
                 }
             }
         }

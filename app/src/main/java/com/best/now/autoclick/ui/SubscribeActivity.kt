@@ -23,7 +23,6 @@ date:2022/11/19
  */
 class SubscribeActivity:BaseVMActivity() {
     private val binding by binding<ActivitySubscribeBinding>(R.layout.activity_subscribe)
-    private var type = 0
     lateinit var billingClient: BillingClient
     var skuDetailsList = arrayListOf<SkuDetails>()
     lateinit var purchasesUpdatedListener: PurchasesUpdatedListener
@@ -205,14 +204,7 @@ class SubscribeActivity:BaseVMActivity() {
             querySku(true)
         } else {
 
-            var vipID =
-                when (type) {
-                    0 -> Constant.VIP_MONTH
-                    1 -> Constant.VIP_HALF_YEAR
-                    2 -> Constant.VIP_YEAR
-
-                    else -> ""
-                }
+            var vipID =Constant.VIP_MONTH
 
             var skuDetails: SkuDetails? = null
             for (temp in skuDetailsList) {
@@ -242,8 +234,6 @@ class SubscribeActivity:BaseVMActivity() {
         //通过调用querySkuDetailsAsync（）检索“skuDetails”的值。
         val skuList: MutableList<String> = ArrayList()
         skuList.add(Constant.VIP_MONTH)
-        skuList.add(Constant.VIP_HALF_YEAR)
-        skuList.add(Constant.VIP_YEAR)
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
         billingClient.querySkuDetailsAsync(params.build(),
