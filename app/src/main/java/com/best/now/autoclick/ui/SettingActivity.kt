@@ -41,17 +41,15 @@ class SettingActivity:BaseVMActivity() {
 
     private fun setUiState() {
         if (!MainActivity.purchased){
-            binding.ivVipCenter.visibility = View.VISIBLE
+            binding.ivVip.visibility = View.VISIBLE
             binding.btnGetVip.visibility = View.VISIBLE
             binding.llText.visibility = View.GONE
-            binding.ivVipRight.visibility = View.GONE
             binding.btnGetVip.setOnClickListener {
                 startActivity(Intent(this@SettingActivity,SubscribeActivity::class.java))
             }
         }else{
             binding.llText.visibility = View.VISIBLE
-            binding.ivVipRight.visibility = View.VISIBLE
-            binding.ivVipCenter.visibility = View.GONE
+            binding.ivVip.visibility = View.GONE
             binding.btnGetVip.visibility = View.GONE
             var time = 0L
             if (MainActivity.productId.contains(Constant.VIP_MONTH)) {

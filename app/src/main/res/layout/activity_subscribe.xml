@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:src="@mipmap/icon_close"/>
         <TextView
             android:id="@+id/tv_sub_title"
@@ -32,37 +33,27 @@
             app:layout_constraintTop_toTopOf="@id/iv_close"
             app:layout_constraintBottom_toBottomOf="@id/iv_close"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Resume Purchase"
+            android:text="Restore Purchase"
             android:layout_marginStart="23dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:background="@drawable/text_shape"/>
-        <ImageView
-            android:id="@+id/iv_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/sub_top_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
-            android:layout_marginTop="13dp"
-            android:layout_marginStart="20dp"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_word"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="9dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_back"
+            android:layout_marginTop="-26dp"
             app:cardElevation="2dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="20dp"
             app:cardBackgroundColor="@color/white">
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -71,103 +62,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="17dp">
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_hand"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="15sp"
-                                android:layout_marginTop="3dp"
-                                android:text="Easy to use"
-                                android:textColor="@color/black"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_mult"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="15sp"
-                                android:text="Multitarget mode"
-                                android:layout_marginTop="3dp"
-                                android:textColor="@color/black"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_swipe"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="15sp"
-                                android:text="Support swipe"
-                                android:layout_marginTop="3dp"
-                                android:textColor="@color/black"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/f4f4f4"
-                        app:cardCornerRadius="8dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="16dp"
-                        app:contentPadding="14dp">
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_women"
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:scaleType="centerCrop"
-                                android:src="@mipmap/icon_women"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="29dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="16dp">
+
                             <LinearLayout
                                 android:id="@+id/ll_women"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:layout_marginStart="16dp"
-                                android:gravity="center_vertical"
-                                android:layout_toEndOf="@id/iv_women">
+                                android:gravity="center_vertical">
+                                <ImageView
+                                    android:id="@+id/iv_women"
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@mipmap/icon_women"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
-                                    android:textSize="15sp"
-                                    android:text="Tomi"/>
+                                    android:textSize="14sp"
+                                    android:layout_marginStart="12dp"
+                                    android:text="lucy"/>
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -180,65 +102,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/ll_women"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginTop="9dp"
-                                android:textColor="@color/black"
-                                android:textSize="10sp"
-                                android:layout_toEndOf="@id/iv_women"
-                                android:text="This app support single click,multiple click,and auto scroll.wonderful!" />
+                                android:textColor="#666666"
+                                android:textSize="14sp"
+                                android:text="It's really good. It's very convenient to use. The metronome and pacemaker are excellent. I recommend you to use~" />
                         </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/f4f4f4"
-                        app:cardCornerRadius="8dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
-                        app:contentPadding="14dp">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_man"
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:scaleType="centerCrop"
-                                android:src="@mipmap/icon_man"/>
-                            <LinearLayout
-                                android:id="@+id/ll_man"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginStart="16dp"
-                                android:gravity="center_vertical"
-                                android:layout_toEndOf="@id/iv_man">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    android:textSize="15sp"
-                                    android:text="Tomi"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_star"
-                                    android:layout_marginStart="10dp"/>
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/ll_man"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="9dp"
-                                android:textSize="10sp"
-                                android:layout_toEndOf="@id/iv_man"
-                                android:text="STEADY AND EASY!! LOVE THIS APP!"
-                                android:textColor="@color/black" />
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -247,305 +114,58 @@
                         android:layout_marginTop="15dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/icon_offer"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/detail_iamge"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_gravity="center_horizontal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Please choose a VIP"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="22dp"
-                        android:layout_marginTop="14dp"/>
-                    <LinearLayout
+                        android:textSize="18sp"
+                        android:textColor="#000000"
+                        android:layout_marginTop="22dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Try us for 7 days-free!"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#99000000"
+                        android:layout_marginTop="6dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="No commitment. Cancel anytime."/>
+
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
-                        <RelativeLayout
-                            android:id="@+id/rl_1_month"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/shape_selector"
-                            android:checked="true"
-                            android:layout_marginStart="23dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/shape_button_blue"
-                                android:text="Only $0.33/day"
-                                android:paddingStart="3dp"
-                                android:paddingEnd="3dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:textColor="@color/white"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:id="@+id/tv_1_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="36dp"
-                                android:text="1 Month"
-                                android:textColor="@color/tv_text_1month_selector"
-                                android:textSize="12sp" />
-                            <LinearLayout
-                                android:id="@+id/ll_1_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_below="@id/tv_1_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_1_month_price"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_1_month_price_99"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="9.9"
-                                    android:textSize="18sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/ll_1_month_no"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="22dp"
-                                android:layout_below="@id/ll_1_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_1_month_price_no"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_1_month_price_299"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="29.9"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                            </LinearLayout>
-
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/rl_6_month"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/shape_selector"
-                            android:checked="true"
-                            android:layout_marginStart="23dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/shape_button_blue"
-                                android:text="Most Popular"
-                                android:textColor="@color/white"
-                                android:paddingStart="3dp"
-                                android:paddingEnd="3dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:textSize="10sp" />
-                            <TextView
-                                android:id="@+id/tv_6_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="36dp"
-                                android:text="6 Month"
-                                android:textSize="12sp"
-                                android:textColor="@color/tv_text_1month_selector"/>
-                            <LinearLayout
-                                android:id="@+id/ll_6_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_below="@id/tv_6_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_6_month_price"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_6_month_price_199"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="19.9"
-                                    android:textSize="18sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/ll_6_month_no"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="22dp"
-                                android:layout_below="@id/ll_6_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_6_month_price_no"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_6_month_price_399"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="39.9"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                            </LinearLayout>
-
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/rl_12_month"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/shape_selector"
-                            android:checked="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="23dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Most Cost-effective"
-                                android:textSize="10sp"
-                                android:paddingStart="3dp"
-                                android:paddingEnd="3dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:textColor="@color/white"
-                                android:background="@drawable/shape_button_blue"/>
-                            <TextView
-                                android:id="@+id/tv_12_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="36dp"
-                                android:text="12 Month"
-                                android:textSize="12sp"
-                                android:textColor="@color/tv_text_1month_selector"/>
-                            <LinearLayout
-                                android:id="@+id/ll_12_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_below="@id/tv_12_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_12_month_price"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_12_month_price_299"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="29.9"
-                                    android:textSize="18sp"
-                                    android:textColor="@color/tv_text_1month_selector"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/ll_12_month_no"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="22dp"
-                                android:layout_below="@id/ll_12_month"
-
-                                >
-                                <TextView
-                                    android:id="@+id/tv_12_month_price_no"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="$"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                                <TextView
-                                    android:id="@+id/tv_12_month_price_499"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="6dp"
-                                    android:text="49.9"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/tv_text_1month_no_selector"/>
-                            </LinearLayout>
-
-                        </RelativeLayout>
-                    </LinearLayout>
-                    <Button
-                        android:id="@+id/btn_get"
-                        android:layout_width="match_parent"
-                        android:layout_height="47dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="30dp"
-                        android:text="Get it now"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAllCaps="false"
-                        android:gravity="center"
-                        android:background="@drawable/shape_button_click"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_marginTop="12dp">
+                        <TextView
+                            android:id="@+id/btn_get"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:text="Start Free Trial"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textAllCaps="false"
+                            android:gravity="center"
+                            android:background="@drawable/shape_button_next"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_next"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="24dp"/>
+                    </FrameLayout>
+
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </androidx.cardview.widget.CardView>

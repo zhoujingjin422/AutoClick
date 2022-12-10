@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:name=".AutoClickApplication"
-        android:isAccessibilityTool = "true"
         android:theme="@style/Theme.AutoClick">
 <!--        测试-->
         <meta-data
@@ -25,16 +24,7 @@
 <!--        正式-->
 <!--        <meta-data-->
 <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="ca-app-pub-4579422483792864~5223106827" />-->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+<!--            android:value="ca-app-pub-4579422483792864~1416323794" />-->
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/start_theme"
@@ -47,23 +37,8 @@
         <activity android:name=".ui.GuideActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.MainActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.SubscribeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SingleInstructionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MultiInstructionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.TutorialActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.CommonSettingActivity" android:screenOrientation="portrait"/>
-        <service
-            android:name=".WorkService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility"/>
-        </service>
     </application>
     <!--适配华为（huawei）刘海屏-->
     <meta-data

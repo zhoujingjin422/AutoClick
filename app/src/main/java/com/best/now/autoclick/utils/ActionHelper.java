@@ -25,9 +25,9 @@ public class ActionHelper {
                 .params("sub_type", Constant.APP_PARAMETER)
                 .params("key", key)
                 .params("event_time", TimeUtils.getNowString())
-                .params("remark", "")
-                .params("uid", "")
-                .params("version", "")
+                .params("remark", "/")
+                .params("uid", "/")
+                .params("version", "1.0.0")
                 .params("ip", NetworkUtils.getIPAddress(true))
                 .params("source", "Android")
                 .execute(new StringCallback() {

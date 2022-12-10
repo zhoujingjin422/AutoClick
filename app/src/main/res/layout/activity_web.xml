@@ -9,21 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/setting_parent_back"
         android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:background="@mipmap/toolbar_back"
-            android:layout_height="@dimen/status_bar_height" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@mipmap/icon_back"
-            android:background="@mipmap/toolbar_back"
+            android:layout_marginTop="@dimen/status_bar_height"
             app:title=""
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/black" />
         <WebView
             android:id="@+id/web_view"
             android:layout_width="match_parent"
