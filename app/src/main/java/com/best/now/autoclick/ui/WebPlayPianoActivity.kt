@@ -10,6 +10,7 @@ import com.best.now.autoclick.databinding.ActivityWebBinding
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
 import com.blankj.utilcode.util.LogUtils
+import com.gyf.immersionbar.ktx.immersionBar
 
 
 /*** 选择服务界面 */
@@ -24,6 +25,9 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
 
+    override fun initImmersionBar() {
+
+    }
     override fun initView() {
         binding.apply {
             webView.settings.apply {
@@ -42,7 +46,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        binding.webView.evaluateJavascript("javascript:window.android.backFn()") {
+        binding.webView.evaluateJavascript("javascript:window.android.backFn({})") {
             LogUtils.e("javascript$it")
         }
     }
