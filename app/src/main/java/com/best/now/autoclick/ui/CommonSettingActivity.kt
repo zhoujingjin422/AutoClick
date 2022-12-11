@@ -16,7 +16,7 @@ import com.best.now.autoclick.view.PointView
 class CommonSettingActivity:BaseVMActivity() {
     private val binding by binding<ActivityCommonSettingBinding>(R.layout.activity_common_setting)
     override fun initView() {
-        val view = PointView(this@CommonSettingActivity, bigWith = getSpValue("viewSize",60).dp.toInt(), withText = false)
+        val view = PointView(this@CommonSettingActivity, bigWith = getSpValue("viewSize",60).dp.toInt(), withText = true)
 
         binding.apply {
             sbView.progress = (getSpValue("viewSize",60)-20)*100/40

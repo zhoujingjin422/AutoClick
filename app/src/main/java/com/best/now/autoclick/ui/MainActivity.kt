@@ -85,7 +85,7 @@ class MainActivity : BaseVMActivity() {
                     binding.btnMulEnable.setTextColor(resources.getColor(R.color.white))
                     binding.btnMulEnable.text = "ENABLE"
                     binding.ivSettingMulti.isEnabled = true
-                    binding.ivSettingMulti.isEnabled = true
+                    binding.ivSettingSingle.isEnabled = true
                     binding.ivCommonSetting.isEnabled = true
                     binding.btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     binding.btnSingleEnable.setTextColor(resources.getColor(R.color.white))
@@ -134,12 +134,10 @@ class MainActivity : BaseVMActivity() {
             }
             ivSettingSingle.setOnClickListener {
                 //弹出单模式下的弹框进行设置
-                if (isPurchased(this@MainActivity))
                     showSettingSingleDialog()
             }
             ivSettingMulti.setOnClickListener {
                 //弹出多模式下的弹框进行设置
-                if (isPurchased(this@MainActivity))
                     showSettingMultiDialog()
             }
         }
@@ -404,7 +402,7 @@ class MainActivity : BaseVMActivity() {
                             btn.setBackgroundResource(R.drawable.shape_button_click)
                             btn.setTextColor(resources.getColor(R.color.white))
                             binding.ivSettingMulti.isEnabled = true
-                            binding.ivSettingMulti.isEnabled = true
+                            binding.ivSettingSingle.isEnabled = true
                             binding.ivCommonSetting.isEnabled = true
                             btn.text = "ENABLE"
                         } else {
@@ -414,7 +412,7 @@ class MainActivity : BaseVMActivity() {
                             if (MULTIMODEL == mode)
                             binding.ivSettingMulti.isEnabled = false
                             else
-                            binding.ivSettingMulti.isEnabled = false
+                            binding.ivSettingSingle.isEnabled = false
                             btn.text = "DISABLE"
                         }
                     } else {
