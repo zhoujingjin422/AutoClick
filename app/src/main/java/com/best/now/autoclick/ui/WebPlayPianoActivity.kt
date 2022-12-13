@@ -4,20 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.webkit.JavascriptInterface
-import android.webkit.ValueCallback
 import android.webkit.WebViewClient
 import com.best.now.autoclick.BaseVMActivity
-import com.best.now.autoclick.NOData
 import com.best.now.autoclick.R
-import com.best.now.autoclick.databinding.ActivityWebBinding
-import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
-import com.blankj.utilcode.util.LogUtils
-import com.gyf.immersionbar.ktx.immersionBar
 
 
 /*** 选择服务界面 */
-class WebPlayPianoActivity : BaseVMActivity(),JSInterface {
+class WebPlayPianoActivity : BaseVMActivity() {
     private val binding by binding<ActivityWebPlayPianoBinding>(R.layout.activity_web_play_piano)
     companion object {
         fun startActivity(activity: Activity, title: String, url: String) {
@@ -34,9 +28,22 @@ class WebPlayPianoActivity : BaseVMActivity(),JSInterface {
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
     override fun initView() {
         binding.apply {
-            webView.settings.javaScriptEnabled = true
-            webView.settings.javaScriptCanOpenWindowsAutomatically = true
-            webView.addJavascriptInterface(this,"android")
+            val webSettings = webView.settings
+            webSettings.javaScriptEnabled = true
+            webSettings.allowFileAccess = true
+            webSettings.allowFileAccessFromFileURLs = false
+            webSettings.allowUniversalAccessFromFileURLs = false
+            webSettings.builtInZoomControls = false
+
+            webSettings.useWideViewPort = true
+            webSettings.loadWithOverviewMode = true
+            webView.isHorizontalScrollBarEnabled = false
+            webView.isVerticalScrollBarEnabled = false
+            webSettings.domStorageEnabled = true
+            webSettings.blockNetworkImage = false
+            webSettings.javaScriptCanOpenWindowsAutomatically = true
+            webSettings.loadsImagesAutomatically = true
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"WebViewJavascriptBridge")
             webView.webViewClient = WebViewClient()
         }
     }
@@ -58,14 +65,10 @@ class WebPlayPianoActivity : BaseVMActivity(),JSInterface {
         }
     }
 
-    override fun backFn() {
-        onBackPressed()
-    }
-
-    class JSInterface{
+    class JavaScriptObject(private val activity: Activity) {
         @JavascriptInterface
-        public fun backFn(){
-
+        fun backFn(str:String) {
+            activity.finish()
         }
     }
 }
