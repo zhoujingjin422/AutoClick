@@ -43,7 +43,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
             webSettings.blockNetworkImage = false
             webSettings.javaScriptCanOpenWindowsAutomatically = true
             webSettings.loadsImagesAutomatically = true
-            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"WebViewJavascriptBridge")
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"android")
             webView.webViewClient = WebViewClient()
         }
     }

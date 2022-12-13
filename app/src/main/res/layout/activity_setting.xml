@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/setting_parent_back">
+        android:background="#100945">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,10 +43,10 @@
                     android:text="Get VIP"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#EE6D4A"
+                    android:textColor="#5A71F6"
                     android:background="@drawable/shape_button_get_vip"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="gone"/>
+                    android:layout_marginBottom="30dp"
+                    android:visibility="visible"/>
                 <ImageView
                     android:id="@+id/iv_vip"
                     android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:paddingStart="17dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tv_date"

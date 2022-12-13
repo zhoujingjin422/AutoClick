@@ -59,7 +59,7 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            flDigital.setOnClickListener {
+            ivDigital.setOnClickListener {
                 /*if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
@@ -73,7 +73,7 @@ class MainActivity : BaseVMActivity() {
                     Constant.URL_DIGITAL
                 )
             }
-            flTraditional.setOnClickListener {
+            ivTraditional.setOnClickListener {
               /*  if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
@@ -87,7 +87,7 @@ class MainActivity : BaseVMActivity() {
                     Constant.URL_TRADITIONAL
                 )
             }
-            cdPiano.setOnClickListener {
+            tvStart.setOnClickListener {
                 /*if (isPurchased(this@MainActivity)){
                     WebPlayPianoActivity.startActivity(
                         this@MainActivity,

@@ -24,7 +24,7 @@
 <!--        正式-->
 <!--        <meta-data-->
 <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="ca-app-pub-4579422483792864~1416323794" />-->
+<!--            android:value="ca-app-pub-4579422483792864~4923080690" />-->
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/start_theme"
