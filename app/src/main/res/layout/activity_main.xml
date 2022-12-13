@@ -28,9 +28,8 @@
     android:src="@mipmap/icon_my_setting"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:padding="8dp"
-    android:layout_marginTop="@dimen/status_bar_height"
-    android:layout_marginEnd="8dp"/>
+    android:padding="16dp"
+    android:layout_marginTop="@dimen/status_bar_height"/>
 
           <ScrollView
                 android:layout_width="match_parent"
