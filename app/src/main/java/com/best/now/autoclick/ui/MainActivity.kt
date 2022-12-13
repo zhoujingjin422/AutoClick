@@ -51,7 +51,7 @@ import com.google.android.gms.ads.RequestConfiguration
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = false
+        var purchased = true
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -102,11 +102,6 @@ class MainActivity : BaseVMActivity() {
             btnSingleEnable.setOnClickListener {
                 if (modelNow != SINGLEMODEL) {
                     startWorkService(SINGLEMODEL, btnSingleEnable)
-                    btnMulEnable.setBackgroundResource(R.drawable.shape_button_click)
-                    btnMulEnable.setTextColor(resources.getColor(R.color.white))
-                    ivSettingSingle.isEnabled = false
-                    ivCommonSetting.isEnabled = false
-                    btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnSingleEnable)
 
             }
@@ -116,11 +111,6 @@ class MainActivity : BaseVMActivity() {
             btnMulEnable.setOnClickListener {
                 if (modelNow != MULTIMODEL) {
                     startWorkService(MULTIMODEL, btnMulEnable)
-                    btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
-                    btnSingleEnable.setTextColor(resources.getColor(R.color.white))
-                    ivSettingMulti.isEnabled = false
-                    ivCommonSetting.isEnabled = false
-                    btnMulEnable.text = "ENABLE"
                 } else startWorkService(DISABLEMODEL, btnMulEnable)
             }
             llSingleInstruction.setOnClickListener {
@@ -409,10 +399,14 @@ class MainActivity : BaseVMActivity() {
                             btn.setBackgroundResource(R.drawable.shape_button_disable)
                             btn.setTextColor(resources.getColor(R.color.c_eff2fe))
                             binding.ivCommonSetting.isEnabled = false
-                            if (MULTIMODEL == mode)
-                            binding.ivSettingMulti.isEnabled = false
-                            else
-                            binding.ivSettingSingle.isEnabled = false
+                            if (MULTIMODEL == mode){
+                                binding.ivSettingMulti.isEnabled = false
+                                binding.ivSettingMulti.setTextColor(resources.getColor(R.color.disable_color))
+                            }
+                            else{
+                                binding.ivSettingSingle.isEnabled = false
+                                binding.ivSettingSingle.setTextColor(resources.getColor(R.color.disable_color))
+                            }
                             btn.text = "DISABLE"
                         }
                     } else {
