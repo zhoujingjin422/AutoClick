@@ -1,6 +1,9 @@
 package com.best.now.autoclick
 
 import android.app.Application
+import android.content.Context
+import android.content.MutableContextWrapper
+import android.webkit.WebView
 import com.best.now.autoclick.utils.AppOpenManager
 import com.best.now.autoclick.utils.loadInterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -12,6 +15,7 @@ import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.HttpParams
 import okhttp3.OkHttpClient
+import java.util.Queue
 
 /**
 author:zhoujingjin
