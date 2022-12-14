@@ -22,12 +22,15 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
 
-    override fun initImmersionBar() {
 
-    }
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
     override fun initView() {
         binding.apply {
+            toolBar.title = intent.getStringExtra("Title")
+            setSupportActionBar(toolBar)
+            toolBar.setNavigationOnClickListener {
+                onBackPressed()
+            }
             val webSettings = webView.settings
             webSettings.javaScriptEnabled = true
             webSettings.allowFileAccess = true

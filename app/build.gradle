@@ -10,7 +10,7 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.piano.max"
+        applicationId "com.translator.max"
         minSdk 21
         targetSdk 32
         versionCode 1

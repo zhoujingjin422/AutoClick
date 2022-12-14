@@ -59,7 +59,7 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            ivDigital.setOnClickListener {
+            ivText.setOnClickListener {
                 /*if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
@@ -69,11 +69,11 @@ class MainActivity : BaseVMActivity() {
                 }*/
                 WebPlayActivity.startActivity(
                     this@MainActivity,
-                    "",
-                    Constant.URL_DIGITAL
+                    "Text Translation",
+                    Constant.URL_TRADITIONAL
                 )
             }
-            ivTraditional.setOnClickListener {
+            ivVoice.setOnClickListener {
               /*  if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
@@ -83,11 +83,11 @@ class MainActivity : BaseVMActivity() {
                 }*/
                 WebPlayActivity.startActivity(
                     this@MainActivity,
-                    "",
-                    Constant.URL_TRADITIONAL
+                    "Voice Translation",
+                    Constant.URL_DIGITAL
                 )
             }
-            tvStart.setOnClickListener {
+            ivCamera.setOnClickListener {
                 /*if (isPurchased(this@MainActivity)){
                     WebPlayPianoActivity.startActivity(
                         this@MainActivity,
@@ -97,7 +97,7 @@ class MainActivity : BaseVMActivity() {
                 }*/
                 WebPlayPianoActivity.startActivity(
                     this@MainActivity,
-                    "",
+                    "Camera Translation",
                     Constant.URL_PIANO
                 )
             }

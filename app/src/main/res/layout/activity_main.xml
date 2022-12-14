@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,74 +8,103 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_back"
-        tools:context=".ui.MainActivity">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"
+            android:src="@drawable/sub_top_back"
+            android:scaleType="centerCrop"/>
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/icon_my_setting"/>
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_setting"
+            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Resume Purchase"
+            android:layout_marginStart="23dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:visibility="invisible"
-            android:background="@drawable/main_top_back" />
-<ImageView
-    android:id="@+id/iv_setting"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@mipmap/icon_my_setting"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:padding="16dp"
-    android:layout_marginTop="@dimen/status_bar_height"/>
-
-          <ScrollView
+            android:background="@drawable/text_shape"/>
+        <ImageView
+            android:id="@+id/iv_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sub_top_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="20dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_word"
+            app:layout_constraintBottom_toBottomOf="@id/adv_banner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/white">
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-              android:layout_marginTop="380dp">
+                android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_start"
-                        android:layout_width="190dp"
-                        android:layout_height="45dp"
-                        android:text="Click to start"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:layout_gravity="center_horizontal"
-                        android:textAllCaps="false"
-                        android:gravity="center"
-                        android:background="@drawable/shape_button_next"/>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="34dp"
-    android:layout_gravity="center_horizontal">
-    <ImageView
-        android:id="@+id/iv_traditional"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/traditional"/>
-    <ImageView
-        android:id="@+id/iv_digital"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/digital"
-        android:layout_marginStart="15dp"/>
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/iv_text"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="23dp"
+                    android:scaleType="fitXY"/>
+                <ImageView
+                    android:id="@+id/iv_voice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/iv_voice"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="23dp"
+                    android:scaleType="fitXY"/>
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/iv_camera"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="23dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginBottom="20dp"/>
                 </LinearLayout>
-            </ScrollView>
-
-
+            </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:id="@+id/adv_banner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="14dp"
             android:background="#F2F4FE"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"

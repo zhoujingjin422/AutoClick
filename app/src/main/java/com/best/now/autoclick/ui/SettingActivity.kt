@@ -34,7 +34,6 @@ class SettingActivity:BaseVMActivity() {
                     Constant.URL_TERMS_OF_USE
                 )
             }
-            toolBar.title = ""
             setSupportActionBar(toolBar)
             toolBar.setNavigationOnClickListener { finish() }
         }

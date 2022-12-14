@@ -26,7 +26,7 @@ class WebPlayActivity : BaseVMActivity() {
 
     override fun initView() {
         binding.apply {
-            toolBar.title = ""
+            toolBar.title = intent.getStringExtra("Title")
             setSupportActionBar(toolBar)
             toolBar.setNavigationOnClickListener {
                 onBackPressed()
