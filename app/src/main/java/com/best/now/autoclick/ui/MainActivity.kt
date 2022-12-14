@@ -78,6 +78,12 @@ class MainActivity : BaseVMActivity() {
                 }
                 2 -> {
                     BusUtils.post(BUS_TAG_UPDATE_PURCHASE_STATE)
+                    binding.ivSettingMulti.isEnabled = true
+                    binding.ivSettingSingle.isEnabled = true
+                    binding.ivCommonSetting.isEnabled = true
+                    binding.ivSettingSingle.setTextColor(resources.getColor(R.color.c_616780))
+                    binding.ivSettingMulti.setTextColor(resources.getColor(R.color.c_616780))
+
                     updateAdView()
                 }
                 3 -> {
