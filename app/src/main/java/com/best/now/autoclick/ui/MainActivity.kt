@@ -87,6 +87,8 @@ class MainActivity : BaseVMActivity() {
                     binding.ivSettingMulti.isEnabled = true
                     binding.ivSettingSingle.isEnabled = true
                     binding.ivCommonSetting.isEnabled = true
+                    binding.ivSettingSingle.setTextColor(resources.getColor(R.color.c_616780))
+                    binding.ivSettingMulti.setTextColor(resources.getColor(R.color.c_616780))
                     binding.btnSingleEnable.setBackgroundResource(R.drawable.shape_button_click)
                     binding.btnSingleEnable.setTextColor(resources.getColor(R.color.white))
                     binding.btnSingleEnable.text = "ENABLE"
@@ -393,6 +395,8 @@ class MainActivity : BaseVMActivity() {
                             btn.setTextColor(resources.getColor(R.color.white))
                             binding.ivSettingMulti.isEnabled = true
                             binding.ivSettingSingle.isEnabled = true
+                            binding.ivSettingSingle.setTextColor(resources.getColor(R.color.c_616780))
+                            binding.ivSettingMulti.setTextColor(resources.getColor(R.color.c_616780))
                             binding.ivCommonSetting.isEnabled = true
                             btn.text = "ENABLE"
                         } else {
