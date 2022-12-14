@@ -2,11 +2,11 @@ package com.best.now.autoclick.ui
 
 import android.content.Intent
 import android.view.View
+import com.android.billingclient.api.Purchase
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivitySettingBinding
 import com.best.now.autoclick.utils.Constant
-import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.TimeUtils
@@ -61,6 +61,16 @@ class SettingActivity:BaseVMActivity() {
         }
 
     }
+    private fun setUiStateSelf(purchaseTime: Long) {
+        binding.llText.visibility = View.VISIBLE
+        binding.ivVip.visibility = View.GONE
+        binding.btnGetVip.visibility = View.GONE
+        var time = 30 * 24 * 3600 * 1000L
+        binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
+            purchaseTime+ time,
+            "yyyy.MM.dd"
+        )}"
+    }
 
     override fun initData() {
         loadAd(binding.advBanner)
@@ -70,6 +80,10 @@ class SettingActivity:BaseVMActivity() {
     fun updateState() {
 //        isPurchased(this)
         setUiState()
+    }
+    @BusUtils.Bus(tag = MainActivity.BUS_TAG_BUY_STATE_PURCHASED)
+    fun purchase(purchase: Purchase) {
+        setUiStateSelf(purchase.purchaseTime)
     }
 
     override fun onStart() {

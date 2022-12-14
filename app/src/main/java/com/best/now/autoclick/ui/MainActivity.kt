@@ -23,7 +23,7 @@ import com.blankj.utilcode.util.LogUtils
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -60,46 +60,31 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             flDigital.setOnClickListener {
-                /*if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
                         "",
                         Constant.URL_DIGITAL
                     )
-                }*/
-                WebPlayActivity.startActivity(
-                    this@MainActivity,
-                    "",
-                    Constant.URL_DIGITAL
-                )
+                }
             }
             flTraditional.setOnClickListener {
-              /*  if (isPurchased(this@MainActivity)){
+               if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
                         "",
                         Constant.URL_TRADITIONAL
                     )
-                }*/
-                WebPlayActivity.startActivity(
-                    this@MainActivity,
-                    "",
-                    Constant.URL_TRADITIONAL
-                )
+                }
             }
             cdPiano.setOnClickListener {
-                /*if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     WebPlayPianoActivity.startActivity(
                         this@MainActivity,
                         "",
                         Constant.URL_PIANO
                     )
-                }*/
-                WebPlayPianoActivity.startActivity(
-                    this@MainActivity,
-                    "",
-                    Constant.URL_PIANO
-                )
+                }
             }
         }
     }
