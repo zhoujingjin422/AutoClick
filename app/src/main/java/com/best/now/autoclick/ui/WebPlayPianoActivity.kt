@@ -22,9 +22,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
 
-    override fun initImmersionBar() {
 
-    }
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
     override fun initView() {
         binding.apply {

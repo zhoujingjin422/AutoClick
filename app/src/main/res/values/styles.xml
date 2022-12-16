@@ -13,6 +13,11 @@
         <item name="windowActionBar">false</item>
         <item name="android:background">@drawable/start_page</item>
     </style>
+         <style name="web_piano_theme" parent="Theme.AppCompat.Light.NoActionBar">
+             <item name="android:windowNoTitle">true</item>
+             <item name="android:windowFullscreen">true</item>
+             <item name="windowActionBar">false</item>
+         </style>
     <style name="guide_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
