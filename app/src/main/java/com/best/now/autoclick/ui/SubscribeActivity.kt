@@ -112,7 +112,7 @@ class SubscribeActivity:BaseVMActivity() {
                     if (purchased) {
                         BusUtils.post(BUS_TAG_BUY_STATE_PURCHASED, temPurchase!!)
                         setResult(20001, Intent().apply {
-                            putExtra("time",temPurchase!!.purchaseTime)
+                            putExtra("time",purchaseTime)
                         })
                         finish()
                     }
@@ -156,11 +156,11 @@ class SubscribeActivity:BaseVMActivity() {
                 //处理消费操作的成功。
                 if (temPurchase != null) {
                     BusUtils.post(BUS_TAG_BUY_STATE_PURCHASED, temPurchase!!)
-                    setResult(20001, Intent().apply {
-                        putExtra("time",temPurchase!!.purchaseTime)
-                    })
                 }
                 ToastUtils.showShort("success")
+                setResult(20001, Intent().apply {
+                    putExtra("time",purchaseTime)
+                })
                 finish()
             } else {
                 ToastUtils.showShort(it.debugMessage)
@@ -169,7 +169,9 @@ class SubscribeActivity:BaseVMActivity() {
         binding.btnGet.setOnClickListener {
             buy()
         }
-        binding.ivClose.setOnClickListener { onBackPressed() }
+        binding.ivClose.setOnClickListener {
+            onBackPressed()
+        }
     }
     /*** 购买 */
     private fun buy() {
