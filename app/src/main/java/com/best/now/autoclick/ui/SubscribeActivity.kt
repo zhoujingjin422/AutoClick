@@ -1,5 +1,6 @@
 package com.best.now.autoclick.ui
 
+import android.content.Intent
 import android.graphics.Paint
 import android.os.Handler
 import android.os.Looper
@@ -193,6 +194,9 @@ class SubscribeActivity:BaseVMActivity() {
 
                     if (purchased) {
                         BusUtils.post(BUS_TAG_BUY_STATE_PURCHASED, temPurchase!!)
+                        setResult(20001, Intent().apply {
+                            putExtra("time",purchaseTime)
+                        })
                         finish()
                     }
                 } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
@@ -237,6 +241,9 @@ class SubscribeActivity:BaseVMActivity() {
                     BusUtils.post(BUS_TAG_BUY_STATE_PURCHASED, temPurchase!!)
                 }
                 ToastUtils.showShort("success")
+                setResult(20001, Intent().apply {
+                    putExtra("time",purchaseTime)
+                })
                 finish()
             } else {
                 ToastUtils.showShort(it.debugMessage)
