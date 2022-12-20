@@ -32,7 +32,7 @@
 <!--            android:value="ca-app-pub-4579422483792864~1477787563" />-->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
+            android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

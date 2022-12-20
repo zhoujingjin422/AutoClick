@@ -103,6 +103,8 @@ class WebPlayPianoActivity : BaseVMActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            uploadMessageAboveL?.onReceiveValue(null)
+            uploadMessageAboveL = null
         }
     }
 
@@ -145,10 +147,8 @@ class WebPlayPianoActivity : BaseVMActivity() {
             return
         }
         if (requestCode==112){
-            val uri  = data?.data
-            val arr = arrayOf<Uri>()
-            uri?.let {
-                arr.plus(uri)
+            mImageUri?.let {
+                val arr = arrayOf(it)
                 uploadMessageAboveL?.onReceiveValue(arr)
                 uploadMessageAboveL = null
             }

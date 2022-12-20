@@ -1,22 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- apk存放路径:getExternalCacheDir()/apk/xiaomaigui.apk -->
-    <external-path
-        name="external"
-        path="." />
-    <root-path
-        name="ext_sd_files"
-        path="" />
-    <files-path
-        name="int_files"
-        path="." />
-    <external-path
-        name="ext_files"
-        path="" />
-    <cache-path
-        name="cache_files"
-        path="" />
-    <external-files-path
-        name="ext_int_files"
-        path="" />
+<?xml version="1.0"?>
+
+    <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <paths>
+
+    <external-files-path path="Pictures" name="images"/>
+
+    <files-path path="files" name="files"/>
+
+    <cache-path path="files" name="cache"/>
+
+    <external-path path="files" name="external"/>
+
+    <external-files-path path="files" name="externalfiles"/>
+
+    <!-- 此标签需要 support 25.0.0以上才可以使用-->
+
+
+    <external-cache-path path="files" name="externalcache"/>
+
+    <external-path path="." name="camera_photos"/>
+
+    <external-cache-path path="my_images" name="Android/data/com.gs.common/files/Pictures/"/>
+
+    <external-cache-path path="images" name="Pictures/"/>
+
+    <external-cache-path path="dcim" name="DCIM/"/>
+
+    <files-path path="Android/data/com.example.package.name/files/Pictures/OriPicture/" name="images"/>
+
+    <external-path path="Android/data/com.example.package.name/files/Pictures/OriPicture/" name="images"/>
+
+    <external-files-path path="files/Pictures/OriPicture" name="images"/>
+
+    <root-path path="" name="images"/>
+
+    <root-path path="." name="root_path"/>
+
 </paths>
+
+</resources>
