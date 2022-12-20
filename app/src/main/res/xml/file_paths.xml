@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- apk存放路径:getExternalCacheDir()/apk/xiaomaigui.apk -->
+    <external-path
+        name="external"
+        path="." />
+    <root-path
+        name="ext_sd_files"
+        path="" />
+    <files-path
+        name="int_files"
+        path="." />
+    <external-path
+        name="ext_files"
+        path="" />
+    <cache-path
+        name="cache_files"
+        path="" />
+    <external-files-path
+        name="ext_int_files"
+        path="" />
+</paths>

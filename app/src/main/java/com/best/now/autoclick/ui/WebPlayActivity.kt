@@ -1,15 +1,11 @@
 package com.best.now.autoclick.ui
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.webkit.ValueCallback
 import android.webkit.WebViewClient
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
-import com.best.now.autoclick.databinding.ActivityWebBinding
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
-import com.blankj.utilcode.util.LogUtils
 
 
 /*** 选择服务界面 */
