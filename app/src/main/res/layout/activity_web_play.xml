@@ -19,10 +19,24 @@
             app:navigationIcon="@mipmap/icon_back"
             android:layout_marginTop="@dimen/status_bar_height"
             app:titleTextColor="@color/white"/>
-        <WebView
-            android:id="@+id/web_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+             <com.tencent.smtt.sdk.WebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="change url"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/shape_button_blue"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>

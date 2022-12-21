@@ -2,20 +2,28 @@ package com.best.now.autoclick.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.webkit.*
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
+import com.best.now.autoclick.databinding.InputLayoutBinding
+import com.tencent.smtt.sdk.WebView
+import com.tencent.smtt.sdk.WebViewClient
 import java.io.File
 
 
@@ -31,7 +39,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
 
-
+    private var dialog:AlertDialog?= null
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
     override fun initView() {
         binding.apply {
@@ -40,6 +48,39 @@ class WebPlayPianoActivity : BaseVMActivity() {
             toolBar.setNavigationOnClickListener {
                 onBackPressed()
             }
+            tvChange.setOnClickListener {
+                dialog = AlertDialog.Builder(this@WebPlayPianoActivity).apply {
+                    val input =  LayoutInflater.from(this@WebPlayPianoActivity).inflate(R.layout.input_layout,null)
+                    setView(input)
+                    val bind  = DataBindingUtil.bind<InputLayoutBinding>(input)
+                    bind?.etUrl?.setText(url)
+                    bind?.etUrl?.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        }
+
+                        override fun afterTextChanged(p0: Editable?) {
+                        }
+                    })
+                    bind?.tvCancel?.setOnClickListener {
+                        dialog?.dismiss()
+                    }
+                    bind?.tvOk?.setOnClickListener {
+                        url = bind.etUrl.text.toString()
+                        webView.loadUrl(url!!)
+                        dialog?.dismiss()
+                    }
+                }.create()
+                dialog?.show()
+            }
             webView.settings.apply {
                 useWideViewPort = true
                 loadWithOverviewMode = true
@@ -47,17 +88,24 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 defaultTextEncodingName = "UTF-8"
                 allowFileAccess = true
                 allowContentAccess = true
-                allowFileAccessFromFileURLs = false
-                allowUniversalAccessFromFileURLs = false
                 javaScriptEnabled = true
             }
 //            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"android")
             webView.webViewClient = WebViewClient()
-            webView.webChromeClient = object : WebChromeClient(){
+            webView.webChromeClient = object : com.tencent.smtt.sdk.WebChromeClient(){
+//                override fun onShowFileChooser(
+//                    webView: WebView?,
+//                    filePathCallback: ValueCallback<Array<Uri>>?,
+//                    fileChooserParams: FileChooserParams?
+//                ): Boolean {
+//                    uploadMessageAboveL = filePathCallback
+//                    takePic()
+//                    return true
+//                }
                 override fun onShowFileChooser(
-                    webView: WebView?,
-                    filePathCallback: ValueCallback<Array<Uri>>?,
-                    fileChooserParams: FileChooserParams?
+                    p0: WebView?,
+                    filePathCallback: com.tencent.smtt.sdk.ValueCallback<Array<Uri>>?,
+                    p2: FileChooserParams?
                 ): Boolean {
                     uploadMessageAboveL = filePathCallback
                     takePic()
@@ -67,6 +115,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
     private var mImageUri: Uri? = null
+    private var url :String?= null
 
     /**
      * 拍照
@@ -121,7 +170,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
         }
     }
     override fun initData() {
-        val url = intent.getStringExtra("Url")
+         url = intent.getStringExtra("Url")
         url?.let {
             binding.webView.loadUrl(it)
         }

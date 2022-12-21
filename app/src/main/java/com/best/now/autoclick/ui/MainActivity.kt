@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
+import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.utils.Constant
@@ -26,7 +27,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = false
+        var purchased = BuildConfig.DEBUG
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
