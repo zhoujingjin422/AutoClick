@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Take Photo"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#33333F" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/tv_choose_photo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Choose from Album"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#33333F" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Cancel"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#B0B0BD" />
+    </LinearLayout>
+</layout>

@@ -2,22 +2,31 @@ package com.best.now.autoclick.ui
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
+import android.webkit.JavascriptInterface
 import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
+import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
+import com.best.now.autoclick.bean.DataBean
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
+import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.tencent.smtt.export.external.interfaces.PermissionRequest
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
+import java.util.*
 
 
 /*** 选择服务界面 */
@@ -33,13 +42,20 @@ class WebPlayActivity : BaseVMActivity() {
     }
 
     private var dialog:AlertDialog?= null
+    private lateinit var speech:TextToSpeech
     override fun initView() {
+         speech = TextToSpeech(this){
+             if(it == TextToSpeech.SUCCESS){
+                 speech.language = Locale.ENGLISH
+             }
+         }
         binding.apply {
             toolBar.title = intent.getStringExtra("Title")
             setSupportActionBar(toolBar)
             toolBar.setNavigationOnClickListener {
                 onBackPressed()
             }
+
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
                    val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
@@ -73,9 +89,17 @@ class WebPlayActivity : BaseVMActivity() {
                 }.create()
                 dialog?.show()
             }
+            tvChange.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
             webView.settings.apply {
+                useWideViewPort = true
+                loadWithOverviewMode = true
+                domStorageEnabled = true
+                defaultTextEncodingName = "UTF-8"
+                allowFileAccess = true
+                allowContentAccess = true
                 javaScriptEnabled = true
             }
+            webView.addJavascriptInterface(JavaScriptObject(speech),"android")
             webView.webViewClient = com.tencent.smtt.sdk.WebViewClient()
             webView.webChromeClient = object :WebChromeClient(){
                 override fun onShowFileChooser(
@@ -105,10 +129,37 @@ class WebPlayActivity : BaseVMActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        speech.stop()
+        speech.shutdown()
         binding.webView.apply {
             stopLoading()
             clearView()
             destroy()
+        }
+    }
+    class JavaScriptObject(private val speech: TextToSpeech) {
+        private val map = mutableMapOf(
+            "en" to Locale.ENGLISH,
+            "us" to Locale.US,
+            "fr" to Locale.FRENCH,
+            "de" to Locale.GERMANY,
+            "jp" to Locale.JAPAN,
+            "ko" to Locale.KOREA,
+            "it" to Locale.ITALIAN
+        )
+        @JavascriptInterface
+        fun speek(str:String?) {
+            val dataBean = GsonUtils.fromJson(str,DataBean::class.java)
+            val language = map[dataBean.language]
+            if (language!=null){
+                val result  = speech.setLanguage(language)
+                if (result == TextToSpeech.LANG_MISSING_DATA ||
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    //语言数据丢失或不支持该语言。
+                    speech.language = Locale.ENGLISH
+                }
+            }
+            speech.speak(dataBean.content,TextToSpeech.QUEUE_FLUSH,null)
         }
     }
 

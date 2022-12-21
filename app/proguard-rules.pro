@@ -146,6 +146,7 @@
 
 ##---------------End: proguard configuration for Gson  ----------
 -keep class com.best.now.autoclick.view*
+-keep class com.best.now.autoclick.bean*
 
  #实体类不参与混淆
 -keep class * implements android.os.Parcelable {

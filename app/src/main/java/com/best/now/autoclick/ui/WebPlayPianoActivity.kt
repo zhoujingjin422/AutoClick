@@ -13,6 +13,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.webkit.*
 import android.widget.Toast
 import androidx.core.content.FileProvider
@@ -22,6 +23,7 @@ import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
+import com.best.now.autoclick.databinding.LayoutChooseBinding
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import java.io.File
@@ -48,6 +50,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
             toolBar.setNavigationOnClickListener {
                 onBackPressed()
             }
+
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayPianoActivity).apply {
                     val input =  LayoutInflater.from(this@WebPlayPianoActivity).inflate(R.layout.input_layout,null)
@@ -81,6 +84,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 }.create()
                 dialog?.show()
             }
+            tvChange.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
             webView.settings.apply {
                 useWideViewPort = true
                 loadWithOverviewMode = true
@@ -108,19 +112,49 @@ class WebPlayPianoActivity : BaseVMActivity() {
                     p2: FileChooserParams?
                 ): Boolean {
                     uploadMessageAboveL = filePathCallback
-                    takePic()
+                    showPicDialog()
                     return true
                 }
             }
         }
     }
+    private var dialogChoose:AlertDialog? = null
+    private fun showPicDialog(){
+        dialogChoose = AlertDialog.Builder(this).apply {
+            val view = LayoutInflater.from(this@WebPlayPianoActivity).inflate(R.layout.layout_choose,null)
+            setView(view)
+           val bind = DataBindingUtil.bind<LayoutChooseBinding>(view)
+            bind?.apply {
+                tvTakePhoto.setOnClickListener {
+                    takePic()
+                    dialogChoose?.dismiss()
+                }
+                tvChoosePhoto.setOnClickListener {
+                    openFileChooseProcess()
+                    dialogChoose?.dismiss()
+                }
+                tvCancel.setOnClickListener {
+                    uploadMessageAboveL?.onReceiveValue(null)
+                    uploadMessageAboveL = null
+                    dialogChoose?.dismiss()
+                }
+            }
+            setCancelable(false)
+        }.create()
+        dialogChoose?.show()
+    }
     private var mImageUri: Uri? = null
     private var url :String?= null
-
+    private fun openFileChooseProcess() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.addCategory(Intent.CATEGORY_OPENABLE)
+        i.type = "*/*"
+        startActivityForResult(Intent.createChooser(i, "test"), 101)
+    }
     /**
      * 拍照
      */
-    fun takePic() {
+   private fun takePic() {
         try {
             val state = Environment.getExternalStorageState()
             if (state == Environment.MEDIA_MOUNTED) {
@@ -146,7 +180,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
 //                cameraIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivityForResult(cameraIntent, 112)
             } else {
-                val toast = Toast.makeText(this, "请确认已经插入SD卡", Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(this, "no SD card", Toast.LENGTH_SHORT)
                 toast.setGravity(Gravity.CENTER, 0, 0)
                 toast.show()
             }
@@ -200,6 +234,20 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 val arr = arrayOf(it)
                 uploadMessageAboveL?.onReceiveValue(arr)
                 uploadMessageAboveL = null
+            }
+            if (mImageUri==null){
+                uploadMessageAboveL?.onReceiveValue(null)
+                uploadMessageAboveL = null
+            }
+        }else if (requestCode==101){
+            val uri = data?.data
+            uploadMessageAboveL = if (uri==null){
+                uploadMessageAboveL?.onReceiveValue(null)
+                null
+            }else{
+                val arr = arrayOf(uri)
+                uploadMessageAboveL?.onReceiveValue(arr)
+                null
             }
         }
 }
