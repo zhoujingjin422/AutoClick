@@ -63,7 +63,7 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            ivText.setOnClickListener {
+            flGo.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -82,43 +82,6 @@ class MainActivity : BaseVMActivity() {
 
 
             }
-            ivVoice.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "Voice Translation",
-                                    Constant.URL_DIGITAL
-                                )
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
-
-
-
-            }
-            ivCamera.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                WebPlayPianoActivity.startActivity(
-                                    this@MainActivity,
-                                    "Camera Translation",
-                                    Constant.URL_PIANO
-                                )
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
-
             }
         }
     }

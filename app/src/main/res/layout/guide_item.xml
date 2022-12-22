@@ -29,10 +29,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:text="Continue"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:background="@drawable/shape_button_next" />
             <ImageView
                 android:layout_width="wrap_content"
