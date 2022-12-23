@@ -99,7 +99,6 @@ class WebPlayActivity : BaseVMActivity() {
                 allowContentAccess = true
                 javaScriptEnabled = true
             }
-            webView.addJavascriptInterface(JavaScriptObject(speech),"android")
             webView.webViewClient = com.tencent.smtt.sdk.WebViewClient()
             webView.webChromeClient = object :WebChromeClient(){
                 override fun onShowFileChooser(
@@ -135,31 +134,6 @@ class WebPlayActivity : BaseVMActivity() {
             stopLoading()
             clearView()
             destroy()
-        }
-    }
-    class JavaScriptObject(private val speech: TextToSpeech) {
-        private val map = mutableMapOf(
-            "en" to Locale.ENGLISH,
-            "us" to Locale.US,
-            "fr" to Locale.FRENCH,
-            "de" to Locale.GERMANY,
-            "jp" to Locale.JAPAN,
-            "ko" to Locale.KOREA,
-            "it" to Locale.ITALIAN
-        )
-        @JavascriptInterface
-        fun speek(str:String?) {
-            val dataBean = GsonUtils.fromJson(str,DataBean::class.java)
-            val language = map[dataBean.language]
-            if (language!=null){
-                val result  = speech.setLanguage(language)
-                if (result == TextToSpeech.LANG_MISSING_DATA ||
-                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    //语言数据丢失或不支持该语言。
-                    speech.language = Locale.ENGLISH
-                }
-            }
-            speech.speak(dataBean.content,TextToSpeech.QUEUE_FLUSH,null)
         }
     }
 

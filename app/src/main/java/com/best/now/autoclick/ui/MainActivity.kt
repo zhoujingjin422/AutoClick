@@ -27,7 +27,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = /*BuildConfig.DEBUG*/true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -66,12 +66,12 @@ class MainActivity : BaseVMActivity() {
             flGo.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
-                        .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .permissions(Manifest.permission.RECORD_AUDIO,  Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
-                                    "Text Translation",
+                                    "Pet Translator",
                                     Constant.URL_TRADITIONAL
                                 )
                             } else {
@@ -84,7 +84,6 @@ class MainActivity : BaseVMActivity() {
             }
             }
         }
-    }
 
 
 
