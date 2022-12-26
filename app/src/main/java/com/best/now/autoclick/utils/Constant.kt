@@ -15,14 +15,15 @@ class Constant {
 //        const val URL_TRADITIONAL = "https://trans.biekqcv.cn/public/H5/fanyi/translator/text-translation.html"
 //        const val URL_PIANO = "https://www.ydl.cool/xx/photograph.html"
         const val VIP_MONTH = "pettranslator_month"
+        const val BUGLY_ID = "b94a00cc7b"
 
         //测试id
-        const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"
-        const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
-        const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
+//        const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"
+//        const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
+//        const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
         //正式id
-//    const val AD_BANNER_ID =  "ca-app-pub-4579422483792864/5480002942"
-//        const val  AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/2494746955"
-//        const val  AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/7643131855"
+    const val AD_BANNER_ID =  "ca-app-pub-4579422483792864/5480002942"
+        const val  AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/2494746955"
+        const val  AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/7643131855"
     }
 }

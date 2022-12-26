@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.MutableContextWrapper
 import android.webkit.WebView
 import com.best.now.autoclick.utils.AppOpenManager
+import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.loadInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.lzy.okgo.OkGo
@@ -14,6 +15,8 @@ import com.lzy.okgo.cookie.CookieJarImpl
 import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.HttpParams
+import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.smtt.sdk.QbSdk
 import okhttp3.OkHttpClient
 import java.util.Queue
 
@@ -28,11 +31,21 @@ class AutoClickApplication:Application() {
     override fun onCreate() {
         super.onCreate()
         initOkGo()
+        CrashReport.initCrashReport(applicationContext, Constant.BUGLY_ID, false);
         MobileAds.initialize(this) {
             loadInterstitialAd(this)
             appOpenManager?.fetchAd()
         }
         appOpenManager = AppOpenManager(this)
+        QbSdk.initX5Environment(this,  object :QbSdk.PreInitCallback {
+            override fun onCoreInitFinished() {
+
+            }
+
+            override fun onViewInitFinished(p0: Boolean) {
+            }
+
+        })
     }
     /*** 初始化OkGo */
     fun initOkGo() {

@@ -16,14 +16,6 @@ class SplashActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
-            finish()
-            return
-        }
-        if (!isTaskRoot) {
-            finish()
-            return
-        }
         //延迟两秒，判断是不是首次进入，首次进入到导航页，不是直接进首页
         findViewById<ConstraintLayout>(R.id.parent).postDelayed({
             if (getSpValue("First",true)){
