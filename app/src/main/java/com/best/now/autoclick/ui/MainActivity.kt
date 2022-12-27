@@ -27,7 +27,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = /*BuildConfig.DEBUG*/true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -64,7 +64,7 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             ivText.setOnClickListener {
-               /* if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request { allGranted, _, deniedList ->
@@ -78,24 +78,10 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }*/
-
-                PermissionX.init(this@MainActivity)
-                    .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request { allGranted, _, deniedList ->
-                        if (allGranted) {
-                            WebPlayActivity.startActivity(
-                                this@MainActivity,
-                                "Text Translation",
-                                Constant.URL_TRADITIONAL
-                            )
-                        } else {
-                            ToastUtils.showShort("These permissions are denied: $deniedList")
-                        }
-                    }
+                }
             }
             ivVoice.setOnClickListener {
-                /*if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request { allGranted, _, deniedList ->
@@ -109,25 +95,10 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }*/
-
-                PermissionX.init(this@MainActivity)
-                    .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request { allGranted, _, deniedList ->
-                        if (allGranted) {
-                            WebPlayActivity.startActivity(
-                                this@MainActivity,
-                                "Voice Translation",
-                                Constant.URL_DIGITAL
-                            )
-                        } else {
-                            ToastUtils.showShort("These permissions are denied: $deniedList")
-                        }
-                    }
-
+                }
             }
             ivCamera.setOnClickListener {
-               /* if (isPurchased(this@MainActivity)){
+               if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request { allGranted, _, deniedList ->
@@ -141,20 +112,7 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }*/
-                PermissionX.init(this@MainActivity)
-                    .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request { allGranted, _, deniedList ->
-                        if (allGranted) {
-                            WebPlayPianoActivity.startActivity(
-                                this@MainActivity,
-                                "Camera Translation",
-                                Constant.URL_PIANO
-                            )
-                        } else {
-                            ToastUtils.showShort("These permissions are denied: $deniedList")
-                        }
-                    }
+                }
             }
         }
     }
