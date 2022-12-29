@@ -51,7 +51,14 @@ class SettingActivity:BaseVMActivity() {
             binding.llText.visibility = View.VISIBLE
             binding.ivVip.visibility = View.GONE
             binding.btnGetVip.visibility = View.GONE
-            var time = 30 * 24 * 3600 * 1000L
+            var time = 0L
+            if (MainActivity.productId.contains(Constant.VIP_MONTH)) {
+                time = 30 * 24 * 3600 * 1000L
+            } else if (MainActivity.productId.contains(Constant.VIP_HALF_YEAR)) {
+                time = 6*30 * 24 * 3600 * 1000L
+            } else if (MainActivity.productId.contains(Constant.VIP_YEAR)) {
+                time = 365 * 24 * 3600 * 1000L
+            }
             binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
                 MainActivity.purchaseTime + time,
                 "yyyy.MM.dd"
@@ -64,7 +71,14 @@ class SettingActivity:BaseVMActivity() {
         binding.llText.visibility = View.VISIBLE
         binding.ivVip.visibility = View.GONE
         binding.btnGetVip.visibility = View.GONE
-        var time = 30 * 24 * 3600 * 1000L
+        var time = 0L
+        if (MainActivity.productId.contains(Constant.VIP_MONTH)) {
+            time = 30 * 24 * 3600 * 1000L
+        } else if (MainActivity.productId.contains(Constant.VIP_HALF_YEAR)) {
+            time = 6*30 * 24 * 3600 * 1000L
+        } else if (MainActivity.productId.contains(Constant.VIP_YEAR)) {
+            time = 365 * 24 * 3600 * 1000L
+        }
         binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
             purchaseTime+ time,
             "yyyy.MM.dd"
