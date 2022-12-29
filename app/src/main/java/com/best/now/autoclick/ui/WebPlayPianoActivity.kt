@@ -159,7 +159,11 @@ class WebPlayPianoActivity : BaseVMActivity() {
         val i = Intent(Intent.ACTION_GET_CONTENT)
         i.addCategory(Intent.CATEGORY_OPENABLE)
         i.type = "*/*"
-        startActivityForResult(Intent.createChooser(i, "test"), 101)
+        try {
+            startActivityForResult(Intent.createChooser(i, "test"), 101)
+        } catch (e: android.content.ActivityNotFoundException) {
+            ToastUtils.showShort("File management app not found, please install file management app and try again")
+        }
     }
     /**
      * 拍照
@@ -323,7 +327,16 @@ class WebPlayPianoActivity : BaseVMActivity() {
                         activity.contentResolver,
                         file.absolutePath, imageName, null
                     )
-                    ToastUtils.showShort("save to album success")
+                    val uriToImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                        FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, file)
+                    }else Uri.fromFile(file)
+                    val shareIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_STREAM, uriToImage)
+                        type = "image/png"
+                    }
+                    activity.startActivity(Intent.createChooser(shareIntent, "share"))
+
                 } catch (e: FileNotFoundException) {
                     ToastUtils.showShort("save to album failed")
                     e.printStackTrace()
@@ -332,7 +345,9 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 activity.sendBroadcast(
                     Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                        Uri.fromFile(File(file.path))
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                            FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, file)
+                        }else Uri.fromFile(file)
                     )
                 )
             }
