@@ -344,7 +344,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
                 //设置图片路径
                 values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-                val saveUri: Uri = getContentResolver().insert(
+                val saveUri = activity.contentResolver.insert(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     values
                 )
@@ -352,16 +352,19 @@ class WebPlayPianoActivity : BaseVMActivity() {
                     Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
                     return
                 }
-                val outputStream: OutputStream = getContentResolver().openOutputStream(saveUri)
-                //将位图写出到指定的位置
-                //第一个参数：格式JPEG 是可以压缩的一个格式 PNG 是一个无损的格式
-                //第二个参数：保留原图像90%的品质，压缩10% 这里压缩的是存储大小
-                //第三个参数：具体的输出流
-                if (attr.bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)) {
-                    Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
-                } else {
-                   Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+                saveUri?.let {
+                    val outputStream= activity.contentResolver.openOutputStream(saveUri)
+                    //将位图写出到指定的位置
+                    //第一个参数：格式JPEG 是可以压缩的一个格式 PNG 是一个无损的格式
+                    //第二个参数：保留原图像90%的品质，压缩10% 这里压缩的是存储大小
+                    //第三个参数：具体的输出流
+                    if (bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)) {
+                        Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+                    }
                 }
+
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
