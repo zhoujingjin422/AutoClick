@@ -1,5 +1,6 @@
 package com.best.now.autoclick.ui
 
+import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -13,6 +14,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -293,42 +295,76 @@ class WebPlayPianoActivity : BaseVMActivity() {
         private fun saveBitmap(imageName:String, activity: Context, bitmap: Bitmap) {
             //设置图片名称，要保存png，这里后缀就是png，要保存jpg，后缀就用jpg
             //Android Q  10为每个应用程序提供了一个独立的在外部存储设备的存储沙箱，没有其他应用可以直接访问您应用的沙盒文件
-            val f = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File(f?.path + "/" + imageName) //创建文件
-            //        file.getParentFile().mkdirs();
+//            val f = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//            val file = File(f?.path + "/" + imageName) //创建文件
+//            //        file.getParentFile().mkdirs();
+//            try {
+//                //文件输出流
+//                val fileOutputStream = FileOutputStream(file)
+//                //压缩图片，如果要保存png，就用Bitmap.CompressFormat.PNG，要保存jpg就用Bitmap.CompressFormat.JPEG,质量是100%，表示不压缩
+//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+//                //写入，这里会卡顿，因为图片较大
+//                fileOutputStream.flush()
+//                //记得要关闭写入流
+//                fileOutputStream.close()
+//            } catch (e: FileNotFoundException) {
+//                e.printStackTrace()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//            // 下面的步骤必须有，不然在相册里找不到图片，若不需要让用户知道你保存了图片，可以不写下面的代码。
+//            // 把文件插入到系统图库
+//            try {
+//                MediaStore.Images.Media.insertImage(
+//                    activity.contentResolver,
+//                    file.absolutePath, imageName, null
+//                )
+//                Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
+//            } catch (e: FileNotFoundException) {
+//                Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+//                e.printStackTrace()
+//            }
+//            //            // 最后通知图库更新
+//            activity.sendBroadcast(
+//                Intent(
+//                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+//                    Uri.fromFile(File(file.path))
+//                )
+//            )
             try {
-                //文件输出流
-                val fileOutputStream = FileOutputStream(file)
-                //压缩图片，如果要保存png，就用Bitmap.CompressFormat.PNG，要保存jpg就用Bitmap.CompressFormat.JPEG,质量是100%，表示不压缩
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
-                //写入，这里会卡顿，因为图片较大
-                fileOutputStream.flush()
-                //记得要关闭写入流
-                fileOutputStream.close()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
+                //获取要保存的图片的位图
+                //创建一个保存的Uri
+                val values = ContentValues()
+                //设置图片名称
+                values.put(
+                    MediaStore.Images.Media.DISPLAY_NAME,
+                    imageName
+                )
+                //设置图片格式
+                values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                //设置图片路径
+                values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                val saveUri: Uri = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values
+                )
+                if (TextUtils.isEmpty(saveUri.toString())) {
+                    Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                val outputStream: OutputStream = getContentResolver().openOutputStream(saveUri)
+                //将位图写出到指定的位置
+                //第一个参数：格式JPEG 是可以压缩的一个格式 PNG 是一个无损的格式
+                //第二个参数：保留原图像90%的品质，压缩10% 这里压缩的是存储大小
+                //第三个参数：具体的输出流
+                if (attr.bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)) {
+                    Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
+                } else {
+                   Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
-            // 下面的步骤必须有，不然在相册里找不到图片，若不需要让用户知道你保存了图片，可以不写下面的代码。
-            // 把文件插入到系统图库
-            try {
-                MediaStore.Images.Media.insertImage(
-                    activity.contentResolver,
-                    file.absolutePath, imageName, null
-                )
-                Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
-            } catch (e: FileNotFoundException) {
-                Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
-            }
-            //            // 最后通知图库更新
-            activity.sendBroadcast(
-                Intent(
-                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                    Uri.fromFile(File(file.path))
-                )
-            )
         }
     }
 }
