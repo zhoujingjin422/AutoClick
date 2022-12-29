@@ -8,180 +8,155 @@
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#49A696">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-             <androidx.appcompat.widget.Toolbar
+            android:orientation="vertical"
+            android:background="@color/white">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/status_bar_height"/>
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
+                android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@mipmap/icon_back"
-                 android:paddingBottom="20dp"
-                 android:layout_marginTop="@dimen/status_bar_height"
-                android:background="@mipmap/toolbar_back"
                 app:title="Setting"
-                app:titleTextColor="@color/white"/>
-            <FrameLayout
+                app:titleTextColor="@color/black"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_corner_white"
-                android:layout_marginTop="-20dp">
-                <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="27dp">
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/setting_back"
+                    android:scaleType="centerCrop"/>
+                <Button
+                    android:id="@+id/btn_get_vip"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Get VIP"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#517BFD"
+                    android:background="@drawable/shape_button_get_vip"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/iv_vip_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_vip"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/iv_vip_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/icon_vip"
+                    android:layout_marginEnd="22dp"
+                    android:visibility="gone"/>
+                <LinearLayout
+                    android:id="@+id/ll_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_vip_right"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingStart="32dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginTop="27dp">
-                        <ImageView
-                            android:id="@+id/iv_back"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:src="@drawable/setting_back"
-                            android:scaleType="centerCrop"/>
-                        <Button
-                            android:id="@+id/btn_get_vip"
-                            android:layout_width="200dp"
-                            android:layout_height="50dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:text="Get VIP"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="#495063"
-                            android:background="@drawable/shape_button_get_vip"
-                            android:layout_marginBottom="43dp"
-                            android:visibility="visible"/>
-                        <ImageView
-                            android:id="@+id/iv_vip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/icon_vip"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="22dp"/>
-                        <LinearLayout
-                            android:id="@+id/ll_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_back"
-                            android:paddingStart="17dp"
-                            android:visibility="gone"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/tv_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:layout_marginTop="22dp"
-                                android:gravity="center_vertical"
-                                android:drawablePadding="5dp"
-                                android:drawableStart="@mipmap/icon_vip"
-                                android:text="Membership valid until：2017-2-12"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="DEAR VIP"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="19dp"
-                                android:layout_marginBottom="6dp"
-                                android:textSize="36sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                android:layout_gravity="center_horizontal"
-                                android:text="You have unlimited access to all functions"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:text="Dear VIP"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginBottom="6dp"
+                        android:textSize="22sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#F3F4F7"
-                        app:cardCornerRadius="15dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <FrameLayout
-                                android:id="@+id/fl_service"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    android:text="Terms of Service"
-                                    android:padding="16dp"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/me_icon_arrow"
-                                    android:layout_gravity="end|center_vertical"
-                                    android:layout_marginEnd="22dp"/>
-                            </FrameLayout>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginStart="14dp"
-                                android:layout_marginEnd="14dp"
-                                android:background="#D8D8D8"/>
-                            <FrameLayout
-                                android:id="@+id/fl_policy"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    android:text="Privacy Policy"
-                                    android:padding="16dp"/>
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/me_icon_arrow"
-                                    android:layout_gravity="end|center_vertical"
-                                    android:layout_marginEnd="22dp"/>
-                            </FrameLayout>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginStart="14dp"
-                                android:layout_marginEnd="14dp"
-                                android:background="#D8D8D8"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
+                        android:textColor="@color/white"
+                        android:text="You have unlimited access to all functions"/>
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_marginTop="22dp"
+                        android:text="Membership valid until：2017-2-12"/>
                 </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Terms of Service"
+                    android:padding="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/me_icon_arrow"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="22dp"/>
             </FrameLayout>
-
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:background="#D8D8D8"/>
+            <FrameLayout
+                android:id="@+id/fl_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Privacy Policy"
+                    android:padding="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/me_icon_arrow"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="22dp"/>
+            </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:background="#D8D8D8"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/adv_banner"

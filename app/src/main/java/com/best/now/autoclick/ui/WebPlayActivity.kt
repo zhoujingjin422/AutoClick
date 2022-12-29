@@ -42,13 +42,7 @@ class WebPlayActivity : BaseVMActivity() {
     }
 
     private var dialog:AlertDialog?= null
-    private lateinit var speech:TextToSpeech
     override fun initView() {
-         speech = TextToSpeech(this){
-             if(it == TextToSpeech.SUCCESS){
-                 speech.language = Locale.ENGLISH
-             }
-         }
         binding.apply {
             toolBar.title = intent.getStringExtra("Title")
             setSupportActionBar(toolBar)
@@ -99,7 +93,7 @@ class WebPlayActivity : BaseVMActivity() {
                 allowContentAccess = true
                 javaScriptEnabled = true
             }
-            webView.addJavascriptInterface(JavaScriptObject(speech),"android")
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity),"android")
             webView.webViewClient = com.tencent.smtt.sdk.WebViewClient()
             webView.webChromeClient = object :WebChromeClient(){
                 override fun onShowFileChooser(
@@ -129,37 +123,27 @@ class WebPlayActivity : BaseVMActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        speech.stop()
-        speech.shutdown()
         binding.webView.apply {
             stopLoading()
             clearView()
             destroy()
         }
     }
-    class JavaScriptObject(private val speech: TextToSpeech) {
-        private val map = mutableMapOf(
-            "en" to Locale.ENGLISH,
-            "us" to Locale.US,
-            "fr" to Locale.FRENCH,
-            "de" to Locale.GERMANY,
-            "jp" to Locale.JAPAN,
-            "ko" to Locale.KOREA,
-            "it" to Locale.ITALIAN
-        )
+    class JavaScriptObject(private val activity: Activity) {
         @JavascriptInterface
-        fun speek(str:String?) {
-            val dataBean = GsonUtils.fromJson(str,DataBean::class.java)
-            val language = map[dataBean.language]
-            if (language!=null){
-                val result  = speech.setLanguage(language)
-                if (result == TextToSpeech.LANG_MISSING_DATA ||
-                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    //语言数据丢失或不支持该语言。
-                    speech.language = Locale.ENGLISH
-                }
+        fun backFn(str:String) {
+            activity.finish()
+        }
+        @JavascriptInterface
+        fun shareFn(str:String) {
+            val uri = Uri.parse(str)
+            //分享文件地址
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, uri)
+                type = "image/jpeg"
             }
-            speech.speak(dataBean.content,TextToSpeech.QUEUE_FLUSH,null)
+            activity.startActivity(shareIntent)
         }
     }
 

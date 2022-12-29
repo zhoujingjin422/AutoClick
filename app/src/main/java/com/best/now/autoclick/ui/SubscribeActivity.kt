@@ -24,7 +24,6 @@ date:2022/11/19
  */
 class SubscribeActivity:BaseVMActivity() {
     private val binding by binding<ActivitySubscribeBinding>(R.layout.activity_subscribe)
-    private var type = 0
     lateinit var billingClient: BillingClient
     var skuDetailsList = arrayListOf<SkuDetails>()
     lateinit var purchasesUpdatedListener: PurchasesUpdatedListener
@@ -46,88 +45,6 @@ class SubscribeActivity:BaseVMActivity() {
     var purchaseTime = 0L//购买时间
     override fun initView() {
         binding.apply {
-            rl1Month.isSelected = true
-            tv1Month.isSelected = true
-            tv1MonthPrice.isSelected = true
-            tv1MonthPrice99.isSelected = true
-            tv1MonthPriceNo.isSelected = true
-            tv1MonthPrice299.isSelected = true
-            tv1MonthPrice299.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-            tv1MonthPrice299.paint.isAntiAlias = true
-            tv6MonthPrice399.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-            tv6MonthPrice399.paint.isAntiAlias = true
-            tv12MonthPrice499.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-            tv12MonthPrice499.paint.isAntiAlias = true
-
-            rl1Month.setOnClickListener {
-                if (type!=0){
-                    type = 0
-                    rl1Month.isSelected = true
-                    tv1Month.isSelected = true
-                    tv1MonthPrice.isSelected = true
-                    tv1MonthPrice99.isSelected = true
-                    tv1MonthPriceNo.isSelected = true
-                    tv1MonthPrice299.isSelected = true
-                    rl6Month.isSelected = false
-                    tv6Month.isSelected = false
-                    tv6MonthPrice.isSelected = false
-                    tv6MonthPrice199.isSelected = false
-                    tv6MonthPriceNo.isSelected = false
-                    tv6MonthPrice399.isSelected = false
-                    rl12Month.isSelected = false
-                    tv12Month.isSelected = false
-                    tv12MonthPrice.isSelected = false
-                    tv12MonthPrice299.isSelected = false
-                    tv12MonthPriceNo.isSelected = false
-                    tv12MonthPrice499.isSelected = false
-                }
-            }
-            rl6Month.setOnClickListener {
-                if (type!=1){
-                    type = 1
-                    rl6Month.isSelected = true
-                    tv6Month.isSelected = true
-                    tv6MonthPrice.isSelected = true
-                    tv6MonthPrice199.isSelected = true
-                    tv6MonthPriceNo.isSelected = true
-                    tv6MonthPrice399.isSelected = true
-                    rl1Month.isSelected = false
-                    tv1Month.isSelected = false
-                    tv1MonthPrice.isSelected = false
-                    tv1MonthPrice99.isSelected = false
-                    tv1MonthPriceNo.isSelected = false
-                    tv1MonthPrice299.isSelected = false
-                    rl12Month.isSelected = false
-                    tv12Month.isSelected = false
-                    tv12MonthPrice.isSelected = false
-                    tv12MonthPrice299.isSelected = false
-                    tv12MonthPriceNo.isSelected = false
-                    tv12MonthPrice499.isSelected = false
-                }
-            }
-            rl12Month.setOnClickListener {
-                if (type!=2){
-                    type = 2
-                    rl6Month.isSelected = false
-                    tv6Month.isSelected = false
-                    tv6MonthPrice.isSelected = false
-                    tv6MonthPrice199.isSelected = false
-                    tv6MonthPriceNo.isSelected = false
-                    tv6MonthPrice399.isSelected = false
-                    rl1Month.isSelected = false
-                    tv1Month.isSelected = false
-                    tv1MonthPrice.isSelected = false
-                    tv1MonthPrice99.isSelected = false
-                    tv1MonthPriceNo.isSelected = false
-                    tv1MonthPrice299.isSelected = false
-                    rl12Month.isSelected = true
-                    tv12Month.isSelected = true
-                    tv12MonthPrice.isSelected = true
-                    tv12MonthPrice299.isSelected = true
-                    tv12MonthPriceNo.isSelected = true
-                    tv12MonthPrice499.isSelected = true
-                }
-            }
             tvSubTitle.setOnClickListener {
                 buy()
             }
@@ -249,10 +166,12 @@ class SubscribeActivity:BaseVMActivity() {
                 ToastUtils.showShort(it.debugMessage)
             }
         }
-        binding.next.setOnClickListener {
+        binding.btnGet.setOnClickListener {
             buy()
         }
-        binding.ivClose.setOnClickListener { onBackPressed() }
+        binding.ivClose.setOnClickListener {
+            onBackPressed()
+        }
     }
     /*** 购买 */
     private fun buy() {
@@ -294,14 +213,7 @@ class SubscribeActivity:BaseVMActivity() {
             querySku(true)
         } else {
 
-            var vipID =
-                when (type) {
-                    0 -> Constant.VIP_MONTH
-                    1 -> Constant.VIP_HALF_YEAR
-                    2 -> Constant.VIP_YEAR
-
-                    else -> ""
-                }
+            var vipID =Constant.VIP_MONTH
 
             var skuDetails: SkuDetails? = null
             for (temp in skuDetailsList) {
@@ -331,8 +243,6 @@ class SubscribeActivity:BaseVMActivity() {
         //通过调用querySkuDetailsAsync（）检索“skuDetails”的值。
         val skuList: MutableList<String> = ArrayList()
         skuList.add(Constant.VIP_MONTH)
-        skuList.add(Constant.VIP_HALF_YEAR)
-        skuList.add(Constant.VIP_YEAR)
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
         billingClient.querySkuDetailsAsync(params.build(),

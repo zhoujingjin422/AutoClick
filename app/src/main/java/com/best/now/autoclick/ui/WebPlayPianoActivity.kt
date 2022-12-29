@@ -94,7 +94,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 allowContentAccess = true
                 javaScriptEnabled = true
             }
-//            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"android")
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"android")
             webView.webViewClient = WebViewClient()
             webView.webChromeClient = object : com.tencent.smtt.sdk.WebChromeClient(){
 //                override fun onShowFileChooser(
@@ -255,6 +255,17 @@ class WebPlayPianoActivity : BaseVMActivity() {
         @JavascriptInterface
         fun backFn(str:String) {
             activity.finish()
+        }
+        @JavascriptInterface
+        fun shareFn(str:String) {
+            val uri = Uri.parse(str)
+            //分享文件地址
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, uri)
+                type = "image/jpeg"
+            }
+            activity.startActivity(shareIntent)
         }
     }
 }

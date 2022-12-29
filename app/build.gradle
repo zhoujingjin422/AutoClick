@@ -10,10 +10,10 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.translator.max"
+        applicationId "com.ocr.text.scanner"
         minSdk 21
         targetSdk 32
-        versionCode 6
+        versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

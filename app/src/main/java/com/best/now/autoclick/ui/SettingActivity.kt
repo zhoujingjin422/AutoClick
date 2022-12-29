@@ -41,7 +41,8 @@ class SettingActivity:BaseVMActivity() {
 
     private fun setUiState() {
         if (!MainActivity.purchased){
-            binding.ivVip.visibility = View.VISIBLE
+            binding.ivVipCenter.visibility = View.VISIBLE
+            binding.ivVipRight.visibility = View.GONE
             binding.btnGetVip.visibility = View.VISIBLE
             binding.llText.visibility = View.GONE
             binding.btnGetVip.setOnClickListener {
@@ -49,7 +50,8 @@ class SettingActivity:BaseVMActivity() {
             }
         }else{
             binding.llText.visibility = View.VISIBLE
-            binding.ivVip.visibility = View.GONE
+            binding.ivVipCenter.visibility = View.GONE
+            binding.ivVipRight.visibility = View.VISIBLE
             binding.btnGetVip.visibility = View.GONE
             var time = 30 * 24 * 3600 * 1000L
             binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
@@ -62,8 +64,9 @@ class SettingActivity:BaseVMActivity() {
     }
     private fun setUiStateSelf(purchaseTime: Long) {
         binding.llText.visibility = View.VISIBLE
-        binding.ivVip.visibility = View.GONE
+        binding.ivVipCenter.visibility = View.GONE
         binding.btnGetVip.visibility = View.GONE
+        binding.ivVipRight.visibility = View.VISIBLE
         var time = 30 * 24 * 3600 * 1000L
         binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
             purchaseTime+ time,
