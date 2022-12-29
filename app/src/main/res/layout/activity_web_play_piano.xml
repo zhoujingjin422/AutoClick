@@ -14,13 +14,13 @@
         android:background="@color/black"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@mipmap/icon_back"
-            app:titleTextColor="@color/white"
-            android:layout_marginTop="@dimen/status_bar_height" />
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/tool_bar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            app:navigationIcon="@mipmap/icon_back"-->
+<!--            app:titleTextColor="@color/white"-->
+<!--            android:layout_marginTop="@dimen/status_bar_height" />-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

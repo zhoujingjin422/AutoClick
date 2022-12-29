@@ -1,3 +1,3 @@
 package com.best.now.autoclick.bean
 
-class DataBean(val content:String,val language:String)
+class DataBean(val url:String)

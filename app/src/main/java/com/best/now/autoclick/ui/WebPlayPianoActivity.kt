@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -21,12 +24,16 @@ import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
+import com.best.now.autoclick.bean.DataBean
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
 import com.best.now.autoclick.databinding.LayoutChooseBinding
+import com.google.gson.Gson
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
-import java.io.File
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 /*** 选择服务界面 */
@@ -45,11 +52,11 @@ class WebPlayPianoActivity : BaseVMActivity() {
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
     override fun initView() {
         binding.apply {
-            toolBar.title = intent.getStringExtra("Title")
-            setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener {
-                onBackPressed()
-            }
+//            toolBar.title = intent.getStringExtra("Title")
+//            setSupportActionBar(toolBar)
+//            toolBar.setNavigationOnClickListener {
+//                onBackPressed()
+//            }
 
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayPianoActivity).apply {
@@ -253,19 +260,75 @@ class WebPlayPianoActivity : BaseVMActivity() {
 }
     class JavaScriptObject(private val activity: Activity) {
         @JavascriptInterface
-        fun backFn(str:String) {
+        fun goback() {
             activity.finish()
         }
         @JavascriptInterface
         fun shareFn(str:String) {
-            val uri = Uri.parse(str)
-            //分享文件地址
-            val shareIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_STREAM, uri)
-                type = "image/jpeg"
+            val dataBean = Gson().fromJson(str,DataBean::class.java)
+            val bitmap = getNetImageByUrl(dataBean.url)
+            val split = dataBean.url.split("/")
+            val name = split[split.size-1]
+            bitmap?.let {
+                saveBitmap(name,activity,it)
             }
-            activity.startActivity(shareIntent)
+        }
+        private fun getNetImageByUrl(strUrl: String): Bitmap? {
+            var bitmap: Bitmap? = null
+            try {
+                val url = URL(strUrl)
+                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                connection.setConnectTimeout(6000) //超时设置
+                connection.setDoInput(true)
+                connection.setUseCaches(false) //设置不使用缓存
+                connection.connect()
+                val inputStream: InputStream = connection.getInputStream()
+                bitmap = BitmapFactory.decodeStream(inputStream)
+                inputStream.close()
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+            return bitmap
+        }
+        private fun saveBitmap(imageName:String, activity: Context, bitmap: Bitmap) {
+            //设置图片名称，要保存png，这里后缀就是png，要保存jpg，后缀就用jpg
+            //Android Q  10为每个应用程序提供了一个独立的在外部存储设备的存储沙箱，没有其他应用可以直接访问您应用的沙盒文件
+            val f = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val file = File(f?.path + "/" + imageName) //创建文件
+            //        file.getParentFile().mkdirs();
+            try {
+                //文件输出流
+                val fileOutputStream = FileOutputStream(file)
+                //压缩图片，如果要保存png，就用Bitmap.CompressFormat.PNG，要保存jpg就用Bitmap.CompressFormat.JPEG,质量是100%，表示不压缩
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+                //写入，这里会卡顿，因为图片较大
+                fileOutputStream.flush()
+                //记得要关闭写入流
+                fileOutputStream.close()
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            // 下面的步骤必须有，不然在相册里找不到图片，若不需要让用户知道你保存了图片，可以不写下面的代码。
+            // 把文件插入到系统图库
+            try {
+                MediaStore.Images.Media.insertImage(
+                    activity.contentResolver,
+                    file.absolutePath, imageName, null
+                )
+                Toast.makeText(activity, "save to album success", Toast.LENGTH_SHORT).show()
+            } catch (e: FileNotFoundException) {
+                Toast.makeText(activity, "save to album failed", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+            }
+            //            // 最后通知图库更新
+            activity.sendBroadcast(
+                Intent(
+                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                    Uri.fromFile(File(file.path))
+                )
+            )
         }
     }
 }
