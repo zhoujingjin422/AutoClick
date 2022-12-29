@@ -7,6 +7,7 @@ import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -190,7 +191,6 @@ class WebPlayPianoActivity : BaseVMActivity() {
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri)
                 cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE
-
 //                cameraIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivityForResult(cameraIntent, 112)
             } else {
@@ -335,8 +335,11 @@ class WebPlayPianoActivity : BaseVMActivity() {
                         putExtra(Intent.EXTRA_STREAM, uriToImage)
                         type = "image/png"
                     }
+                    val list = activity.packageManager.queryIntentActivities(shareIntent,PackageManager.MATCH_DEFAULT_ONLY)
+                    list.forEach {
+                        activity.grantUriPermission(it.activityInfo.packageName,uriToImage,Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
                     activity.startActivity(Intent.createChooser(shareIntent, "share"))
-
                 } catch (e: FileNotFoundException) {
                     ToastUtils.showShort("save to album failed")
                     e.printStackTrace()

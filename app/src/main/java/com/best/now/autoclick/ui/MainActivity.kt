@@ -64,7 +64,7 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             tvNext.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
+//                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request { allGranted, _, deniedList ->
@@ -78,7 +78,7 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }
+//                }
             }
         }
     }
