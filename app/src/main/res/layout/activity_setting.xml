@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@drawable/main_back">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,20 +19,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="@dimen/status_bar_height"
+                app:title="Setting"
+                app:titleTextColor="@color/white"
                 app:navigationIcon="@mipmap/icon_back"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="155dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginTop="27dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/setting_back"
-                    android:scaleType="centerCrop"/>
+                android:layout_marginTop="27dp"
+                android:background="@drawable/setting_back">
                 <Button
                     android:id="@+id/btn_get_vip"
                     android:layout_width="200dp"
@@ -43,7 +39,7 @@
                     android:text="Get VIP"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#5A71F6"
+                    android:textColor="#282828"
                     android:background="@drawable/shape_button_get_vip"
                     android:layout_marginBottom="30dp"
                     android:visibility="visible"/>
@@ -80,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Valued VIP User"
+                        android:text="Dear VIP"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:layout_gravity="center_horizontal"
@@ -101,7 +97,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#2E2C50"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="15dp"
                 android:layout_marginTop="37dp"
                 android:layout_marginStart="15dp"
@@ -113,13 +109,12 @@
                     <FrameLayout
                         android:id="@+id/fl_service"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="#282828"
                             android:textStyle="bold"
                             android:text="Terms of Service"
                             android:padding="16dp"/>
@@ -144,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="#282828"
                             android:textStyle="bold"
                             android:text="Privacy Policy"
                             android:padding="16dp"/>

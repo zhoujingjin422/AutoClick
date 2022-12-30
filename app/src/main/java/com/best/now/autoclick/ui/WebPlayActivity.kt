@@ -44,11 +44,6 @@ class WebPlayActivity : BaseVMActivity() {
     private var dialog:AlertDialog?= null
     override fun initView() {
         binding.apply {
-            toolBar.title = intent.getStringExtra("Title")
-            setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener {
-                onBackPressed()
-            }
 
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
