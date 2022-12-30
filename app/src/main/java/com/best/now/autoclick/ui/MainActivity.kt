@@ -15,6 +15,7 @@ import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.utils.Constant
+import com.best.now.autoclick.utils.GPSUtils
 import com.best.now.autoclick.utils.adParentList
 import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
@@ -63,36 +64,68 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            tvNext.setOnClickListener {
-               /* if (isPurchased(this@MainActivity)){
+            PermissionX.init(this@MainActivity)
+                .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                .request { allGranted, _, deniedList ->
+                    if (allGranted) {
+                        val string = GPSUtils.getInstance().getProvince(this@MainActivity)
+                        tvAddress.text = string
+                    } else {
+                        ToastUtils.showShort("These permissions are denied: $deniedList")
+                    }
+                }
+            ivTher.setOnClickListener {
+                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
-                                WebPlayPianoActivity.startActivity(
+                                WebPlayActivity.startActivity(
                                     this@MainActivity,
-                                    "Voice Translation",
-                                    Constant.URL_DIGITAL
+                                    "Thermometer",
+                                    Constant.URL_TEMPERATURE
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }*/
-                PermissionX.init(this@MainActivity)
-                    .permissions( Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .request { allGranted, _, deniedList ->
-                        if (allGranted) {
-                            WebPlayPianoActivity.startActivity(
-                                this@MainActivity,
-                                "Voice Translation",
-                                Constant.URL_DIGITAL
-                            )
-                        } else {
-                            ToastUtils.showShort("These permissions are denied: $deniedList")
-                        }
-                    }
+                }
             }
+            ivHyg.setOnClickListener {
+                if (isPurchased(this@MainActivity)){
+                    PermissionX.init(this@MainActivity)
+                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                        .request { allGranted, _, deniedList ->
+                            if (allGranted) {
+                                WebPlayActivity.startActivity(
+                                    this@MainActivity,
+                                    "Hygrometer",
+                                    Constant.URL_HUMIDITY
+                                )
+                            } else {
+                                ToastUtils.showShort("These permissions are denied: $deniedList")
+                            }
+                        }
+                }
+            }
+            ivAir.setOnClickListener {
+                if (isPurchased(this@MainActivity)){
+                    PermissionX.init(this@MainActivity)
+                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                        .request { allGranted, _, deniedList ->
+                            if (allGranted) {
+                                WebPlayActivity.startActivity(
+                                    this@MainActivity,
+                                    "air quality",
+                                    Constant.URL_QUALITY
+                                )
+                            } else {
+                                ToastUtils.showShort("These permissions are denied: $deniedList")
+                            }
+                        }
+                }
+            }
+
         }
     }
 

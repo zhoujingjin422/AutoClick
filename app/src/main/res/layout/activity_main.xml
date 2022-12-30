@@ -8,14 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/sub_back">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/sub_top_back"
-            android:scaleType="centerCrop"/>
+
         <ImageView
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
@@ -25,277 +21,79 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="40dp"
             android:src="@mipmap/icon_my_setting"/>
-        <TextView
-            android:id="@+id/tv_sub_title"
+        <ImageView
+            android:id="@+id/iv_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toBottomOf="@id/iv_setting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="11dp"
+            android:visibility="visible"
+            android:src="@drawable/sub_top_back"/>
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="7dp"
             app:layout_constraintTop_toTopOf="@id/iv_setting"
             app:layout_constraintBottom_toBottomOf="@id/iv_setting"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Resume Purchase"
-            android:layout_marginStart="23dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:visibility="invisible"
-            android:background="@drawable/text_shape"/>
+            android:layout_marginStart="15dp"
+            android:drawableStart="@mipmap/icon_location"
+            android:text=""
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
         <ImageView
-            android:id="@+id/iv_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/sub_top_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
-            android:layout_marginTop="23dp"
-            android:visibility="invisible"
-            android:layout_marginStart="20dp"/>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_word"
-            app:layout_constraintBottom_toTopOf="@id/adv_banner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#f6f6f6">
+            android:src="@mipmap/right_c"
+            app:layout_constraintStart_toEndOf="@id/iv_top"
+            app:layout_constraintTop_toTopOf="@id/iv_top"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right_c"
+            app:layout_constraintEnd_toStartOf="@id/iv_top"
+            app:layout_constraintTop_toTopOf="@id/iv_top"
+            app:layout_constraintBottom_toBottomOf="@id/iv_top"/>
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/iv_top"
+                app:layout_constraintBottom_toTopOf="@id/adv_banner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/iv_hyg"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="19dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/shape_drug_back">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginBottom="20dp"
-                            android:text="Scenarios that can perform \ntext recognition："/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_id"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="ID \ncard"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_bank"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bank \ncard"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_id"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Driver's \nLicense"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="18dp"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_refistratio"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Driver's \nRegistratio"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_business"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Business \nlicense"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_train"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Train \nticket"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginBottom="26dp"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_vat"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="VAT \nInvoice"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_text"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="General text \nrecognition"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/icon_other"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Other text \nrecognition scenarios"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="7dp"/>
-                            </LinearLayout>
-                        </LinearLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/iv_camera"/>
+                    <ImageView
+                        android:id="@+id/iv_ther"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/iv_text"/>
 
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/tv_next"
-                        android:layout_width="match_parent"
-                        android:layout_height="77dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="19sp"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:background="@drawable/shape_button_next_scan"
-                        android:text="Start high-quality OCR text \nrecognition"
-                        android:layout_marginTop="38dp"/>
+                    <ImageView
+                        android:id="@+id/iv_air"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/iv_voice"/>
                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:id="@+id/adv_banner"
             android:layout_width="match_parent"
