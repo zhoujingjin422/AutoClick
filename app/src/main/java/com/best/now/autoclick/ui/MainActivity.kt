@@ -68,8 +68,12 @@ class MainActivity : BaseVMActivity() {
                 .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                 .request { allGranted, _, deniedList ->
                     if (allGranted) {
-                        val string = GPSUtils.getInstance().getProvince(this@MainActivity)
-                        tvAddress.text = string
+                        Thread(Runnable {
+                            val string = GPSUtils.getInstance().getProvince(this@MainActivity)
+                            this@MainActivity.runOnUiThread {
+                                tvAddress.text = string
+                            }
+                        }).start()
                     } else {
                         ToastUtils.showShort("These permissions are denied: $deniedList")
                     }

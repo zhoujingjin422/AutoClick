@@ -114,7 +114,11 @@ public class GPSUtils {
         List<Address> addList = null;
         Geocoder ge = new Geocoder(activity);
         try {
-            addList = ge.getFromLocation(latitude, longitude, 1);
+            if (Geocoder.isPresent()){
+                addList = ge.getFromLocation(latitude, longitude, 1);
+            }else{
+                return cityName;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
