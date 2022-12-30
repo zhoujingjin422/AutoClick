@@ -76,6 +76,35 @@ public class GPSUtils {
 
         return p;
     }
+    @TargetApi(Build.VERSION_CODES.M)
+    public double[] getLocation(Activity activity) {
+        Log.i("GPS: ", "getProvince");
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);        // 默认Android GPS定位实例
+        double[] locations = new double[2];
+        Location location = null;
+        // 是否已经授权
+        if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)
+        {
+            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);      // 其他应用使用定位更新了定位信息 需要开启GPS
+        }
+
+        String p = "";
+        if(location != null)
+        {
+            Log.i("GPS: ", "获取位置信息成功");
+            Log.i("GPS: ","经度：" + location.getLatitude());
+            Log.i("GPS: ","纬度：" + location.getLongitude());
+            locations[0] = location.getLatitude();
+            locations[1] = location.getLongitude();
+        }
+        else
+        {
+            Log.i("GPS: ", "获取位置信息失败，请检查是够开启GPS,是否授权");
+        }
+        return locations;
+    }
+
 
     /*
      * 根据经度纬度 获取国家，省份

@@ -80,10 +80,11 @@ class MainActivity : BaseVMActivity() {
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
+                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "Thermometer",
-                                    Constant.URL_TEMPERATURE
+                                    Constant.URL_TEMPERATURE+"?lon=${locations[0]}&lat=${locations[1]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
@@ -97,10 +98,11 @@ class MainActivity : BaseVMActivity() {
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
+                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "Hygrometer",
-                                    Constant.URL_HUMIDITY
+                                    Constant.URL_HUMIDITY+"?lon=${locations[0]}&lat=${locations[1]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
@@ -114,10 +116,11 @@ class MainActivity : BaseVMActivity() {
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
+                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "air quality",
-                                    Constant.URL_QUALITY
+                                    Constant.URL_QUALITY+"?lon=${locations[0]}&lat=${locations[1]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
