@@ -19,7 +19,7 @@
             app:navigationIcon="@mipmap/icon_back"
             android:layout_marginTop="@dimen/status_bar_height"
             app:title=""
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/black" />
         <WebView
             android:id="@+id/web_view"
             android:layout_width="match_parent"

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@drawable/setting_parent_back">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,7 +43,7 @@
                     android:text="Get VIP"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#5A71F6"
+                    android:textColor="#69D1A0"
                     android:background="@drawable/shape_button_get_vip"
                     android:layout_marginBottom="30dp"
                     android:visibility="visible"/>
@@ -101,7 +101,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#2E2C50"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="15dp"
                 android:layout_marginTop="37dp"
                 android:layout_marginStart="15dp"
@@ -113,13 +113,12 @@
                     <FrameLayout
                         android:id="@+id/fl_service"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="Terms of Service"
                             android:padding="16dp"/>
@@ -144,7 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="Privacy Policy"
                             android:padding="16dp"/>

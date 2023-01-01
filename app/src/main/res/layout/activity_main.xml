@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/sub_back">
+        android:background="@drawable/main_back">
 
 
         <ImageView
@@ -21,50 +21,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="40dp"
             android:src="@mipmap/icon_my_setting"/>
-        <ImageView
-            android:id="@+id/iv_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:layout_constraintTop_toBottomOf="@id/iv_setting"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="11dp"
-            android:visibility="visible"
-            android:src="@drawable/sub_top_back"/>
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="7dp"
-            app:layout_constraintTop_toTopOf="@id/iv_setting"
-            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="15dp"
-            android:drawableStart="@mipmap/icon_location"
-            android:text=""
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_c"
-            app:layout_constraintStart_toEndOf="@id/iv_top"
-            app:layout_constraintTop_toTopOf="@id/iv_top"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_c"
-            app:layout_constraintEnd_toStartOf="@id/iv_top"
-            app:layout_constraintTop_toTopOf="@id/iv_top"
-            app:layout_constraintBottom_toBottomOf="@id/iv_top"/>
-
-            <androidx.core.widget.NestedScrollView
+         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_top"
+                app:layout_constraintTop_toBottomOf="@id/iv_setting"
                 app:layout_constraintBottom_toTopOf="@id/adv_banner"
+                android:layout_marginTop="134dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <LinearLayout
@@ -82,6 +44,7 @@
                         android:id="@+id/iv_ther"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/iv_text"/>
 
@@ -90,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:src="@drawable/iv_voice"/>
                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
