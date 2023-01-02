@@ -11,14 +11,10 @@ import android.view.View
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
-import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
+import com.best.now.autoclick.camera.CameraManager
 import com.best.now.autoclick.databinding.ActivityMainBinding
-import com.best.now.autoclick.utils.Constant
-import com.best.now.autoclick.utils.GPSUtils
-import com.best.now.autoclick.utils.adParentList
-import com.best.now.autoclick.utils.isPurchased
-import com.best.now.autoclick.utils.loadAd
+import com.best.now.autoclick.utils.*
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
@@ -65,15 +61,10 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             PermissionX.init(this@MainActivity)
-                .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                .permissions( Manifest.permission.CAMERA)
                 .request { allGranted, _, deniedList ->
                     if (allGranted) {
-                        Thread(Runnable {
-                            val string = GPSUtils.getInstance().getProvince(this@MainActivity)
-                            this@MainActivity.runOnUiThread {
-                                tvAddress.text = string
-                            }
-                        }).start()
+//                       startActivity(Intent(this@MainActivity,ProtractorActivity::class.java))
                     } else {
                         ToastUtils.showShort("These permissions are denied: $deniedList")
                     }
@@ -81,15 +72,10 @@ class MainActivity : BaseVMActivity() {
             ivTher.setOnClickListener {
                  if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                        .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "Thermometer",
-                                    Constant.URL_TEMPERATURE+"?lon=${locations[0]}&lat=${locations[1]}"
-                                )
+                                startActivity(Intent(this@MainActivity,ProtractorActivity::class.java))
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
@@ -102,12 +88,7 @@ class MainActivity : BaseVMActivity() {
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "Hygrometer",
-                                    Constant.URL_HUMIDITY+"?lon=${locations[0]}&lat=${locations[1]}"
-                                )
+//                                startActivity(Intent(this@MainActivity,ProtractorActivity::class.java))
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.MutableContextWrapper
 import android.webkit.WebView
+import com.best.now.autoclick.camera.CameraManager
 import com.best.now.autoclick.utils.AppOpenManager
 import com.best.now.autoclick.utils.loadInterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -28,6 +29,7 @@ class AutoClickApplication:Application() {
     override fun onCreate() {
         super.onCreate()
         initOkGo()
+        CameraManager.init(this)
         MobileAds.initialize(this) {
             loadInterstitialAd(this)
             appOpenManager?.fetchAd()
