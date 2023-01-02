@@ -19,8 +19,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.best.now.autoclick.R;
-import com.best.now.autoclick.utils.ActionHelper;
-import com.best.now.autoclick.utils.PublicHelper;
+import com.best.now.autoclick.bean.Coordinate;
 
 public class CycleRulerView extends View {
 	private int kedu;
@@ -44,47 +43,6 @@ public class CycleRulerView extends View {
 	public float DISPLAY_SIZE_SMALL;
 	private int picSize = 30;
 
-	/**
-	 *
-	 * @author Administrator
-	 * 
-	 */
-	class Coordinate {
-		public Coordinate() {
-			// TODO Auto-generated constructor stub
-		}
-
-		public Coordinate(float x, float y) {
-			// TODO Auto-generated constructor stub
-			this.x = x;
-			this.y = y;
-		}
-
-		private float x;
-		private float y;
-
-		public float getX() {
-			return x;
-		}
-
-		public void setX(float x) {
-			this.x = x;
-		}
-
-		public float getY() {
-			return y;
-		}
-
-		public void setY(float y) {
-			this.y = y;
-		}
-
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "[x:" + x + ", y:" + y + "]";
-		}
-	}
 
 	/**
 	 *
@@ -196,10 +154,10 @@ public class CycleRulerView extends View {
 		float dx = coordinate.getX() - mx;
 		float dy = coordinate.getY() - my;
 		double r = Math.sqrt(dx * dx + dy * dy);
-		float x = (float) (dx / r * radius);
-		float y = (float) (dy / r * radius);
+		float x = (float) (dx / r * radius*3);
+		float y = (float) (dy / r * radius*3);
 		if (point==null){
-			point2 = new Coordinate(-radius, 0);
+			point2 = new Coordinate(-radius*3, 0);
 			kedu2 = 0;
 			pointBitmap2 = new Coordinate(-200-picSize/2f,-picSize/2f);
 		}
@@ -263,9 +221,18 @@ public class CycleRulerView extends View {
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 
+		Paint paintShow = new Paint();
+		paintShow.setColor(0x6fffffff);
+		paintShow.setAntiAlias(true);
+		paintShow.setStyle(Paint.Style.FILL);
+
 		offset = (height - (width / 2f)) / 2f;
 		RectF oval = new RectF(width/2-200, height-220, width/2+200, height+180);
-		canvas.drawArc(oval, 0, 360, true, paint);
+//		canvas.drawArc(oval, 0, 360, true, paint);
+		Log.e("kedu",kedu+":"+kedu2);
+		if (kedu<kedu2)
+		canvas.drawArc(oval, kedu+180, kedu2-kedu, true, paintShow);
+		else canvas.drawArc(oval, kedu2+180, kedu-kedu2, true, paintShow);
 		Paint xpaint = new Paint();
 		xpaint.setAntiAlias(true);
 		xpaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
@@ -317,7 +284,7 @@ public class CycleRulerView extends View {
 		oval1.right = width / 2f;
 		oval1.bottom = height - offset * 2f;
 //		canvas.drawArc(oval1, 180, 180, true, arcPaint);
-		canvas.drawLine(0, 0, 0, -padding, paint2);
+//		canvas.drawLine(0, 0, 0, -padding, paint2);
 		if (point != null) {
 			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.icon_women),picSize,picSize,false);
 			canvas.drawBitmap(bitmap,pointBitmap.getX(),pointBitmap.getY(),paint2);

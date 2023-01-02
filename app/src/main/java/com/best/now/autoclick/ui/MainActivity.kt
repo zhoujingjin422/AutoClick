@@ -85,10 +85,10 @@ class MainActivity : BaseVMActivity() {
             ivHyg.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                        .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
-//                                startActivity(Intent(this@MainActivity,ProtractorActivity::class.java))
+                                startActivity(Intent(this@MainActivity,RulerActivity::class.java))
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
