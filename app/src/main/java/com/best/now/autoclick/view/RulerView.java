@@ -5,8 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
@@ -15,7 +18,10 @@ import android.view.View;
 
 import com.best.now.autoclick.R;
 import com.best.now.autoclick.bean.Coordinate;
+import com.best.now.autoclick.ext.CommonExtKt;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 
 /**
@@ -30,8 +36,11 @@ public class RulerView extends View {
 	private SparseArray<PointF> activePointers;
 
 	private Paint scalePaint;
+	private Paint textPaint;
 	private Paint labelPaint;
 	private Paint backgroundPaint;
+	private Paint rulerPaint;
+	private Paint showBackPaint;
 	private Paint pointerPaint;
 
 	private float guideScaleTextSize;
@@ -83,7 +92,7 @@ public class RulerView extends View {
 		}
 		labelColor = a.getColor(R.styleable.RulerView_labelColor, 0xFF03070A);
 
-		backgroundColor = a.getColor(R.styleable.RulerView_backgroundColor, 0xFFFACC31);
+		backgroundColor = a.getColor(R.styleable.RulerView_backgroundColor, 0xFFF2EFE7);
 
 		pointerColor = a.getColor(R.styleable.RulerView_pointerColor, 0xFF03070A);
 		pointerRadius = a.getDimension(R.styleable.RulerView_pointerRadius, 60);
@@ -112,6 +121,15 @@ public class RulerView extends View {
 
 		backgroundPaint = new Paint();
 		backgroundPaint.setColor(backgroundColor);
+		rulerPaint = new Paint();
+
+		showBackPaint = new Paint();
+		showBackPaint.setColor(0x80E8F1FE);
+
+		textPaint = new Paint();
+		textPaint.setColor(0xFF000000);
+		textPaint.setTextSize(60f);
+		textPaint.setFakeBoldText(true);
 
 		pointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		pointerPaint.setColor(pointerColor);
@@ -146,15 +164,15 @@ public class RulerView extends View {
 	private Coordinate pointBitmap2;
 	private Coordinate point2;
 	boolean movePoint1 = true;
-	private int picSize = 30;
+	private int picSize = CommonExtKt.dp2px(this,48);
 	private float kedu;
 	private float kedu2;
 	private void caculatePoint(Coordinate coordinate,boolean down) {
 		float dx = getWidth();
 		float dy = coordinate.getY() ;
 		if (point==null){
-			point2 = new Coordinate(dx, dy);
-			pointBitmap2 = new Coordinate(dx/2-picSize/2f,-picSize/2f);
+			point2 = new Coordinate(0, CommonExtKt.dp2px(this,80));
+			pointBitmap2 = new Coordinate(dx/2-picSize/2f,CommonExtKt.dp2px(this,80)-picSize/2f);
 		}
 		if (down){
 			if (Math.abs(dy-kedu)>Math.abs(dy-kedu2)){
@@ -186,7 +204,31 @@ public class RulerView extends View {
 
 		// Draw background.
 		canvas.drawPaint(backgroundPaint);
-
+		RectF mRectF = new RectF(0, 0, CommonExtKt.dp2px(this,80), height);
+		RectF mRectF2 = new RectF(width-CommonExtKt.dp2px(this,80), 0, width, height);
+		rulerPaint.setShader(new LinearGradient(0,0,0,mRectF.bottom,0xFFC6B0DD,0xFF9DB8DC, Shader.TileMode.CLAMP));
+		canvas.drawRect(mRectF,rulerPaint);
+		canvas.drawRect(mRectF2,rulerPaint);
+		if (point!=null){
+			RectF mRectF3 = new RectF(CommonExtKt.dp2px(this,120), height/2-CommonExtKt.dp2px(this,182)/2, CommonExtKt.dp2px(this,170), height/2+CommonExtKt.dp2px(this,182)/2);
+			RectF mRectF4 = new RectF(width-CommonExtKt.dp2px(this,170), height/2-CommonExtKt.dp2px(this,182)/2, width-CommonExtKt.dp2px(this,120), height/2+CommonExtKt.dp2px(this,182)/2);
+			canvas.drawRoundRect(mRectF3,CommonExtKt.dp2px(this,8),CommonExtKt.dp2px(this,8),showBackPaint);
+			canvas.drawRoundRect(mRectF4,CommonExtKt.dp2px(this,8),CommonExtKt.dp2px(this,8),showBackPaint);
+			float cm = Math.abs(point.getY()-point2.getY()) / unit.getPixelsPerUnit();
+			float inch = Math.abs(point.getY()-point2.getY()) / unitInch.getPixelsPerUnit();
+			String text = unit.getStringRepresentation(cm);
+			String textInch = unitInch.getStringRepresentation(inch);
+			canvas.save();
+			canvas.translate(width-CommonExtKt.dp2px(this,145) - textPaint.getTextSize()/2, height/2 - textPaint.measureText(text) / 2);
+			canvas.rotate(90);
+			canvas.drawText(text, 0, 0, textPaint);
+			canvas.restore();
+			canvas.save();
+			canvas.translate(CommonExtKt.dp2px(this,145) + textPaint.getTextSize()/2, height/2 + textPaint.measureText(text) / 2);
+			canvas.rotate(270);
+			canvas.drawText(textInch, 0, 0, textPaint);
+			canvas.restore();
+		}
 		// Draw scale.
 		Iterator<Unit.Graduation> pixelsIterator = unit.getPixelIterator(height - paddingTop,Unit.CM);
 		Iterator<Unit.Graduation> pixelsInchIterator = unitInch.getPixelIterator(height - paddingTop,Unit.INCH);
@@ -200,6 +242,7 @@ public class RulerView extends View {
 			canvas.drawLine(startX, startY, endX, endY, scalePaint);
 
 			if (graduation.value % 1 == 0) {
+
 				String text = (int) graduation.value + "";
 
 				canvas.save();
@@ -269,33 +312,34 @@ public class RulerView extends View {
 		}*/
 
 		// Draw Text label.
-		String labelText = defaultLabelText;
-		if (topPointer != null) {
-			float distanceInPixels = Math.abs(topPointer.y - bottomPointer.y);
-			labelText = unit.getStringRepresentation(distanceInPixels / unit.getPixelsPerUnit());
-		}
+//		String labelText = defaultLabelText;
+//		if (topPointer != null) {
+//			float distanceInPixels = Math.abs(topPointer.y - bottomPointer.y);
+//			labelText = unit.getStringRepresentation(distanceInPixels / unit.getPixelsPerUnit());
+//		}
 		Paint paint2 = new Paint();
 		paint2.setAntiAlias(true);
 		paint2.setColor(0x6fffffff);
-		paint2.setStrokeWidth(1);
+		paint2.setStrokeWidth(2);
 		if (point != null) {
-			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.icon_women),picSize,picSize,false);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
 			canvas.drawBitmap(bitmap,pointBitmap.getX(),pointBitmap.getY(),paint2);
 			canvas.drawLine(0, point.getY(), point.getX(), point.getY(), paint2);
 		}
 		if (point2 != null) {
-			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.icon_women),picSize,picSize,false);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
 			canvas.drawBitmap(bitmap,pointBitmap2.getX(),pointBitmap2.getY(),paint2);
 			canvas.drawLine(0, point2.getY(), point2.getX(), point2.getY(), paint2);
 		}
 		Paint paint3 = new Paint();
-		paint3.setColor(0xFFFF4081);
+		paint3.setColor(0x4D6F84B0);
 		if (point!=null){
 			if (point.getY()<point2.getY())
-				canvas.drawRect(0,point.getY(),point.getX(),point2.getY(),paint3);
-			else canvas.drawRect(0,point2.getY(),point.getX(),point.getY(),paint3);
+				canvas.drawRect(0,point.getY()+2,point.getX(),point2.getY()-2,paint3);
+			else canvas.drawRect(0,point2.getY()+2,point.getX(),point.getY()-2,paint3);
+
 		}
-		canvas.drawText(labelText, paddingLeft, paddingTop + labelTextSize, labelPaint);
+//		canvas.drawText(labelText, paddingLeft, paddingTop + labelTextSize, labelPaint);
 	}
 
 	@Override
@@ -346,11 +390,11 @@ public class RulerView extends View {
 		public String getStringRepresentation(float value) {
 			String suffix = "";
 			if (type == INCH) {
-				suffix = value > 1 ? "Inches" : "Inch";
+				suffix =  "Inch";
 			} else if (type == CM) {
 				suffix = "CM";
 			}
-			return String.format("%.3f %s", value, suffix);
+			return String.format("%.2f %s", value, suffix);
 		}
 
 		public Iterator<Graduation> getPixelIterator(final int numberOfPixels,int type) {

@@ -20,6 +20,7 @@ import android.view.WindowManager;
 
 import com.best.now.autoclick.R;
 import com.best.now.autoclick.bean.Coordinate;
+import com.best.now.autoclick.ext.CommonExtKt;
 
 public class CycleRulerView extends View {
 	private int kedu;
@@ -41,7 +42,7 @@ public class CycleRulerView extends View {
 	public float CYCLE_WIDTH;
 	public float DISPLAY_SIZE_BIG;
 	public float DISPLAY_SIZE_SMALL;
-	private int picSize = 30;
+	private int picSize = CommonExtKt.dp2px(this,24);
 
 
 	/**
@@ -286,12 +287,12 @@ public class CycleRulerView extends View {
 //		canvas.drawArc(oval1, 180, 180, true, arcPaint);
 //		canvas.drawLine(0, 0, 0, -padding, paint2);
 		if (point != null) {
-			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.icon_women),picSize,picSize,false);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
 			canvas.drawBitmap(bitmap,pointBitmap.getX(),pointBitmap.getY(),paint2);
 			canvas.drawLine(0, 0, point.getX(), point.getY(), paint2);
 		}
 		if (point2 != null) {
-			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.icon_women),picSize,picSize,false);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
 			canvas.drawBitmap(bitmap,pointBitmap2.getX(),pointBitmap2.getY(),paint2);
 			canvas.drawLine(0, 0, point2.getX(), point2.getY(), paint2);
 		}
