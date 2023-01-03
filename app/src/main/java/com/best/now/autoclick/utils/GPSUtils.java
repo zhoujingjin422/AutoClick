@@ -113,12 +113,13 @@ public class GPSUtils {
             Log.i("GPS: ","纬度：" + location.getLongitude());
             locations[0] = location.getLatitude();
             locations[1] = location.getLongitude();
+            return locations;
         }
         else
         {
             Log.i("GPS: ", "获取位置信息失败，请检查是够开启GPS,是否授权");
         }
-        return locations;
+        return null;
     }
 
 
