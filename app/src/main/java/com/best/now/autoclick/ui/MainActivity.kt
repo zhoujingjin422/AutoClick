@@ -28,7 +28,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -88,7 +88,7 @@ class MainActivity : BaseVMActivity() {
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "Thermometer",
-                                    Constant.URL_TEMPERATURE+"?lon=${locations[0]}&lat=${locations[1]}"
+                                    Constant.URL_TEMPERATURE+"?lon=${locations[1]}&lat=${locations[0]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
@@ -106,7 +106,7 @@ class MainActivity : BaseVMActivity() {
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "Hygrometer",
-                                    Constant.URL_HUMIDITY+"?lon=${locations[0]}&lat=${locations[1]}"
+                                    Constant.URL_HUMIDITY+"?lon=${locations[1]}&lat=${locations[0]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
@@ -124,7 +124,7 @@ class MainActivity : BaseVMActivity() {
                                 WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "air quality",
-                                    Constant.URL_QUALITY+"?lon=${locations[0]}&lat=${locations[1]}"
+                                    Constant.URL_QUALITY+"?lon=${locations[1]}&lat=${locations[0]}"
                                 )
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")

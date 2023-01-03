@@ -4,12 +4,14 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.io.IOException;
@@ -44,25 +46,27 @@ public class GPSUtils {
         if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
         {
-            //判断GPS是否开启，没有开启，则开启
-//            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-//                //跳转到手机打开GPS页面
-//                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                //设置完成后返回原来的界面
-//                AppActivity.instance.startActivityForResult(intent,OPEN_GPS_CODE);
-//            }
-//
-//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);      // GPS芯片定位 需要开启GPS
-//            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);      // 利用网络定位 需要开启GPS
-            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);      // 其他应用使用定位更新了定位信息 需要开启GPS
+            List<String> providers = locationManager.getProviders(true);
+            Location bestLocation = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    bestLocation = l;
+                }
+            }
+
+            location = bestLocation   ;        // 其他应用使用定位更新了定位信息 需要开启GPS
         }
 
         String p = "";
         if(location != null)
         {
             Log.i("GPS: ", "获取位置信息成功");
-            Log.i("GPS: ","经度：" + location.getLatitude());
-            Log.i("GPS: ","纬度：" + location.getLongitude());
+            Log.i("GPS: ","纬度：" + location.getLatitude());
+            Log.i("GPS: ","经度：" + location.getLongitude());
 
             // 获取地址信息
             p = getAddress(location.getLatitude(),location.getLongitude(),activity);
@@ -86,7 +90,19 @@ public class GPSUtils {
         if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
         {
-            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);      // 其他应用使用定位更新了定位信息 需要开启GPS
+            List<String> providers = locationManager.getProviders(true);
+            Location bestLocation = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    bestLocation = l;
+                }
+            }
+
+            location = bestLocation   ;
         }
 
         String p = "";
