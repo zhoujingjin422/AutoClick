@@ -40,38 +40,51 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_marginBottom="82dp">
-<CheckBox
-    android:id="@+id/cb_with_cup"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:button="@null"
-    android:checked="true"
-    android:background="@drawable/check_style"/>
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll_with_cup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:checked="true"
-        android:textSize="16sp"
-        android:layout_marginStart="7dp"
-        android:text="Dice With cup"/>
-    <CheckBox
-        android:id="@+id/cb_dice"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/cb_with_cup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cb_checked"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:checked="true"
+            android:textSize="16sp"
+            android:layout_marginStart="7dp"
+            android:text="Dice With cup"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/check_style"
-        android:button="@null"
-        android:layout_marginStart="42dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:checked="true"
-        android:textSize="16sp"
-        android:layout_marginStart="7dp"
-        android:text="Dice"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="42dp">
+        <ImageView
+            android:id="@+id/cb_dice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cb_unchecked"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:checked="true"
+            android:textSize="16sp"
+            android:layout_marginStart="7dp"
+            android:text="Dice"/>
+    </LinearLayout>
+
+
 </LinearLayout>
         <ImageView
     android:id="@+id/iv_start"

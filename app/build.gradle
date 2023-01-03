@@ -78,5 +78,4 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
-    api 'com.tencent.tbs:tbssdk:44226'
 }

@@ -57,6 +57,7 @@ class MainActivity : BaseVMActivity() {
         }
     }
 
+    private var type = 0
     @SuppressLint("SuspiciousIndentation")
     override fun initView() {
         binding.apply {
@@ -64,25 +65,25 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            cbWithCup.setOnCheckedChangeListener { _, b ->
-                if (b){
-                    cbDice.isChecked = false
-                    ivCup.setImageResource(R.drawable.iv_text)
-                }
+            llWithCup.setOnClickListener {
+                type = 0
+                cbDice.setImageResource(R.drawable.cb_unchecked)
+                cbWithCup.setImageResource(R.drawable.cb_checked)
+                ivCup.setImageResource(R.drawable.iv_text)
             }
-            cbDice.setOnCheckedChangeListener { _, b ->
-                if (b){
-                    cbWithCup.isChecked = false
-                    ivCup.setImageResource(R.drawable.iv_voice)
-                }
+            llWithCup.setOnClickListener {
+                type = 1
+                cbWithCup.setImageResource(R.drawable.cb_unchecked)
+                cbDice.setImageResource(R.drawable.cb_checked)
+                ivCup.setImageResource(R.drawable.iv_voice)
             }
             ivStart.setOnClickListener {
-                 if (isPurchased(this@MainActivity)){
+//                 if (isPurchased(this@MainActivity)){
                         WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "",
                                     Constant.URL_TEMPERATURE)
-                        }
+//                        }
             }
 
         }
