@@ -71,7 +71,7 @@ class MainActivity : BaseVMActivity() {
                 cbWithCup.setImageResource(R.drawable.cb_checked)
                 ivCup.setImageResource(R.drawable.iv_text)
             }
-            llWithCup.setOnClickListener {
+            llDice.setOnClickListener {
                 type = 1
                 cbWithCup.setImageResource(R.drawable.cb_unchecked)
                 cbDice.setImageResource(R.drawable.cb_checked)
