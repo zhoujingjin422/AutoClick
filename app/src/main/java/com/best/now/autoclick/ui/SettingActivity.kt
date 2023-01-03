@@ -53,7 +53,7 @@ class SettingActivity:BaseVMActivity() {
             binding.ivVipCenter.visibility = View.GONE
             binding.ivVipRight.visibility = View.VISIBLE
             binding.btnGetVip.visibility = View.GONE
-            var time = 30 * 24 * 3600 * 1000L
+            var time = (30+7) * 24 * 3600 * 1000L
             binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
                 MainActivity.purchaseTime + time,
                 "yyyy.MM.dd"
@@ -67,7 +67,7 @@ class SettingActivity:BaseVMActivity() {
         binding.ivVipCenter.visibility = View.GONE
         binding.btnGetVip.visibility = View.GONE
         binding.ivVipRight.visibility = View.VISIBLE
-        var time = 30 * 24 * 3600 * 1000L
+        var time = (30+7) * 24 * 3600 * 1000L
         binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
             purchaseTime+ time,
             "yyyy.MM.dd"
