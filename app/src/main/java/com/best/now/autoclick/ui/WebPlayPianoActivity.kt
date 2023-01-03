@@ -24,8 +24,6 @@ import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayPianoBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
 import com.best.now.autoclick.databinding.LayoutChooseBinding
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
 import java.io.File
 
 
@@ -96,7 +94,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
             }
 //            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayPianoActivity),"android")
             webView.webViewClient = WebViewClient()
-            webView.webChromeClient = object : com.tencent.smtt.sdk.WebChromeClient(){
+            webView.webChromeClient = object : WebChromeClient(){
 //                override fun onShowFileChooser(
 //                    webView: WebView?,
 //                    filePathCallback: ValueCallback<Array<Uri>>?,
@@ -108,7 +106,7 @@ class WebPlayPianoActivity : BaseVMActivity() {
 //                }
                 override fun onShowFileChooser(
                     p0: WebView?,
-                    filePathCallback: com.tencent.smtt.sdk.ValueCallback<Array<Uri>>?,
+                    filePathCallback: ValueCallback<Array<Uri>>?,
                     p2: FileChooserParams?
                 ): Boolean {
                     uploadMessageAboveL = filePathCallback

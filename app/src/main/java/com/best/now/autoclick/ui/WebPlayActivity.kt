@@ -11,8 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.webkit.JavascriptInterface
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.BuildConfig
@@ -22,10 +21,6 @@ import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.tencent.smtt.export.external.interfaces.PermissionRequest
-import com.tencent.smtt.sdk.ValueCallback
-import com.tencent.smtt.sdk.WebChromeClient
-import com.tencent.smtt.sdk.WebView
 import java.util.*
 
 
@@ -100,8 +95,8 @@ class WebPlayActivity : BaseVMActivity() {
                 javaScriptEnabled = true
             }
             webView.addJavascriptInterface(JavaScriptObject(speech),"android")
-            webView.webViewClient = com.tencent.smtt.sdk.WebViewClient()
-            webView.webChromeClient = object :WebChromeClient(){
+            webView.webViewClient = WebViewClient()
+            webView.webChromeClient = object : WebChromeClient(){
                 override fun onShowFileChooser(
                     p0: WebView?,
                     p1: ValueCallback<Array<Uri>>?,
