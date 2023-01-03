@@ -10,10 +10,10 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.ocr.text.scanner"
+        applicationId "com.ocr.scanner.max"
         minSdk 21
         targetSdk 32
-        versionCode 4
+        versionCode 5
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -78,5 +78,4 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
-    api 'com.tencent.tbs:tbssdk:44226'
 }
