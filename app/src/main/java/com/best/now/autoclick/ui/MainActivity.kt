@@ -98,15 +98,10 @@ class MainActivity : BaseVMActivity() {
             ivAir.setOnClickListener {
                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
+                        .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
                             if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "air quality",
-                                    Constant.URL_QUALITY+"?lon=${locations[0]}&lat=${locations[1]}"
-                                )
+                                startActivity(Intent(this@MainActivity,ArActivity::class.java))
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }

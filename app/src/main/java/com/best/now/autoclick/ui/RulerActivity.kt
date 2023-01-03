@@ -16,6 +16,7 @@ class RulerActivity:BaseVMActivity() {
     private val binding by binding<ActivityRulerBinding>(R.layout.activity_ruler)
     override fun initView() {
         binding.apply {
+            flBack.setOnClickListener { onBackPressed() }
             flParent.addView(RulerView(this@RulerActivity))
         }
     }

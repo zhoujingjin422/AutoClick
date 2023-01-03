@@ -15,6 +15,8 @@ class ProtractorActivity:BaseVMActivity(), SurfaceHolder.Callback {
     private var hasSurface = false
     override fun initView() {
         binding.apply {
+            toolBar.setNavigationOnClickListener { onBackPressed() }
+            setSupportActionBar(toolBar)
             cameraSwicth.setOnCheckedChangeListener { _, isChecked ->
 
                 // TODO Auto-generated method stub
