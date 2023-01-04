@@ -12,12 +12,12 @@ class MyArFragment : ArFragment() {
     override fun handleSessionException(sessionException: UnavailableException) {
         val message: String
         when (sessionException) {
-            is UnavailableArcoreNotInstalledException -> message = "请安装ARCore"
-            is UnavailableApkTooOldException -> message = "请升级ARCore"
-            is UnavailableSdkTooOldException -> message = "请升级app"
-            is UnavailableDeviceNotCompatibleException -> message = "当前设备部不支持AR"
+            is UnavailableArcoreNotInstalledException -> message = "Please install ARCore"
+            is UnavailableApkTooOldException -> message = "Please upgrade ARCore"
+            is UnavailableSdkTooOldException -> message = "Please upgrade the app"
+            is UnavailableDeviceNotCompatibleException -> message = "The current device department does not support AR"
             else -> {
-                message = "未能创建AR会话,请查看机型适配,arcore版本与系统版本"
+                message = "Failed to create an AR session, please check the model adaptation, arcore version and system version"
                 val var3 = sessionException.toString()
             }
         }

@@ -3,8 +3,11 @@ package com.best.now.autoclick.ui
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.R
 import com.best.now.autoclick.bean.AnchorInfoBean
@@ -40,9 +43,13 @@ class ArActivity: BaseVMActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)// 设置全屏
         super.onCreate(savedInstanceState)
     }
+
     override fun initView() {
-          myArFragment =  supportFragmentManager.findFragmentById(R.id.UI_ArSceneView) as MyArFragment
+        myArFragment = MyArFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.UI_ArSceneView,myArFragment).commit()
         binding.apply {
+            setSupportActionBar(toolBar)
+            toolBar.setNavigationOnClickListener { onBackPressed() }
             UILast.setOnClickListener {
                 when (dataArray.size) {
                     0 -> {
