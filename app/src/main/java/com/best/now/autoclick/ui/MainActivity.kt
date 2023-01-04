@@ -57,7 +57,7 @@ class MainActivity : BaseVMActivity() {
         }
     }
 
-    private var type = 0
+    private var type = 1
     @SuppressLint("SuspiciousIndentation")
     override fun initView() {
         binding.apply {
@@ -66,13 +66,13 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             llWithCup.setOnClickListener {
-                type = 0
+                type = 1
                 cbDice.setImageResource(R.drawable.cb_unchecked)
                 cbWithCup.setImageResource(R.drawable.cb_checked)
                 ivCup.setImageResource(R.drawable.iv_text)
             }
             llDice.setOnClickListener {
-                type = 1
+                type = 2
                 cbWithCup.setImageResource(R.drawable.cb_unchecked)
                 cbDice.setImageResource(R.drawable.cb_checked)
                 ivCup.setImageResource(R.drawable.iv_voice)
@@ -82,7 +82,7 @@ class MainActivity : BaseVMActivity() {
                         WebPlayActivity.startActivity(
                                     this@MainActivity,
                                     "",
-                                    Constant.URL_TEMPERATURE)
+                                    Constant.URL_TEMPERATURE+"?type=$type")
 //                        }
             }
 

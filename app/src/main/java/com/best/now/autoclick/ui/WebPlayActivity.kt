@@ -121,19 +121,8 @@ class WebPlayActivity : BaseVMActivity() {
     }
     class JavaScriptObject(private val activity: Activity) {
         @JavascriptInterface
-        fun backFn(str:String) {
+        fun goback() {
             activity.finish()
-        }
-        @JavascriptInterface
-        fun shareFn(str:String) {
-            val uri = Uri.parse(str)
-            //分享文件地址
-            val shareIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_STREAM, uri)
-                type = "image/jpeg"
-            }
-            activity.startActivity(shareIntent)
         }
     }
 
