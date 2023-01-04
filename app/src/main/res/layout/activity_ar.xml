@@ -22,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment
-                android:name="com.best.now.autoclick.ui.MyArFragment"
+            <FrameLayout
                 android:id="@+id/UI_ArSceneView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
