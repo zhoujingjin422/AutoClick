@@ -28,7 +28,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -79,7 +79,7 @@ class MainActivity : BaseVMActivity() {
                     }
                 }
             ivTher.setOnClickListener {
-//                 if (isPurchased(this@MainActivity)){
+                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
@@ -100,11 +100,11 @@ class MainActivity : BaseVMActivity() {
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
-//                        }
+                        }
                 }
             }
             ivHyg.setOnClickListener {
-//                if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
@@ -125,11 +125,11 @@ class MainActivity : BaseVMActivity() {
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
-//                        }
+                        }
                 }
             }
             ivAir.setOnClickListener {
-//                if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
                         .request { allGranted, _, deniedList ->
@@ -152,7 +152,7 @@ class MainActivity : BaseVMActivity() {
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
-//                        }
+                        }
                 }
             }
 
