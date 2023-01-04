@@ -83,8 +83,8 @@ class MainActivity : BaseVMActivity() {
                                     this@MainActivity,
                                     "",
                                     Constant.URL_TEMPERATURE+"?type=$type")
-//                        }
-            }
+                        }
+//            }
 
         }
     }
