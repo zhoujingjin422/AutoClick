@@ -12,6 +12,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class CycleRulerView extends View {
 	public float DISPLAY_SIZE_BIG;
 	public float DISPLAY_SIZE_SMALL;
 	private int picSize = CommonExtKt.dp2px(this,24);
+	private ChangeListener changeListener;
+	private boolean cameraOn = true;
 
 
 	/**
@@ -188,6 +191,9 @@ public class CycleRulerView extends View {
 			float yBitmap = (float) ( (dy / r * CommonExtKt.dp2px(this,132)));
 			pointBitmap2 = new Coordinate(xBitmap-picSize/2f,yBitmap-picSize/2f);
 		}
+		if (changeListener!=null){
+			changeListener.onChange(Math.abs(kedu-kedu2),180-Math.abs(kedu-kedu2));
+		}
 		invalidate();
 	}
 
@@ -218,9 +224,14 @@ public class CycleRulerView extends View {
 		if (width/2f>height)
 		radius = height*4/5f;
 		else radius = width*2 / 5f;
+		if (!cameraOn){
+			canvas.drawColor(0xFF3F79FA);
+		}else{
+//			canvas.drawColor(0xFF3F79FA);
+		}
 
 		Paint paint = new Paint();
-		paint.setColor(0x4Cffffff);
+		paint.setColor(0x4C3F79FA);
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 
@@ -231,7 +242,7 @@ public class CycleRulerView extends View {
 		offset = (height - (width / 2f)) / 2f;
 		RectF oval = new RectF(width/2-CommonExtKt.dp2px(this,132), height-CommonExtKt.dp2px(this,152), width/2+CommonExtKt.dp2px(this,132), height+CommonExtKt.dp2px(this,112));
 		canvas.drawArc(oval, 0, 360, true, paint);
-		paintShow.setShader(new LinearGradient(0,0,0,oval.bottom,0xA8D7BBFA,0xA8A4C6FA, Shader.TileMode.CLAMP));
+		paintShow.setShader(new SweepGradient(0,0,new int[]{0x4DD7BBFA,0x4DA4C6FA},null));
 		Log.e("kedu",kedu+":"+kedu2);
 		if (kedu<kedu2)
 		canvas.drawArc(oval, kedu+180, kedu2-kedu, true, paintShow);
@@ -288,8 +299,10 @@ public class CycleRulerView extends View {
 		oval1.bottom = height - offset * 2f;
 //		canvas.drawArc(oval1, 180, 180, true, arcPaint);
 //		canvas.drawLine(0, 0, 0, -padding, paint2);
+		paint2.setColor(0xFF738EF7);
 		if (point != null) {
 			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
+
 			canvas.drawBitmap(bitmap,pointBitmap.getX(),pointBitmap.getY(),paint2);
 			canvas.drawLine(0, 0, point.getX(), point.getY(), paint2);
 		}
@@ -342,5 +355,16 @@ public class CycleRulerView extends View {
 		// TODO Auto-generated constructor stub
 		init(context);
 	}
+	public void setListener(ChangeListener changeListener){
+		this.changeListener = changeListener;
+	}
 
+	public void setCamera(boolean cameraOn) {
+		this.cameraOn = cameraOn;
+		invalidate();
+	}
+
+	public interface ChangeListener{
+		void onChange(float deg,float rad);
+	}
 }

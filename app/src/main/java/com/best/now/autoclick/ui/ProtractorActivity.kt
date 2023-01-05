@@ -17,8 +17,13 @@ class ProtractorActivity:BaseVMActivity(), SurfaceHolder.Callback {
     override fun initView() {
         binding.apply {
             flBack.setOnClickListener { finish() }
+            cyview.setListener { deg, rad ->
+                tvDeg.text = "Deg:${deg}°"
+                tvRad.text = "Deg:${rad}°"
+            }
             cameraSwicth.setOnClickListener {
                 cameraOn = !cameraOn
+                cyview.setCamera(cameraOn)
                 if (cameraOn) {
                     cameraSwicth.setBackgroundResource(R.drawable.shape_button_camera)
                     if (surface != null) {
