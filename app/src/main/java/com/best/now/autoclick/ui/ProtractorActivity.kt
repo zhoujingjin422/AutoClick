@@ -13,19 +13,20 @@ import java.io.IOException
 class ProtractorActivity:BaseVMActivity(), SurfaceHolder.Callback {
     private val binding by binding<ActivityProtractorBinding>(R.layout.activity_protractor)
     private var hasSurface = false
+    private var cameraOn = true
     override fun initView() {
         binding.apply {
-            toolBar.setNavigationOnClickListener { onBackPressed() }
-            setSupportActionBar(toolBar)
-            cameraSwicth.setOnCheckedChangeListener { _, isChecked ->
-
-                // TODO Auto-generated method stub
-                if (isChecked) {
+            flBack.setOnClickListener { finish() }
+            cameraSwicth.setOnClickListener {
+                cameraOn = !cameraOn
+                if (cameraOn) {
+                    cameraSwicth.setBackgroundResource(R.drawable.shape_button_camera)
                     if (surface != null) {
                         surface.visibility = View.VISIBLE
                     }
                     startPreview()
                 } else {
+                    cameraSwicth.setBackgroundResource(R.drawable.shape_button_camera_off)
                     if (surface != null) {
                         surface.visibility = View.INVISIBLE
                     }
@@ -33,6 +34,12 @@ class ProtractorActivity:BaseVMActivity(), SurfaceHolder.Callback {
                 }
             }
         }
+        val animator = ObjectAnimator.ofFloat(binding.flBack,"rotation",0f,270f)
+        animator.duration = 50
+        animator.start()
+        val animatorTitle = ObjectAnimator.ofFloat(binding.title,"rotation",0f,270f)
+        animatorTitle.duration = 50
+        animatorTitle.start()
     }
 
     override fun onResume() {

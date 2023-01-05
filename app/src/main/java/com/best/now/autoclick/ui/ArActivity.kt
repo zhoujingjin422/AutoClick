@@ -37,13 +37,6 @@ class ArActivity: BaseVMActivity() {
     private  lateinit var startNode: AnchorNode
     private  lateinit var myArFragment: MyArFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)// 设置全屏
-        super.onCreate(savedInstanceState)
-    }
-
     override fun initView() {
         myArFragment = MyArFragment()
         supportFragmentManager.beginTransaction().replace(R.id.UI_ArSceneView,myArFragment).commit()

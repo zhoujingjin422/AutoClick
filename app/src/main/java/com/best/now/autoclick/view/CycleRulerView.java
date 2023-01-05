@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -148,7 +150,7 @@ public class CycleRulerView extends View {
 
 	private void caculatePoint(Coordinate coordinate,boolean down) {
 		float mx = width / 2f;
-		float my = height -20;
+		float my = height -CommonExtKt.dp2px(this,20);
 		if (coordinate.getY() > my) {
 			coordinate.setY(my);
 		}
@@ -160,7 +162,7 @@ public class CycleRulerView extends View {
 		if (point==null){
 			point2 = new Coordinate(-radius*3, 0);
 			kedu2 = 0;
-			pointBitmap2 = new Coordinate(-200-picSize/2f,-picSize/2f);
+			pointBitmap2 = new Coordinate(-CommonExtKt.dp2px(this,132)-picSize/2f,-picSize/2f);
 		}
 		int keduTemp = (int) Math.round(Math.atan(dy /dx) / Math.PI * 180);
 		if (dx >= 0) {
@@ -176,14 +178,14 @@ public class CycleRulerView extends View {
 		if (movePoint1){
 			kedu = keduTemp;
 			point = new Coordinate(x, y);
-			float xBitmap = (float) (dx / r * 200);
-			float yBitmap = (float) ( (dy / r * 200));
+			float xBitmap = (float) (dx / r * CommonExtKt.dp2px(this,132));
+			float yBitmap = (float) ( (dy / r * CommonExtKt.dp2px(this,132)));
 			pointBitmap = new Coordinate(xBitmap-picSize/2f,yBitmap-picSize/2f);
 		}else{
 			kedu2 = keduTemp;
 			point2 = new Coordinate(x, y);
-			float xBitmap = (float) (dx / r * 200);
-			float yBitmap = (float) ( (dy / r * 200));
+			float xBitmap = (float) (dx / r * CommonExtKt.dp2px(this,132));
+			float yBitmap = (float) ( (dy / r * CommonExtKt.dp2px(this,132)));
 			pointBitmap2 = new Coordinate(xBitmap-picSize/2f,yBitmap-picSize/2f);
 		}
 		invalidate();
@@ -215,21 +217,21 @@ public class CycleRulerView extends View {
 		height = getHeight();
 		if (width/2f>height)
 		radius = height*4/5f;
-		else radius = width / 2f;
+		else radius = width*2 / 5f;
 
 		Paint paint = new Paint();
-		paint.setColor(0xffffffff);
+		paint.setColor(0x4Cffffff);
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 
 		Paint paintShow = new Paint();
-		paintShow.setColor(0x6fffffff);
 		paintShow.setAntiAlias(true);
 		paintShow.setStyle(Paint.Style.FILL);
 
 		offset = (height - (width / 2f)) / 2f;
-		RectF oval = new RectF(width/2-200, height-220, width/2+200, height+180);
-//		canvas.drawArc(oval, 0, 360, true, paint);
+		RectF oval = new RectF(width/2-CommonExtKt.dp2px(this,132), height-CommonExtKt.dp2px(this,152), width/2+CommonExtKt.dp2px(this,132), height+CommonExtKt.dp2px(this,112));
+		canvas.drawArc(oval, 0, 360, true, paint);
+		paintShow.setShader(new LinearGradient(0,0,0,oval.bottom,0xA8D7BBFA,0xA8A4C6FA, Shader.TileMode.CLAMP));
 		Log.e("kedu",kedu+":"+kedu2);
 		if (kedu<kedu2)
 		canvas.drawArc(oval, kedu+180, kedu2-kedu, true, paintShow);
@@ -241,12 +243,12 @@ public class CycleRulerView extends View {
 		xpaint.setColor(0x5fffffff);
 		canvas.drawRect(new RectF(0, 0, width, height), xpaint);
 		canvas.save();
-		canvas.translate(width / 2, height - 20);
+		canvas.translate(width / 2, height - CommonExtKt.dp2px(this,20));
 		double degree = 10;
 		Paint paint2 = new Paint();
 		paint2.setAntiAlias(true);
-		paint2.setColor(0x6fffffff);
-		paint2.setStrokeWidth(1);
+		paint2.setColor(0xFFFFFFFF);
+		paint2.setStrokeWidth(CommonExtKt.dp2px(this,1));
 		Paint degreePaint = new Paint();
 		degreePaint.setAntiAlias(true);
 		degreePaint.setTextSize(fontSize);
@@ -277,7 +279,7 @@ public class CycleRulerView extends View {
 		Paint arcPaint = new Paint();
 		arcPaint.setAntiAlias(true);
 		arcPaint.setColor(0x6fffffff);
-		arcPaint.setStrokeWidth(1);
+		arcPaint.setStrokeWidth(CommonExtKt.dp2px(this,1));
 		arcPaint.setStyle(Paint.Style.STROKE);
 		RectF oval1 = new RectF();
 		oval1.left = -width / 2f;
