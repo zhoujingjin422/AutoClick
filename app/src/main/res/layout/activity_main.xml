@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/sub_back">
+        android:background="@drawable/main_back">
 
 
         <ImageView
@@ -30,22 +30,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="11dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:src="@drawable/sub_top_back"/>
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawablePadding="7dp"
-            app:layout_constraintTop_toTopOf="@id/iv_setting"
-            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="15dp"
-            android:drawableStart="@mipmap/icon_location"
-            android:text=""
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,6 +51,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/iv_top"
                 app:layout_constraintBottom_toTopOf="@id/adv_banner"
+                android:layout_marginTop="52dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <LinearLayout
@@ -76,22 +63,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="18dp"
                         android:src="@drawable/iv_camera"/>
                     <ImageView
                         android:id="@+id/iv_hyg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="18dp"
                         android:src="@drawable/iv_text"/>
-
-                    <ImageView
-                        android:id="@+id/iv_air"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/iv_voice"/>
                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         <LinearLayout

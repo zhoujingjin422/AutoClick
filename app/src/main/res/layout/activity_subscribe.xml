@@ -30,87 +30,75 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:src="@mipmap/icon_purchase"/>
-        <ImageView
-            android:id="@+id/iv_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="11dp"
-            android:visibility="visible"
-            android:src="@drawable/sub_top_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_c"
-            app:layout_constraintStart_toEndOf="@id/iv_top"
-            app:layout_constraintTop_toTopOf="@id/iv_top"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_c"
-            app:layout_constraintEnd_toStartOf="@id/iv_top"
-            app:layout_constraintTop_toTopOf="@id/iv_top"
-            app:layout_constraintBottom_toBottomOf="@id/iv_top"/>
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_top"
+            app:layout_constraintTop_toBottomOf="@id/iv_close"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/shape_sub_back"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="170dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="15dp"
-                        android:orientation="vertical">
-
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="16dp"
+                        app:cardBackgroundColor="#63666E"
+                        >
                         <LinearLayout
-                            android:id="@+id/ll_women"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:layout_marginTop="18dp"
+                            android:layout_marginStart="11dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="18dp"
+                            android:orientation="horizontal">
                             <ImageView
                                 android:id="@+id/iv_women"
                                 android:layout_width="56dp"
                                 android:layout_height="56dp"
                                 android:scaleType="centerCrop"
                                 android:src="@mipmap/icon_women"/>
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                android:textSize="15sp"
-                                android:layout_marginStart="15dp"
-                                android:text="Amdan"/>
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_star"
-                                android:layout_marginStart="16dp"/>
-                        </LinearLayout>
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/ll_women"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="9dp"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:text="The thermometer is very convenient, you can check the temperature at any time, I often use the hygrometer and air quality, I recommend it to everyone" />
-                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold"
+                                        android:textSize="15sp"
+                                        android:layout_marginStart="12dp"
+                                        android:text="Gloria"/>
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@mipmap/icon_star"
+                                        android:layout_marginStart="16dp"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:layout_marginStart="12dp"
+                                    android:text="This bookkeeping app is awesome, our whole family uses it" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                 <ImageView
                     android:layout_width="match_parent"

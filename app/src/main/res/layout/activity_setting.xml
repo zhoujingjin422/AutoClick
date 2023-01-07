@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,43 +19,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="@dimen/status_bar_height"
+                app:title="Setting"
+                app:titleTextColor="@color/black"
                 app:navigationIcon="@mipmap/icon_back"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="155dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginTop="27dp">
+                android:layout_marginTop="27dp"
+                android:background="@drawable/setting_back">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/setting_back"
-                    android:scaleType="centerCrop"/>
-                <Button
                     android:id="@+id/btn_get_vip"
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/get_vip"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:text="Get VIP"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#5A71F6"
-                    android:background="@drawable/shape_button_get_vip"
                     android:layout_marginBottom="30dp"
                     android:visibility="visible"/>
-                <ImageView
-                    android:id="@+id/iv_vip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_vip"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="22dp"/>
+
                 <LinearLayout
                     android:id="@+id/ll_text"
                     android:layout_width="match_parent"
@@ -66,46 +50,45 @@
                     android:visibility="gone"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/tv_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:layout_marginTop="22dp"
-                        android:gravity="center_vertical"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@mipmap/icon_vip"
-                        android:text="Membership valid until：2017-2-12"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Valued VIP User"
+                        android:text="Dear VIP"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="6dp"
-                        android:textSize="40sp"/>
+                        android:textSize="24sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="15sp"
-                        android:layout_gravity="center_horizontal"
                         android:text="You have unlimited access to all functions"/>
-                </LinearLayout>
+                     </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    android:text="Membership valid until：2017-2-12"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#2E2C50"
-                app:cardCornerRadius="15dp"
-                android:layout_marginTop="37dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="20dp"
+                android:background="#D8D8D8"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,13 +96,12 @@
                     <FrameLayout
                         android:id="@+id/fl_service"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="Terms of Service"
                             android:padding="16dp"/>
@@ -144,7 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="15sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:text="Privacy Policy"
                             android:padding="16dp"/>
@@ -156,7 +138,6 @@
                             android:layout_marginEnd="22dp"/>
                     </FrameLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
         <LinearLayout

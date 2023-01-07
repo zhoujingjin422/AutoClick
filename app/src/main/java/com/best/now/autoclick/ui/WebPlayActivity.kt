@@ -1,14 +1,10 @@
 package com.best.now.autoclick.ui
 
-import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.provider.Settings
-import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -19,14 +15,8 @@ import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
-import com.best.now.autoclick.bean.DataBean
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
-import com.best.now.autoclick.utils.GPSUtils.OPEN_GPS_CODE
-import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.permissionx.guolindev.PermissionX
-import java.util.*
 
 
 /*** 选择服务界面 */
@@ -44,11 +34,6 @@ class WebPlayActivity : BaseVMActivity() {
     private var dialog:AlertDialog?= null
     override fun initView() {
         binding.apply {
-            toolBar.title = intent.getStringExtra("Title")
-            setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener {
-                onBackPressed()
-            }
 
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
@@ -133,14 +118,7 @@ class WebPlayActivity : BaseVMActivity() {
 
     class JavaScriptObject(private val activity: AppCompatActivity) {
         @JavascriptInterface
-        fun backFn(str:String) {
-            activity.finish()
-        }
-        @JavascriptInterface
-        fun setLocation() {
-            val intent =  Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-             //设置完成后返回原来的界面
-            activity.startActivity(intent)
+        fun goback() {
             activity.finish()
         }
     }

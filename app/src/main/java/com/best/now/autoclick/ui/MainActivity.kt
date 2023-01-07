@@ -1,6 +1,5 @@
 package com.best.now.autoclick.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,24 +10,19 @@ import android.view.View
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.best.now.autoclick.BaseVMActivity
-import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.utils.Constant
-import com.best.now.autoclick.utils.GPSUtils
 import com.best.now.autoclick.utils.adParentList
-import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.permissionx.guolindev.PermissionX
 
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = false
+        var purchased = true
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -64,98 +58,25 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            PermissionX.init(this@MainActivity)
-                .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
-                .request { allGranted, _, deniedList ->
-                    if (allGranted) {
-                        Thread(Runnable {
-                            val string = GPSUtils.getInstance().getProvince(this@MainActivity)
-                            this@MainActivity.runOnUiThread {
-                                tvAddress.text = string
-                            }
-                        }).start()
-                    } else {
-                        ToastUtils.showShort("These permissions are denied: $deniedList")
-                    }
-                }
+
             ivTher.setOnClickListener {
-                 if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                if (locations==null){
-                                    WebPlayActivity.startActivity(
-                                        this@MainActivity,
-                                        "Thermometer",
-                                        Constant.URL_TEMPERATURE
-                                    )
-                                }else
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "Thermometer",
-                                    Constant.URL_TEMPERATURE+"?lon=${locations[1]}&lat=${locations[0]}"
-                                )
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
+//                 if (isPurchased(this@MainActivity)){
+                     WebPlayActivity.startActivity(
+                         this@MainActivity,
+                         "Thermometer",
+                         Constant.URL_TRACKER
+                     )
+//                }
             }
             ivHyg.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                if (locations==null){
-                                    WebPlayActivity.startActivity(
-                                        this@MainActivity,
-                                        "Hygrometer",
-                                        Constant.URL_HUMIDITY
-                                    )
-                                }else
-                                WebPlayActivity.startActivity(
-                                    this@MainActivity,
-                                    "Hygrometer",
-                                    Constant.URL_HUMIDITY+"?lon=${locations[1]}&lat=${locations[0]}"
-                                )
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
+//                if (isPurchased(this@MainActivity)){
+                    WebPlayActivity.startActivity(
+                        this@MainActivity,
+                        "Hygrometer",
+                        Constant.URL_CHARTS
+                    )
+//                }
             }
-            ivAir.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.ACCESS_FINE_LOCATION)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                val locations = GPSUtils.getInstance().getLocation(this@MainActivity)
-                                if (locations==null){
-                                    WebPlayActivity.startActivity(
-                                        this@MainActivity,
-                                        "air quality",
-                                        Constant.URL_QUALITY
-                                    )
-                                }else{
-                                    WebPlayActivity.startActivity(
-                                        this@MainActivity,
-                                        "air quality",
-                                        Constant.URL_QUALITY+"?lon=${locations[1]}&lat=${locations[0]}"
-                                    )
-                                }
-
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
-            }
-
         }
     }
 

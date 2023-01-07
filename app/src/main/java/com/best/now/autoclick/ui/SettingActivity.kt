@@ -34,7 +34,6 @@ class SettingActivity:BaseVMActivity() {
                     Constant.URL_TERMS_OF_USE
                 )
             }
-            toolBar.title = ""
             setSupportActionBar(toolBar)
             toolBar.setNavigationOnClickListener { finish() }
         }
@@ -42,16 +41,16 @@ class SettingActivity:BaseVMActivity() {
 
     private fun setUiState() {
         if (!MainActivity.purchased){
-            binding.ivVip.visibility = View.VISIBLE
             binding.btnGetVip.visibility = View.VISIBLE
             binding.llText.visibility = View.GONE
+            binding.tvDate.visibility = View.GONE
             binding.btnGetVip.setOnClickListener {
                 startActivityForResult(Intent(this@SettingActivity,SubscribeActivity::class.java),10001)
             }
         }else{
             binding.llText.visibility = View.VISIBLE
-            binding.ivVip.visibility = View.GONE
             binding.btnGetVip.visibility = View.GONE
+            binding.tvDate.visibility = View.VISIBLE
             var time = (30+7) * 24 * 3600 * 1000L
             binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
                 MainActivity.purchaseTime + time,
@@ -63,8 +62,8 @@ class SettingActivity:BaseVMActivity() {
     }
     private fun setUiStateSelf(purchaseTime: Long) {
         binding.llText.visibility = View.VISIBLE
-        binding.ivVip.visibility = View.GONE
         binding.btnGetVip.visibility = View.GONE
+        binding.tvDate.visibility = View.VISIBLE
         var time = (30+7) * 24 * 3600 * 1000L
         binding.tvDate.text = "Membership valid until：${TimeUtils.millis2String(
             purchaseTime+ time,

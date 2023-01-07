@@ -10,10 +10,10 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.temperature.max"
+        applicationId "com.bill.tracker.max"
         minSdk 21
         targetSdk 32
-        versionCode 6
+        versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -77,5 +77,4 @@ dependencies {
     api 'com.blankj:utilcode:latest.release'
 
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 }
