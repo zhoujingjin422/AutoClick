@@ -42,7 +42,6 @@ class GuideActivity:BaseVMActivity(),NextClickCallBack {
             //记录已经不是第一次进来了
             putSpValue("First",false)
             WebPlayActivity.startActivity(this,"2048",Constant.URL_HOMEPAGE)
-            startActivity(Intent(this,WebPlayActivity::class.java))
             finish()
         }
     }

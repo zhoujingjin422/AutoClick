@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.*
@@ -122,7 +123,7 @@ class WebPlayActivity : BaseVMActivity() {
     class JavaScriptObject(private val activity: AppCompatActivity,private val webView: WebView) {
         @JavascriptInterface
         fun goback() {
-            activity.finish()
+            webView.goBack()
         }
         @JavascriptInterface
         fun startGameFn() {
@@ -142,8 +143,14 @@ class WebPlayActivity : BaseVMActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode==KeyEvent.KEYCODE_BACK&&binding.webView.canGoBack()){
+            binding.webView.goBack()
+            return true
+        }else if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
-
 }
