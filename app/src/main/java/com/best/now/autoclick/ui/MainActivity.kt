@@ -60,17 +60,8 @@ class MainActivity : BaseVMActivity() {
             ivSetting.setOnClickListener {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-            PermissionX.init(this@MainActivity)
-                .permissions( Manifest.permission.CAMERA)
-                .request { allGranted, _, deniedList ->
-                    if (allGranted) {
-//                       startActivity(Intent(this@MainActivity,ProtractorActivity::class.java))
-                    } else {
-                        ToastUtils.showShort("These permissions are denied: $deniedList")
-                    }
-                }
             ivTher.setOnClickListener {
-                 if (isPurchased(this@MainActivity)){
+//                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
@@ -80,23 +71,15 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-                }
+//                }
             }
             ivHyg.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
-                    PermissionX.init(this@MainActivity)
-                        .permissions( Manifest.permission.CAMERA)
-                        .request { allGranted, _, deniedList ->
-                            if (allGranted) {
-                                startActivity(Intent(this@MainActivity,RulerActivity::class.java))
-                            } else {
-                                ToastUtils.showShort("These permissions are denied: $deniedList")
-                            }
-                        }
-                }
+//                if (isPurchased(this@MainActivity)){
+                    startActivity(Intent(this@MainActivity,RulerActivity::class.java))
+//                }
             }
             ivAir.setOnClickListener {
-                if (isPurchased(this@MainActivity)){
+//                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
@@ -105,7 +88,7 @@ class MainActivity : BaseVMActivity() {
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
-                        }
+//                        }
                 }
             }
 
@@ -256,9 +239,12 @@ class MainActivity : BaseVMActivity() {
     private fun clientConnection() {
         if (!isFinishing) {
             //与 Google Play 建立连接
-            loadingDialog.show()
-            connectionNum++
-            billingClient.startConnection(billingClientStateListener)
+            try {
+                loadingDialog.show()
+                connectionNum++
+                billingClient.startConnection(billingClientStateListener)
+            } catch (e: Exception) {
+            }
         }
     }
 

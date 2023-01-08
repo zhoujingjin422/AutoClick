@@ -13,16 +13,15 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <FrameLayout
-            android:layout_width="88dp"
+            android:layout_width="73dp"
             android:background="#B6D5F8"
             android:layout_height="match_parent">
             <FrameLayout
                 android:id="@+id/fl_back"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="26dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="42dp">
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="12dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

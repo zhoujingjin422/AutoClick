@@ -225,13 +225,13 @@ public class CycleRulerView extends View {
 		radius = height*4/5f;
 		else radius = width*2 / 5f;
 		if (!cameraOn){
-			canvas.drawColor(0xFF3F79FA);
+			canvas.drawColor(0xFF000000);
 		}else{
 //			canvas.drawColor(0xFF3F79FA);
 		}
 
 		Paint paint = new Paint();
-		paint.setColor(0x4C3F79FA);
+		paint.setColor(0x4CFFFFFF);
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 
@@ -240,22 +240,20 @@ public class CycleRulerView extends View {
 		paintShow.setStyle(Paint.Style.FILL);
 
 		offset = (height - (width / 2f)) / 2f;
+//		Paint xpaint = new Paint();
+//		xpaint.setAntiAlias(true);
+//		xpaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+//		xpaint.setStyle(Paint.Style.FILL);
+//		xpaint.setColor(0x5fffffff);
+//		canvas.drawRect(new RectF(0, 0, width/2, height/2), xpaint);
+//		canvas.save();
 		RectF oval = new RectF(width/2-CommonExtKt.dp2px(this,132), height-CommonExtKt.dp2px(this,152), width/2+CommonExtKt.dp2px(this,132), height+CommonExtKt.dp2px(this,112));
 		canvas.drawArc(oval, 0, 360, true, paint);
-		paintShow.setShader(new SweepGradient(0,0,new int[]{0x4DD7BBFA,0x4DA4C6FA},null));
-		Log.e("kedu",kedu+":"+kedu2);
+		paintShow.setShader(new SweepGradient(0,0,0x4CE0C9F2,0x4CB6CDED));
 		if (kedu<kedu2)
-		canvas.drawArc(oval, kedu+180, kedu2-kedu, true, paintShow);
+			canvas.drawArc(oval, kedu+180, kedu2-kedu, true, paintShow);
 		else canvas.drawArc(oval, kedu2+180, kedu-kedu2, true, paintShow);
-		Paint xpaint = new Paint();
-		xpaint.setAntiAlias(true);
-		xpaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
-		xpaint.setStyle(Paint.Style.FILL);
-		xpaint.setColor(0x5fffffff);
-		canvas.drawRect(new RectF(0, 0, width, height), xpaint);
-		canvas.save();
 		canvas.translate(width / 2, height - CommonExtKt.dp2px(this,20));
-		double degree = 10;
 		Paint paint2 = new Paint();
 		paint2.setAntiAlias(true);
 		paint2.setColor(0xFFFFFFFF);
@@ -263,7 +261,7 @@ public class CycleRulerView extends View {
 		Paint degreePaint = new Paint();
 		degreePaint.setAntiAlias(true);
 		degreePaint.setTextSize(fontSize);
-		degreePaint.setColor(0x6fffffff);
+		degreePaint.setColor(0xffffffff);
 		for (int i = 0; i <=180; i++) {
 			Coordinate coordinate = getCoordinate(radius, i);
 			float x = coordinate.getX();
@@ -287,18 +285,6 @@ public class CycleRulerView extends View {
 			float y1 = coordinate1.getY();
 			canvas.drawLine(-x1, -y1, -x, -y, paint2);
 		}
-		Paint arcPaint = new Paint();
-		arcPaint.setAntiAlias(true);
-		arcPaint.setColor(0x6fffffff);
-		arcPaint.setStrokeWidth(CommonExtKt.dp2px(this,1));
-		arcPaint.setStyle(Paint.Style.STROKE);
-		RectF oval1 = new RectF();
-		oval1.left = -width / 2f;
-		oval1.top = offset * 2f - height;
-		oval1.right = width / 2f;
-		oval1.bottom = height - offset * 2f;
-//		canvas.drawArc(oval1, 180, 180, true, arcPaint);
-//		canvas.drawLine(0, 0, 0, -padding, paint2);
 		paint2.setColor(0xFF738EF7);
 		if (point != null) {
 			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.iv_la),picSize,picSize,false);
@@ -311,7 +297,18 @@ public class CycleRulerView extends View {
 			canvas.drawBitmap(bitmap,pointBitmap2.getX(),pointBitmap2.getY(),paint2);
 			canvas.drawLine(0, 0, point2.getX(), point2.getY(), paint2);
 		}
-		canvas.restore();
+
+		Paint paintCircle = new Paint();
+		paintCircle.setAntiAlias(true);
+		paintCircle.setStyle(Paint.Style.FILL);
+		Paint paintCircleWhite = new Paint();
+		paintCircleWhite.setAntiAlias(true);
+		paintCircleWhite.setStyle(Paint.Style.FILL);
+		paintCircleWhite.setColor(0xFFFFFFFF);
+		paintCircle.setShader(new SweepGradient(0,0,0xFFE0C9F2,0xFFB6CDED));
+		canvas.drawCircle(0,0,CommonExtKt.dp2px(this,12),paintCircleWhite);
+		canvas.drawCircle(0,0,CommonExtKt.dp2px(this,11),paintCircle);
+//		canvas.restore();
 //		drawDisplay(canvas);
 	}
 
@@ -322,7 +319,7 @@ public class CycleRulerView extends View {
 		windowManager.getDefaultDisplay().getMetrics(dm);
 		padding = TypedValue
 				.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, dm);
-		fontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 11,
+		fontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 13,
 				dm);
 		RADIUS_BIG = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 46,
 				dm);

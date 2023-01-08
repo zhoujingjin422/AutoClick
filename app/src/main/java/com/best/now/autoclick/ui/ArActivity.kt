@@ -46,7 +46,7 @@ class ArActivity: BaseVMActivity() {
             UILast.setOnClickListener {
                 when (dataArray.size) {
                     0 -> {
-                        ToastUtils.showLong("没有操作记录")
+                        ToastUtils.showLong("No operation record")
                     }
                     1 -> {
                         dataArray.clear()

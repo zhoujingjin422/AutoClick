@@ -12,10 +12,6 @@ class Constant {
         const val MIX_PARAMETER = "xwesd0=erxdss1&nhyxdjj1=xeetd0&rtygd9=mxaszu0"
         const val URL_PRIVACY_POLICY = "https://h73vhyaffj.feishu.cn/docx/U0oJd92OooEpV4xFiEpcVnesnUb"
         const val URL_TERMS_OF_USE = "https://h73vhyaffj.feishu.cn/docx/FugXd11MeoPk4Lx8jNjc8C7NnHf"
-        const val URL_QUALITY = "http://wendu.sephx.shop/wenduji/H5/mingqi-eng/air-quality.html"
-        const val URL_HUMIDITY = "http://wendu.sephx.shop/wenduji/H5/mingqi-eng/humidity.html"
-        const val URL_TEMPERATURE = "http://wendu.sephx.shop/wenduji/H5/mingqi-eng/temperature.html"
-        const val URL_INDEX = "http://wendu.sephx.shop/wenduji/H5/mingqi-eng/index.html"
         const val VIP_MONTH = "ruler_month"
 
         //测试id

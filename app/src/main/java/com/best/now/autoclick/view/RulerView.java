@@ -22,6 +22,7 @@ import com.best.now.autoclick.ext.CommonExtKt;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -80,9 +81,9 @@ public class RulerView extends View {
 				attrs, R.styleable.RulerView, defStyleAttr, defStyleRes);
 
 		guideScaleTextSize = a.getDimension(R.styleable.RulerView_guideScaleTextSize, 40);
-		graduatedScaleWidth = a.getDimension(R.styleable.RulerView_graduatedScaleWidth, 8);
+		graduatedScaleWidth = a.getDimension(R.styleable.RulerView_graduatedScaleWidth, CommonExtKt.dp2px(this,2));
 		graduatedScaleBaseLength =
-				a.getDimension(R.styleable.RulerView_graduatedScaleBaseLength, 100);
+				a.getDimension(R.styleable.RulerView_graduatedScaleBaseLength, CommonExtKt.dp2px(this,20));
 		scaleColor = a.getColor(R.styleable.RulerView_scaleColor, 0xFF03070A);
 
 		labelTextSize = a.getDimension(R.styleable.RulerView_labelTextSize, 60);
@@ -241,7 +242,7 @@ public class RulerView extends View {
 			float endY = startY;
 			canvas.drawLine(startX, startY, endX, endY, scalePaint);
 
-			if (graduation.value % 1 == 0) {
+			if (graduation.value!=0 && graduation.value % 1 == 0) {
 
 				String text = (int) graduation.value + "";
 
@@ -257,12 +258,12 @@ public class RulerView extends View {
 			Unit.Graduation graduation = pixelsInchIterator.next();
 
 			float startX = 0;
-			float startY = paddingTop + graduation.pixelOffset;
+			float startY = height-(paddingTop + graduation.pixelOffset);
 			float endX = graduation.relativeLength * graduatedScaleBaseLength;
 			float endY = startY;
 			canvas.drawLine(startX, startY, endX, endY, scalePaint);
 
-			if (graduation.value % 1 == 0) {
+			if (graduation.value!=0 && graduation.value % 1 == 0) {
 				String text = (int) graduation.value + "";
 
 				canvas.save();
