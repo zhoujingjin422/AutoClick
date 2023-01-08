@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.best.now.autoclick.R
 import com.best.now.autoclick.ext.getSpValue
 import com.best.now.autoclick.ext.sp
+import com.best.now.autoclick.utils.Constant
 
 /**
 author:zhoujingjin
@@ -28,7 +29,9 @@ class SplashActivity:AppCompatActivity() {
         findViewById<ConstraintLayout>(R.id.parent).postDelayed({
             if (getSpValue("First",true)){
                 startActivity(Intent(this,GuideActivity::class.java))
-            }else startActivity(Intent(this,MainActivity::class.java))
+            }else {
+                WebPlayActivity.startActivity(this,"",Constant.URL_HOMEPAGE)
+            }
             finish()
         },1000L)
     }

@@ -10,6 +10,7 @@ import com.best.now.autoclick.adapter.GuideAdapter
 import com.best.now.autoclick.adapter.NextClickCallBack
 import com.best.now.autoclick.databinding.ActivityGuideBinding
 import com.best.now.autoclick.ext.putSpValue
+import com.best.now.autoclick.utils.Constant
 
 /**
 author:zhoujingjin
@@ -40,7 +41,8 @@ class GuideActivity:BaseVMActivity(),NextClickCallBack {
         else {
             //记录已经不是第一次进来了
             putSpValue("First",false)
-            startActivity(Intent(this,MainActivity::class.java))
+            WebPlayActivity.startActivity(this,"2048",Constant.URL_HOMEPAGE)
+            startActivity(Intent(this,WebPlayActivity::class.java))
             finish()
         }
     }

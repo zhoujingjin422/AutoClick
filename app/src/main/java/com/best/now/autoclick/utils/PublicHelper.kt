@@ -5,7 +5,6 @@ import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
-import android.content.Intent
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,13 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.best.now.autoclick.R
-import com.best.now.autoclick.ext.dp2px
-import com.best.now.autoclick.ui.MainActivity
-import com.best.now.autoclick.ui.SubscribeActivity
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -28,26 +23,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class PublicHelper {
-    companion object {
-        /*** 判断是否购买 */
-        fun isPurchased2(): Boolean {
-            return isPurchased()
-        }
-    }
+
 }
 
-/**
- * 判断是否购买，
- * context不为null时，未购买跳转到订阅页
- */
-fun isPurchased(context: AppCompatActivity? = null): Boolean {
-    // 通过MainActivity中的purchased值来判断是否购买了
-    val purchased = MainActivity.purchased
-    if (!purchased) {
-        context?.startActivityForResult(Intent(context, SubscribeActivity::class.java), 100)
-    }
-    return purchased
-}
+
 
 val adParentList = arrayListOf<LinearLayout>()
 

@@ -17,6 +17,8 @@ import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
+import com.best.now.autoclick.utils.loadAd
+import com.best.now.autoclick.utils.showInterstitialAd
 
 
 /*** 选择服务界面 */
@@ -78,7 +80,7 @@ class WebPlayActivity : BaseVMActivity() {
                 allowContentAccess = true
                 javaScriptEnabled = true
             }
-            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity),"android")
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
             webView.webViewClient = WebViewClient()
             webView.webChromeClient = object : WebChromeClient(){
                 override fun onShowFileChooser(
@@ -104,6 +106,7 @@ class WebPlayActivity : BaseVMActivity() {
         url?.let {
             binding.webView.loadUrl(it)
         }
+        loadAd(binding.advBanner)
     }
 
     override fun onDestroy() {
@@ -116,11 +119,31 @@ class WebPlayActivity : BaseVMActivity() {
     }
 
 
-    class JavaScriptObject(private val activity: AppCompatActivity) {
+    class JavaScriptObject(private val activity: AppCompatActivity,private val webView: WebView) {
         @JavascriptInterface
         fun goback() {
             activity.finish()
         }
+        @JavascriptInterface
+        fun startGameFn() {
+            showInterstitialAd(activity, callback = {
+                webView.evaluateJavascript("javascript:startGameFn()"){
+
+                }
+            })
+        }
+        @JavascriptInterface
+        fun restartGameFn() {
+            showInterstitialAd(activity,callback = {
+                webView.evaluateJavascript("javascript:startGameFn()"){
+
+                }
+            })
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 }

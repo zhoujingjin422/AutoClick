@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.best.now.autoclick">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
@@ -41,12 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.GuideActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.SubscribeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.WebActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebPlayActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.WebPlayPianoActivity" android:screenOrientation="portrait"/>
     </application>
     <!--适配华为（huawei）刘海屏-->
     <meta-data
