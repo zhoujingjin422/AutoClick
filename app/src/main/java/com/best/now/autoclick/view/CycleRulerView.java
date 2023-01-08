@@ -25,9 +25,12 @@ import com.best.now.autoclick.R;
 import com.best.now.autoclick.bean.Coordinate;
 import com.best.now.autoclick.ext.CommonExtKt;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class CycleRulerView extends View {
-	private int kedu;
-	private int kedu2;
+	private float kedu;
+	private float kedu2;
 	private int width;
 	private int height;
 	private float radius;
@@ -47,7 +50,7 @@ public class CycleRulerView extends View {
 	public float DISPLAY_SIZE_SMALL;
 	private int picSize = CommonExtKt.dp2px(this,24);
 	private ChangeListener changeListener;
-	private boolean cameraOn = true;
+	private boolean cameraOn = false;
 
 
 	/**
@@ -140,6 +143,7 @@ public class CycleRulerView extends View {
 	}
 
 	private void onTouchBegain(Coordinate coordinate) {
+		Log.e("Coordinate:",coordinate.getX()+":"+coordinate.getY());
 		caculatePoint(coordinate,true);
 	}
 
@@ -149,6 +153,14 @@ public class CycleRulerView extends View {
 
 	private void onTouchDone(Coordinate coordinate) {
 		// caculatePoint(coordinate);
+	}
+	private void initDefaultKedu(){
+		postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				caculatePoint(new Coordinate(300f,748f),true);
+			}
+		},500L);
 	}
 
 	private void caculatePoint(Coordinate coordinate,boolean down) {
@@ -167,7 +179,8 @@ public class CycleRulerView extends View {
 			kedu2 = 0;
 			pointBitmap2 = new Coordinate(-CommonExtKt.dp2px(this,132)-picSize/2f,-picSize/2f);
 		}
-		int keduTemp = (int) Math.round(Math.atan(dy /dx) / Math.PI * 180);
+		float keduTemp = (float) (Math.atan(dy /dx) / Math.PI * 180f);
+
 		if (dx >= 0) {
 			keduTemp += 180;
 		}
@@ -192,7 +205,10 @@ public class CycleRulerView extends View {
 			pointBitmap2 = new Coordinate(xBitmap-picSize/2f,yBitmap-picSize/2f);
 		}
 		if (changeListener!=null){
-			changeListener.onChange(Math.abs(kedu-kedu2),180-Math.abs(kedu-kedu2));
+			Log.e("kedu1",kedu+"");
+			Log.e("kedu2",kedu2+"");
+
+			changeListener.onChange(Math.abs(kedu-kedu2));
 		}
 		invalidate();
 	}
@@ -333,6 +349,7 @@ public class CycleRulerView extends View {
 				TypedValue.COMPLEX_UNIT_DIP, 40, dm);
 		DISPLAY_SIZE_SMALL = TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 20, dm);
+		initDefaultKedu();
 	}
 
 	public CycleRulerView(Context context) {
@@ -362,6 +379,6 @@ public class CycleRulerView extends View {
 	}
 
 	public interface ChangeListener{
-		void onChange(float deg,float rad);
+		void onChange(float deg);
 	}
 }

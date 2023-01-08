@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,6 +108,12 @@ public class RulerView extends View {
 		a.recycle();
 
 		initRulerView();
+		postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				caculatePoint(new Coordinate(300f,500f),true);
+			}
+		},500L);
 	}
 	private void initRulerView() {
 		activePointers = new SparseArray<>();
@@ -158,6 +165,7 @@ public class RulerView extends View {
 		caculatePoint(coordinate,false);
 	}
 	private void onTouchBegain(Coordinate coordinate) {
+		Log.e("Coordinate:",coordinate.getX()+":"+coordinate.getY());
 		caculatePoint(coordinate,true);
 	}
 	private Coordinate point;
@@ -204,7 +212,7 @@ public class RulerView extends View {
 		int paddingLeft = getPaddingLeft();
 
 		// Draw background.
-		canvas.drawPaint(backgroundPaint);
+//		canvas.drawPaint(backgroundPaint);
 		RectF mRectF = new RectF(0, 0, CommonExtKt.dp2px(this,80), height);
 		RectF mRectF2 = new RectF(width-CommonExtKt.dp2px(this,80), 0, width, height);
 		rulerPaint.setShader(new LinearGradient(0,0,0,mRectF.bottom,0xFFC6B0DD,0xFF9DB8DC, Shader.TileMode.CLAMP));

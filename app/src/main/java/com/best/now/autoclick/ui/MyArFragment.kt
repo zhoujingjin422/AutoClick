@@ -21,6 +21,7 @@ class MyArFragment : ArFragment() {
                 val var3 = sessionException.toString()
             }
         }
+        activity?.finish()
         ToastUtils.showLong(message)
     }
 }

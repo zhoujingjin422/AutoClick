@@ -1,6 +1,5 @@
 package com.best.now.autoclick.ui
 
-import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.SurfaceHolder
 import android.view.View
@@ -9,17 +8,22 @@ import com.best.now.autoclick.R
 import com.best.now.autoclick.camera.CameraManager
 import com.best.now.autoclick.databinding.ActivityProtractorBinding
 import java.io.IOException
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.NumberFormat
 
 class ProtractorActivity:BaseVMActivity(), SurfaceHolder.Callback {
     private val binding by binding<ActivityProtractorBinding>(R.layout.activity_protractor)
     private var hasSurface = false
-    private var cameraOn = true
+    private var cameraOn = false
     override fun initView() {
         binding.apply {
             flBack.setOnClickListener { finish() }
-            cyview.setListener { deg, rad ->
-                tvDeg.text = "Deg:${deg}°"
-                tvRad.text = "Deg:${rad}°"
+            cyview.setListener { deg ->
+                val nf: NumberFormat = NumberFormat.getNumberInstance()
+                nf.maximumFractionDigits = 2
+                tvDeg.text = "Deg:${nf.format(deg)}°"
+                tvRad.text = "Rad:${nf.format(180-deg)}°"
             }
             cameraSwicth.setOnClickListener {
                 cameraOn = !cameraOn

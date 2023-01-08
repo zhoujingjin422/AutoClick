@@ -41,7 +41,8 @@
                 <SurfaceView
                     android:id="@+id/surface"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:visibility="invisible"/>
             <com.best.now.autoclick.view.CycleRulerView
                 android:id="@+id/cyview"
                 android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:background="@drawable/shape_button_camera"
+                android:background="@drawable/shape_button_camera_off"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="26dp"/>
             <LinearLayout
