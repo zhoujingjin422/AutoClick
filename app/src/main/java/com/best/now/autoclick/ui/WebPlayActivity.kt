@@ -18,8 +18,11 @@ import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
+import com.best.now.autoclick.utils.Constant.Companion.URL_PRIVACY_POLICY
+import com.best.now.autoclick.utils.Constant.Companion.URL_TERMS_OF_USE
 import com.best.now.autoclick.utils.loadAd
 import com.best.now.autoclick.utils.showInterstitialAd
+import com.blankj.utilcode.util.ToastUtils
 
 
 /*** 选择服务界面 */
@@ -37,7 +40,8 @@ class WebPlayActivity : BaseVMActivity() {
     private var dialog:AlertDialog?= null
     override fun initView() {
         binding.apply {
-
+            setSupportActionBar(toolBar)
+            toolBar.setNavigationOnClickListener { webView.goBack() }
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
                    val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
@@ -82,7 +86,23 @@ class WebPlayActivity : BaseVMActivity() {
                 javaScriptEnabled = true
             }
             webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
-            webView.webViewClient = WebViewClient()
+            webView.webViewClient = object :WebViewClient(){
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    ToastUtils.showShort(url)
+                    when (url) {
+                        URL_TERMS_OF_USE -> {
+                            binding.toolBar.visibility = View.VISIBLE
+                            binding.toolBar.title = "Terms of Service"
+                        }
+                        URL_PRIVACY_POLICY -> {
+                            binding.toolBar.visibility = View.VISIBLE
+                            binding.toolBar.title = "Privacy Policy"
+                        }
+                        else -> binding.toolBar.visibility = View.GONE
+                    }
+                    return super.shouldOverrideUrlLoading(view, url)
+                }
+            }
             webView.webChromeClient = object : WebChromeClient(){
                 override fun onShowFileChooser(
                     p0: WebView?,

@@ -9,12 +9,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_back">
-
-                         <FrameLayout
+        android:background="@color/white">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/black"
+            app:navigationIcon="@mipmap/icon_back"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/status_bar_height"
+            app:layout_constraintTop_toTopOf="parent"/>
+               <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tool_bar"
                 app:layout_constraintBottom_toTopOf="@id/adv_banner">
                 <WebView
                     android:id="@+id/web_view"
