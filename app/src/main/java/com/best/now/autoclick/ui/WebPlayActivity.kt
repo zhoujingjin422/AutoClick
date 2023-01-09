@@ -2,26 +2,27 @@ package com.best.now.autoclick.ui
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
 import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
-import com.best.now.autoclick.bean.DataBean
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
-import com.blankj.utilcode.util.GsonUtils
+import com.best.now.autoclick.utils.Constant.Companion.URL_PRIVACY_POLICY
+import com.best.now.autoclick.utils.Constant.Companion.URL_TERMS_OF_USE
+import com.best.now.autoclick.utils.loadAd
+import com.best.now.autoclick.utils.showInterstitialAd
 import com.blankj.utilcode.util.ToastUtils
-import java.util.*
 
 
 /*** 选择服务界面 */
@@ -37,23 +38,11 @@ class WebPlayActivity : BaseVMActivity() {
     }
 
     private var dialog:AlertDialog?= null
-    private lateinit var speech:TextToSpeech
     override fun initView() {
-         speech = TextToSpeech(this){
-             if(it == TextToSpeech.SUCCESS){
-                 speech.language = Locale.ENGLISH
-             }
-         }
         binding.apply {
-            toolBar.title = intent.getStringExtra("Title")
-            setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener {
-                onBackPressed()
-            }
-
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
-                   val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
+                    val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
                     setView(input)
                     val bind  = DataBindingUtil.bind<InputLayoutBinding>(input)
                     bind?.etUrl?.setText(url)
@@ -94,6 +83,7 @@ class WebPlayActivity : BaseVMActivity() {
                 allowContentAccess = true
                 javaScriptEnabled = true
             }
+            webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
             webView.webViewClient = WebViewClient()
             webView.webChromeClient = object : WebChromeClient(){
                 override fun onShowFileChooser(
@@ -115,16 +105,15 @@ class WebPlayActivity : BaseVMActivity() {
 
     private var url :String?= null
     override fun initData() {
-         url = intent.getStringExtra("Url")
+        url = intent.getStringExtra("Url")
         url?.let {
             binding.webView.loadUrl(it)
         }
+        loadAd(binding.advBanner)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        speech.stop()
-        speech.shutdown()
         binding.webView.apply {
             stopLoading()
             clearView()
@@ -132,4 +121,40 @@ class WebPlayActivity : BaseVMActivity() {
         }
     }
 
+
+    class JavaScriptObject(private val activity: AppCompatActivity,private val webView: WebView) {
+        @JavascriptInterface
+        fun goback() {
+            if (webView.canGoBack())
+            webView.goBack()
+            else activity.finish()
+        }
+        @JavascriptInterface
+        fun gamerestartadvert() {
+            showInterstitialAd(activity, callback = {
+                webView.evaluateJavascript("javascript:gamerestartadvert()"){
+
+                }
+            })
+        }
+        @JavascriptInterface
+        fun gameadvert() {
+            showInterstitialAd(activity,callback = {
+                webView.evaluateJavascript("javascript:gameadvert()"){
+
+                }
+            })
+        }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode==KeyEvent.KEYCODE_BACK&&binding.webView.canGoBack()){
+            binding.webView.goBack()
+            return true
+        }else if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 }

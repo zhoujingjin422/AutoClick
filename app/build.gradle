@@ -10,10 +10,10 @@ android {
     buildToolsVersion "32.0.0"
 
     defaultConfig {
-        applicationId "com.pet.translator.max"
+        applicationId "com.chess.one.pro"
         minSdk 21
         targetSdk 32
-        versionCode 8
+        versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -68,9 +68,6 @@ dependencies {
     //    implementation 'com.lzy.net:okrx:1.0.2'
     implementation 'com.lzy.net:okrx2:2.0.2'
     implementation 'com.lzy.net:okserver:2.0.5'
-    //谷歌支付
-    def billing_version = "4.0.0"
-    implementation "com.android.billingclient:billing:$billing_version"
     //广告Admob
     implementation 'com.google.android.gms:play-services-ads:20.5.0'
     //工具类
