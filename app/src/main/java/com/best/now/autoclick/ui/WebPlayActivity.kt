@@ -41,7 +41,12 @@ class WebPlayActivity : BaseVMActivity() {
     override fun initView() {
         binding.apply {
             setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener { webView.goBack() }
+            toolBar.setNavigationOnClickListener {
+                webView.goBack()
+                toolBar.postDelayed({
+                    binding.toolBar.visibility = View.GONE
+                },300L)
+            }
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
                    val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
@@ -91,11 +96,15 @@ class WebPlayActivity : BaseVMActivity() {
                     ToastUtils.showShort(url)
                     when (url) {
                         URL_TERMS_OF_USE -> {
-                            binding.toolBar.visibility = View.VISIBLE
+                            binding.toolBar.postDelayed({
+                                binding.toolBar.visibility = View.VISIBLE
+                            },300L)
                             binding.toolBar.title = "Terms of Service"
                         }
                         URL_PRIVACY_POLICY -> {
-                            binding.toolBar.visibility = View.VISIBLE
+                            binding.toolBar.postDelayed({
+                                binding.toolBar.visibility = View.VISIBLE
+                            },300L)
                             binding.toolBar.title = "Privacy Policy"
                         }
                         else -> binding.toolBar.visibility = View.GONE
@@ -166,6 +175,9 @@ class WebPlayActivity : BaseVMActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode==KeyEvent.KEYCODE_BACK&&binding.webView.canGoBack()){
             binding.webView.goBack()
+            binding.toolBar.postDelayed({
+                binding.toolBar.visibility = View.GONE
+            },300L)
             return true
         }else if (keyCode==KeyEvent.KEYCODE_BACK){
             finish()
