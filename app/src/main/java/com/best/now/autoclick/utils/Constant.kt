@@ -22,8 +22,8 @@ class Constant {
 //        const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
 //        const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
         //正式id
-    const val AD_BANNER_ID =  "ca-app-pub-4579422483792864/8711307536"
-        const val  AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/3080503069"
-        const val  AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/8028781252"
+    const val AD_BANNER_ID =  "ca-app-pub-4579422483792864/4229851056"
+        const val  AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/6454605438"
+        const val  AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/6398765110"
     }
 }
