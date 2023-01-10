@@ -150,6 +150,18 @@ class WebPlayActivity : BaseVMActivity() {
                 })
             }
         }
+        @JavascriptInterface
+        fun jumppage(url:String?) {
+            url?.let {
+                var title = "";
+                if (it == URL_TERMS_OF_USE){
+                    title = "Terms of Use"
+                }else if (it == URL_PRIVACY_POLICY){
+                    title = "Privacy Policy"
+                }
+                WebActivity.startActivity(activity,title,it)
+            }
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
