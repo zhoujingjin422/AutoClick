@@ -16,16 +16,16 @@
         android:name=".AutoClickApplication"
         android:theme="@style/Theme.AutoClick">
 <!--        测试-->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~1458002511" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="ca-app-pub-3940256099942544~1458002511" />-->
         <meta-data
             android:name="com.google.ar.core"
             android:value="optional" />
 <!--        正式-->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="ca-app-pub-4579422483792864~9734096234" />-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4579422483792864~8779913692" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}"
