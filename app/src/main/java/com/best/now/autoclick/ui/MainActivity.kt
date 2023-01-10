@@ -24,7 +24,7 @@ import com.permissionx.guolindev.PermissionX
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -61,7 +61,7 @@ class MainActivity : BaseVMActivity() {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             ivTher.setOnClickListener {
-//                 if (isPurchased(this@MainActivity)){
+                 if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
@@ -71,15 +71,15 @@ class MainActivity : BaseVMActivity() {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
                         }
-//                }
+                }
             }
             ivHyg.setOnClickListener {
-//                if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     startActivity(Intent(this@MainActivity,RulerActivity::class.java))
-//                }
+                }
             }
             ivAir.setOnClickListener {
-//                if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     PermissionX.init(this@MainActivity)
                         .permissions( Manifest.permission.CAMERA)
                         .request { allGranted, _, deniedList ->
@@ -88,7 +88,7 @@ class MainActivity : BaseVMActivity() {
                             } else {
                                 ToastUtils.showShort("These permissions are denied: $deniedList")
                             }
-//                        }
+                        }
                 }
             }
 
