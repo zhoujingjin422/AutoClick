@@ -40,13 +40,7 @@ class WebPlayActivity : BaseVMActivity() {
     private var dialog:AlertDialog?= null
     override fun initView() {
         binding.apply {
-            setSupportActionBar(toolBar)
-            toolBar.setNavigationOnClickListener {
-                webView.goBack()
-                toolBar.postDelayed({
-                    binding.toolBar.visibility = View.GONE
-                },300L)
-            }
+
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
                    val input =  LayoutInflater.from(this@WebPlayActivity).inflate(R.layout.input_layout,null)
@@ -92,24 +86,7 @@ class WebPlayActivity : BaseVMActivity() {
             }
             webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
             webView.webViewClient = object :WebViewClient(){
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    when (url) {
-                        URL_TERMS_OF_USE -> {
-                            binding.toolBar.postDelayed({
-                                binding.toolBar.visibility = View.VISIBLE
-                            },300L)
-                            binding.toolBar.title = "Terms of Service"
-                        }
-                        URL_PRIVACY_POLICY -> {
-                            binding.toolBar.postDelayed({
-                                binding.toolBar.visibility = View.VISIBLE
-                            },300L)
-                            binding.toolBar.title = "Privacy Policy"
-                        }
-                        else -> binding.toolBar.visibility = View.GONE
-                    }
-                    return super.shouldOverrideUrlLoading(view, url)
-                }
+
             }
             webView.webChromeClient = object : WebChromeClient(){
                 override fun onShowFileChooser(
@@ -178,9 +155,6 @@ class WebPlayActivity : BaseVMActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode==KeyEvent.KEYCODE_BACK&&binding.webView.canGoBack()){
             binding.webView.goBack()
-            binding.toolBar.postDelayed({
-                binding.toolBar.visibility = View.GONE
-            },300L)
             return true
         }else if (keyCode==KeyEvent.KEYCODE_BACK){
             finish()
