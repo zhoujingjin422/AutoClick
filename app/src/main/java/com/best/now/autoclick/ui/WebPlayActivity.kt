@@ -155,19 +155,23 @@ class WebPlayActivity : BaseVMActivity() {
         }
         @JavascriptInterface
         fun startGameFn() {
-            showInterstitialAd(activity, callback = {
-                webView.evaluateJavascript("javascript:startGameFn()"){
+            activity.runOnUiThread {
+                showInterstitialAd(activity,callback = {
+                    webView.evaluateJavascript("javascript:startGameFn()"){
 
-                }
-            })
+                    }
+                })
+            }
         }
         @JavascriptInterface
         fun restartGameFn() {
-            showInterstitialAd(activity,callback = {
-                webView.evaluateJavascript("javascript:startGameFn()"){
+            activity.runOnUiThread {
+                showInterstitialAd(activity,callback = {
+                    webView.evaluateJavascript("javascript:startGameFn()"){
 
-                }
-            })
+                    }
+                })
+            }
         }
     }
 
