@@ -93,7 +93,6 @@ class WebPlayActivity : BaseVMActivity() {
             webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
             webView.webViewClient = object :WebViewClient(){
                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    ToastUtils.showShort(url)
                     when (url) {
                         URL_TERMS_OF_USE -> {
                             binding.toolBar.postDelayed({
