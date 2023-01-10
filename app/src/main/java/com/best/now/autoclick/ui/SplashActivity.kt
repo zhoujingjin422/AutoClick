@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.best.now.autoclick.R
 import com.best.now.autoclick.ext.getSpValue
 import com.best.now.autoclick.ext.sp
+import com.best.now.autoclick.utils.ActionHelper
 import com.best.now.autoclick.utils.Constant
 
 /**
@@ -25,6 +26,7 @@ class SplashActivity:AppCompatActivity() {
             finish()
             return
         }
+        ActionHelper.doAction("open")
         //延迟两秒，判断是不是首次进入，首次进入到导航页，不是直接进首页
         findViewById<ConstraintLayout>(R.id.parent).postDelayed({
             if (getSpValue("First",true)){
