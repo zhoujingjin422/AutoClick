@@ -17,12 +17,12 @@ class Constant {
         const val VIP_MONTH = "billtracker_month"
 
         //测试id
-        const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"
-        const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
-        const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
+//        const val AD_BANNER_ID = "ca-app-pub-3940256099942544/2934735716"
+//        const val AD_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
+//        const val AD_APP_OPEN_ID = "ca-app-pub-3940256099942544/5662855259"
         //正式id
-//        const val AD_BANNER_ID = "ca-app-pub-4579422483792864/4885094239"
-//        const val AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/8136313226"
-//        const val AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/8056422177"
+        const val AD_BANNER_ID = "ca-app-pub-4579422483792864/6987485726"
+        const val AD_INTERSTITIAL_ID = "ca-app-pub-4579422483792864/9247613713"
+        const val AD_APP_OPEN_ID = "ca-app-pub-4579422483792864/5482832368"
     }
 }
