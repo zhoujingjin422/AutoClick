@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".AutoClickApplication"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:theme="@style/Theme.AutoClick">
 <!--        测试-->
         <meta-data
@@ -41,7 +43,7 @@
         <activity android:name=".ui.MainActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.WebActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.WebPlayActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.WebPlayActivity" android:screenOrientation="portrait" android:hardwareAccelerated = "true"/>
         <activity android:name=".ui.WebPlayPianoActivity" android:screenOrientation="portrait"/>
     </application>
     <!--适配华为（huawei）刘海屏-->

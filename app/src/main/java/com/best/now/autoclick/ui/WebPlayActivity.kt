@@ -2,15 +2,16 @@ package com.best.now.autoclick.ui
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.webkit.*
+import android.webkit.WebChromeClient.CustomViewCallback
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.best.now.autoclick.BaseVMActivity
@@ -18,11 +19,8 @@ import com.best.now.autoclick.BuildConfig
 import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityWebPlayBinding
 import com.best.now.autoclick.databinding.InputLayoutBinding
-import com.best.now.autoclick.utils.Constant.Companion.URL_PRIVACY_POLICY
-import com.best.now.autoclick.utils.Constant.Companion.URL_TERMS_OF_USE
 import com.best.now.autoclick.utils.loadAd
 import com.best.now.autoclick.utils.showInterstitialAd
-import com.blankj.utilcode.util.ToastUtils
 
 
 /*** 选择服务界面 */
@@ -38,7 +36,15 @@ class WebPlayActivity : BaseVMActivity() {
     }
 
     private var dialog:AlertDialog?= null
+    private var customViewCallback: CustomViewCallback? = null
+    private var fullscreenContainer:FrameLayout?=null
     override fun initView() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            binding.webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
+        }
         binding.apply {
             tvChange.setOnClickListener {
                 dialog = AlertDialog.Builder(this@WebPlayActivity).apply {
@@ -82,6 +88,9 @@ class WebPlayActivity : BaseVMActivity() {
                 allowFileAccess = true
                 allowContentAccess = true
                 javaScriptEnabled = true
+                pluginState = WebSettings.PluginState.ON
+                allowFileAccess = true
+//                cacheMode = WebSettings.LOAD_NO_CACHE
             }
             webView.addJavascriptInterface(JavaScriptObject(this@WebPlayActivity,webView),"android")
             webView.webViewClient = WebViewClient()
@@ -99,10 +108,68 @@ class WebPlayActivity : BaseVMActivity() {
                         p0?.grant(p0.resources)
                     }
                 }
+
+                override fun getVideoLoadingProgressView(): View? {
+                    val frameLayout = FrameLayout(this@WebPlayActivity)
+                    frameLayout.layoutParams = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.MATCH_PARENT
+                    )
+                    return frameLayout
+                }
+
+                override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                    showCustomView(view, callback)
+                }
+
+                override fun onHideCustomView() {
+                    hideCustomView()
+                }
             }
         }
     }
+    private var customView:View? =null
+    private fun showCustomView( view : View? , callback: WebChromeClient.CustomViewCallback?) {
+        // if a view already exists then immediately terminate the new one
+        if (customView != null) {
+            callback?.onCustomViewHidden()
+            return
+        }
 
+        window.decorView
+
+        val  decor = window.decorView as FrameLayout
+        val fullscreenContainer =  FullscreenHolder(this)
+        fullscreenContainer.addView(view,FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        ) )
+        decor.addView(fullscreenContainer, FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        ))
+        customView = view
+        setStatusBarVisibility(false)
+        customViewCallback = callback
+    }
+    /** 隐藏视频全屏 */
+    private fun hideCustomView() {
+        if (customView == null) {
+            return
+        }
+
+        setStatusBarVisibility(true)
+        val decor = window.decorView as FrameLayout
+        decor.removeView(fullscreenContainer);
+        fullscreenContainer = null
+        customView = null
+        customViewCallback?.onCustomViewHidden();
+        binding.webView.visibility = View.VISIBLE;
+    }
+    private fun setStatusBarVisibility(visible:Boolean ) {
+        val flag = if(visible)  0 else WindowManager.LayoutParams.FLAG_FULLSCREEN
+        window.setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
     private var url :String?= null
     override fun initData() {
         url = intent.getStringExtra("Url")
@@ -125,25 +192,30 @@ class WebPlayActivity : BaseVMActivity() {
     class JavaScriptObject(private val activity: AppCompatActivity,private val webView: WebView) {
         @JavascriptInterface
         fun goback() {
-            if (webView.canGoBack())
-            webView.goBack()
-            else activity.finish()
+            activity.runOnUiThread {
+                activity.finish()
+            }
         }
         @JavascriptInterface
         fun gamerestartadvert() {
-            showInterstitialAd(activity, callback = {
-                webView.evaluateJavascript("javascript:gamerestartadvert()"){
+            activity.runOnUiThread {
+                showInterstitialAd(activity, callback = {
+                    webView.evaluateJavascript("javascript:gamerestartadvert()"){
 
-                }
-            })
+                    }
+                })
+            }
         }
         @JavascriptInterface
         fun gameadvert() {
-            showInterstitialAd(activity,callback = {
-                webView.evaluateJavascript("javascript:gameadvert()"){
+            activity.runOnUiThread {
+                showInterstitialAd(activity,callback = {
+                    webView.evaluateJavascript("javascript:advertCallback()"){
 
-                }
-            })
+                    }
+                })
+            }
+
         }
     }
 
@@ -156,5 +228,14 @@ class WebPlayActivity : BaseVMActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+}
+
+class FullscreenHolder(context: Context):FrameLayout(context){
+    init {
+        setBackgroundColor(context.resources.getColor(android.R.color.black))
+    }
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return true
     }
 }
