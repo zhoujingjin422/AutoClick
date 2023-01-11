@@ -14,6 +14,7 @@ import com.best.now.autoclick.R
 import com.best.now.autoclick.databinding.ActivityMainBinding
 import com.best.now.autoclick.utils.Constant
 import com.best.now.autoclick.utils.adParentList
+import com.best.now.autoclick.utils.isPurchased
 import com.best.now.autoclick.utils.loadAd
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.GsonUtils
@@ -22,7 +23,7 @@ import com.blankj.utilcode.util.LogUtils
 class MainActivity : BaseVMActivity() {
     companion object {
         const val BUS_TAG_UPDATE_PURCHASE_STATE = "update_purchase_state"
-        var purchased = true
+        var purchased = false
         var purchaseTime = 0L
         var productId = ""
         const val BUS_TAG_BUY_STATE_PURCHASED = "BUS_TAG_BUY_STATE_PURCHASED"
@@ -60,22 +61,22 @@ class MainActivity : BaseVMActivity() {
             }
 
             ivTher.setOnClickListener {
-//                 if (isPurchased(this@MainActivity)){
+                 if (isPurchased(this@MainActivity)){
                      WebPlayActivity.startActivity(
                          this@MainActivity,
                          "Thermometer",
                          Constant.URL_TRACKER
                      )
-//                }
+                }
             }
             ivHyg.setOnClickListener {
-//                if (isPurchased(this@MainActivity)){
+                if (isPurchased(this@MainActivity)){
                     WebPlayActivity.startActivity(
                         this@MainActivity,
                         "Hygrometer",
                         Constant.URL_CHARTS
                     )
-//                }
+                }
             }
         }
     }
